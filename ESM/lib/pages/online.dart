@@ -30,60 +30,63 @@ class _OnlineState extends State<Online> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: screenWidth * 0.48,
-                    decoration: BoxDecoration(
-                      color:
-                          atHospital ? const Color(0xff4CB848) : Colors.white,
-                      borderRadius: BorderRadius.circular(15),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: screenWidth * 0.48,
+                      decoration: BoxDecoration(
+                        color:
+                            atHospital ? const Color(0xff4CB848) : Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              atHospital = true;
+                            });
+                          },
+                          child: Text(
+                            'Đặt lịch khám tại bệnh viện',
+                            overflow: TextOverflow.fade,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: atHospital
+                                    ? Colors.white
+                                    : const Color(0xff4CB848),
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenHeight * 0.017),
+                          )),
                     ),
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            atHospital = true;
-                          });
-                        },
-                        child: Text(
-                          'Đặt lịch khám tại bệnh viện',
-                          overflow: TextOverflow.fade,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: atHospital
-                                  ? Colors.white
-                                  : const Color(0xff4CB848),
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenHeight * 0.017),
-                        )),
-                  ),
-                  Container(
-                    width: screenWidth * 0.48,
-                    decoration: BoxDecoration(
-                      color:
-                          atHospital ? Colors.white : const Color(0xff4CB848),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            atHospital = false;
-                          });
-                        },
-                        child: Text(
-                          'Đặt lịch khám tại phòng khám',
-                          overflow: TextOverflow.fade,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: atHospital
-                                  ? const Color(0xff4CB848)
-                                  : Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenHeight * 0.017),
-                        )),
-                  )
-                ],
+                    Container(
+                      width: screenWidth * 0.48,
+                      decoration: BoxDecoration(
+                        color:
+                            atHospital ? Colors.white : const Color(0xff4CB848),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              atHospital = false;
+                            });
+                          },
+                          child: Text(
+                            'Đặt lịch khám tại phòng khám',
+                            overflow: TextOverflow.fade,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: atHospital
+                                    ? const Color(0xff4CB848)
+                                    : Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenHeight * 0.017),
+                          )),
+                    )
+                  ],
+                ),
               ),
               Center(
                 child: IconButton(
