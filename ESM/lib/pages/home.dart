@@ -8,8 +8,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool atHospital = false;
   String _selectedGender = 'Giới tính';
+  List<String> options = [
+    'Đặt lịch khám tại nhà',
+    'Đặt lịch khám tại công ty',
+    'Đặt lịch đưa đón KCB tận nơi',
+    'Đặt lịch khám hậu Covid-19',
+    'Đặt lịch gọi y tá theo yêu cầu',
+    'Đặt lịch xét nghiệm tại nhà',
+    'Đặt lịch chăm sóc mẹ và bé'
+  ];
+  int selectedIndex = 0;
 
   void _handleGenderChange(String value) {
     setState(() {
@@ -29,60 +38,44 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: screenWidth * 0.48,
-                    decoration: BoxDecoration(
-                      color:
-                          atHospital ? const Color(0xff4CB848) : Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            atHospital = true;
-                          });
-                        },
-                        child: Text(
-                          'Đặt lịch khám tại bệnh viện',
-                          overflow: TextOverflow.fade,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: atHospital
-                                  ? Colors.white
-                                  : const Color(0xff4CB848),
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenHeight * 0.017),
-                        )),
-                  ),
-                  Container(
-                    width: screenWidth * 0.48,
-                    decoration: BoxDecoration(
-                      color:
-                          atHospital ? Colors.white : const Color(0xff4CB848),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            atHospital = false;
-                          });
-                        },
-                        child: Text(
-                          'Đặt lịch khám tại phòng khám',
-                          overflow: TextOverflow.fade,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: atHospital
-                                  ? const Color(0xff4CB848)
-                                  : Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenHeight * 0.017),
-                        )),
-                  )
-                ],
+              SizedBox(
+                width: screenWidth,
+                height: screenHeight * 0.06,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 7,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.025),
+                        child: Container(
+                          width: screenWidth * 0.48,
+                          decoration: BoxDecoration(
+                            color: index == selectedIndex
+                                ? Colors.white
+                                : const Color(0xff4CB848),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedIndex = index;
+                                });
+                              },
+                              child: Text(
+                                options[index],
+                                overflow: TextOverflow.fade,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: index == selectedIndex
+                                        ? const Color(0xff4CB848)
+                                        : Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: screenHeight * 0.017),
+                              )),
+                        ),
+                      );
+                    }),
               ),
               Center(
                 child: IconButton(
