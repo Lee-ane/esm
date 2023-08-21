@@ -220,8 +220,11 @@ class _OnlineState extends State<Online> {
               ),
               const TextField(
                 readOnly: true,
-                decoration:
-                    InputDecoration(suffixIcon: Icon(Icons.arrow_drop_down)),
+                decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    suffixIcon: Icon(Icons.arrow_drop_down)),
               ),
               Padding(
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
@@ -243,8 +246,11 @@ class _OnlineState extends State<Online> {
               ),
               const TextField(
                 readOnly: true,
-                decoration:
-                    InputDecoration(suffixIcon: Icon(Icons.arrow_drop_down)),
+                decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    suffixIcon: Icon(Icons.arrow_drop_down)),
               ),
               Padding(
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
@@ -314,13 +320,19 @@ class _OnlineState extends State<Online> {
                           controller: TextEditingController(text: '22/08/2023'),
                           readOnly: true,
                           decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                              ),
                               labelText: 'Ngày dự kiến khám'),
                         ),
                         TextField(
                           controller: TextEditingController(text: '11:45'),
                           readOnly: true,
-                          decoration:
-                              const InputDecoration(labelText: 'Giờ khám'),
+                          decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                              ),
+                              labelText: 'Giờ khám'),
                         ),
                       ],
                     ),

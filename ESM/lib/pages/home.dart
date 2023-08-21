@@ -1,3 +1,4 @@
+import 'package:esm/components/buttons.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -327,44 +328,30 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              Container(
-                width: screenWidth,
-                decoration: BoxDecoration(
-                  color: const Color(0xff4BC848),
-                  borderRadius: BorderRadius.circular(5),
+              ContactBtn(
+                child: const Text(
+                  'Đặt lịch hẹn',
+                  style: TextStyle(color: Colors.white),
                 ),
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Đặt lịch hẹn',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+                onPressed: () {},
               ),
               Padding(
-                padding: EdgeInsets.only(top: screenHeight * 0.025),
-                child: Container(
-                  width: screenWidth,
-                  decoration: BoxDecoration(
-                    color: const Color(0xff4BC848),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.phone, color: Colors.white),
-                        Text(
-                          'Hotline: 19002297',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: screenWidth * 0.035,
-                          ),
+                padding: EdgeInsets.only(top: screenHeight * 0.02),
+                child: ContactBtn(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.phone, color: Colors.white),
+                      Text(
+                        'Hotline: 19002297',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.035,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                  onPressed: () {},
                 ),
               ),
             ],
