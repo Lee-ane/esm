@@ -1,4 +1,5 @@
 import 'package:esm/components/buttons.dart';
+import 'package:esm/model/data.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -10,14 +11,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String _selectedGender = 'Giới tính';
-  List<String> options = [
-    'Đặt lịch khám tại nhà',
-    'Đặt lịch khám tại công ty',
-    'Đặt lịch đưa đón KCB tận nơi',
-    'Đặt lịch khám hậu Covid-19',
-    'Đặt lịch gọi y tá theo yêu cầu',
-    'Đặt lịch xét nghiệm tại nhà',
-    'Đặt lịch chăm sóc mẹ và bé'
+  final List<ListItem> options = [
+    ListItem('Đặt lịch khám tại nhà'),
+    ListItem('Đặt lịch khám tại công ty'),
+    ListItem('Đặt lịch đưa đón KCB tận nơi'),
+    ListItem('Đặt lịch khám hậu Covid-19'),
+    ListItem('Đặt lịch gọi y tá theo yêu cầu'),
+    ListItem('Đặt lịch xét nghiệm tại nhà'),
+    ListItem('Đặt lịch chăm sóc mẹ và bé'),
   ];
   int selectedIndex = 0;
 
@@ -44,7 +45,7 @@ class _HomeState extends State<Home> {
                 height: screenHeight * 0.06,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 7,
+                    itemCount: options.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.symmetric(
@@ -64,7 +65,7 @@ class _HomeState extends State<Home> {
                                 });
                               },
                               child: Text(
-                                options[index],
+                                options[index].title,
                                 overflow: TextOverflow.fade,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -79,12 +80,11 @@ class _HomeState extends State<Home> {
                     }),
               ),
               Center(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.location_history),
-                  iconSize: screenWidth * 0.3,
-                  color: const Color(0xff4CB848),
-                ),
+                child: 
+                  Icon(Icons.location_history, 
+                  size: screenWidth * 0.3,
+                  color: const Color(0xff4CB848),)
+                
               ),
               const TextField(
                 decoration: InputDecoration(hintText: 'Họ và tên'),
