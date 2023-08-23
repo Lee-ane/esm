@@ -13,7 +13,6 @@ class _ThemTienSuPTState extends State<ThemTienSuPT> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         leading: const ReturnBtn(),
@@ -46,21 +45,12 @@ class _ThemTienSuPTState extends State<ThemTienSuPT> {
                   TienSuPTFT(title: 'Thời gian kết thúc'),
                 ],
               ),
+              //Nút lưu
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: screenWidth,
-                  decoration: BoxDecoration(
-                      color: const Color(0xff4BC848),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Lưu',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
+                child: SaveTienSuBtn(onPressed: () {
+                  Navigator.pop(context);
+                }),
               ),
             ],
           ),

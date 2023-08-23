@@ -1,9 +1,15 @@
 import 'package:esm/datlich.dart';
 import 'package:esm/benhandientu.dart';
+import 'package:esm/model/models.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => DataModel()),
+    ], child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {

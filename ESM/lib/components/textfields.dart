@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class FormTF extends StatelessWidget {
   final bool editable;
@@ -25,9 +26,24 @@ class FormTF extends StatelessWidget {
   }
 }
 
-class TienSuPTFT extends StatelessWidget {
+class TienSuPTFT extends StatefulWidget {
   final String title;
   const TienSuPTFT({super.key, required this.title});
+
+  @override
+  State<TienSuPTFT> createState() => _TienSuPTFTState();
+}
+
+class _TienSuPTFTState extends State<TienSuPTFT> {
+  DateTime selectedDate = DateTime.now();
+  TextEditingController dateController = TextEditingController(),
+      timeController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    dateController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
+    timeController.text = DateFormat('hh:mm').format(selectedDate);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,19 +54,48 @@ class TienSuPTFT extends StatelessWidget {
         SizedBox(
           width: screenWidth * 0.6,
           child: TextField(
+            readOnly: true,
+            controller: dateController,
             decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: title,
-                hintText: '23/08/2023'),
+                labelText: widget.title),
+            onTap: () async {
+              DateTime? newDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100));
+              newDate ??= DateTime.now();
+              setState(() {
+                dateController.text = DateFormat('dd-MM-yyyy').format(newDate!);
+              });
+            },
           ),
         ),
         SizedBox(
           width: screenWidth * 0.3,
-          child: const TextField(
-            decoration: InputDecoration(
+          child: TextField(
+            readOnly: true,
+            controller: timeController,
+            decoration: const InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: 'Giờ',
-                hintText: '08:56'),
+                labelText: 'Giờ'),
+            onTap: () async {
+              TimeOfDay? newTime = await showTimePicker(
+                  builder: (BuildContext context, Widget? child) {
+                    return MediaQuery(
+                      data: MediaQuery.of(context)
+                          .copyWith(alwaysUse24HourFormat: true),
+                      child: child ?? Container(),
+                    );
+                  },
+                  context: context,
+                  initialTime: TimeOfDay.now());
+              newTime ??= TimeOfDay.now();
+              setState(() {
+                timeController.text = '${newTime!.hour}:${newTime.minute}';
+              });
+            },
           ),
         ),
       ],
