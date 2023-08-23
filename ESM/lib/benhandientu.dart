@@ -1,3 +1,4 @@
+import 'package:esm/components/buttons.dart';
 import 'package:esm/components/forms.dart';
 import 'package:esm/model/data.dart';
 import 'package:flutter/material.dart';
@@ -35,12 +36,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
             ),
           ),
         ],
-        leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
+        leading: const ReturnBtn(),
         backgroundColor: const Color(0xff4BC484),
         centerTitle: true,
         title: const Text(

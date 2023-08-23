@@ -1,3 +1,4 @@
+import 'package:esm/components/buttons.dart';
 import 'package:esm/pages/home.dart';
 import 'package:esm/pages/online.dart';
 import 'package:flutter/material.dart';
@@ -19,21 +20,17 @@ class _DatLichState extends State<DatLich> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            toolbarHeight: screenHeight * 0.05,
-            backgroundColor: const Color(0xff4CB848),
-            bottom: const TabBar(
-              tabs: [
-                Tab(text: 'Đặt lịch khám online'),
-                Tab(text: 'Đặt lịch khám tại nhà'),
-              ],
-            ),
-            title: const Text('Đặt lịch'),
-            centerTitle: true,
-            leading: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_back),
-            ),
-          ),
+              toolbarHeight: screenHeight * 0.05,
+              backgroundColor: const Color(0xff4CB848),
+              bottom: const TabBar(
+                tabs: [
+                  Tab(text: 'Đặt lịch khám online'),
+                  Tab(text: 'Đặt lịch khám tại nhà'),
+                ],
+              ),
+              title: const Text('Đặt lịch'),
+              centerTitle: true,
+              leading: const ReturnBtn()),
           body: const TabBarView(
             children: [Online(), Home()],
           ),

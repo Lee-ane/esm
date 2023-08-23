@@ -24,3 +24,36 @@ class FormTF extends StatelessWidget {
     );
   }
 }
+
+class TienSuPTFT extends StatelessWidget {
+  final String title;
+  const TienSuPTFT({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: screenWidth * 0.6,
+          child: TextField(
+            decoration: InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                labelText: title,
+                hintText: '23/08/2023'),
+          ),
+        ),
+        SizedBox(
+          width: screenWidth * 0.3,
+          child: const TextField(
+            decoration: InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                labelText: 'Giờ',
+                hintText: '08:56'),
+          ),
+        ),
+      ],
+    );
+  }
+}

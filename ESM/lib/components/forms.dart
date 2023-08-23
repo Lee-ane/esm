@@ -2,6 +2,7 @@ import 'package:esm/benhandientu.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/components/textfields.dart';
 import 'package:esm/model/data.dart';
+import 'package:esm/pages/them_tien_su_phau_thuat.dart';
 import 'package:flutter/material.dart';
 
 class Form1 extends StatefulWidget {
@@ -422,7 +423,12 @@ class _Form6State extends State<Form6> {
             SizedBox(
               height: screenHeight * 0.05,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ThemTienSuPT()));
+                },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [Icon(Icons.add), Text('Thêm')],
@@ -469,10 +475,107 @@ class _Form7State extends State<Form7> {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
         child: ListView(
           children: titleData.map((data) {
-            return ExpansionChild(data: data);
+            return ParentExpansion(data: data);
           }).toList(),
         ),
       ),
+    );
+  }
+}
+
+class _ParentExpansionTile extends StatefulWidget {
+  final Widget title;
+  final ValueChanged<bool> onExpansionChanged;
+  final Widget expandedContent;
+
+  const _ParentExpansionTile({
+    required this.title,
+    required this.onExpansionChanged,
+    required this.expandedContent,
+  });
+
+  @override
+  __ParentExpansionTileState createState() => __ParentExpansionTileState();
+}
+
+class __ParentExpansionTileState extends State<_ParentExpansionTile> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: screenWidth,
+            height: screenHeight * 0.05,
+            decoration: BoxDecoration(
+              color:
+                  _expanded ? const Color(0xff4BC848) : const Color(0xff1A6E30),
+              borderRadius: _expanded
+                  ? const BorderRadius.vertical(
+                      top: Radius.circular(10),
+                    )
+                  : BorderRadius.circular(10),
+            ),
+            child: TextButton(
+              onPressed: () {
+                setState(() {
+                  _expanded = !_expanded;
+                });
+                widget.onExpansionChanged(_expanded);
+              },
+              child: widget.title,
+            ),
+          ),
+          if (_expanded) widget.expandedContent,
+        ],
+      ),
+    );
+  }
+}
+
+class ParentExpansion extends StatefulWidget {
+  final ExpansionTileData data;
+  const ParentExpansion({super.key, required this.data});
+
+  @override
+  State<ParentExpansion> createState() => _ParentExpansionState();
+}
+
+class _ParentExpansionState extends State<ParentExpansion> {
+  bool _isExpanded = false;
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    return _ParentExpansionTile(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            widget.data.title,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: screenWidth * 0.04,
+            ),
+          ),
+          Icon(
+            _isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+            color: Colors.white,
+          )
+        ],
+      ),
+      onExpansionChanged: (expanded) {
+        setState(() {
+          _isExpanded = expanded;
+        });
+      },
+      expandedContent: widget.data.expandedForm,
     );
   }
 }
