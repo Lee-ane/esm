@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -21,7 +22,9 @@ class _RegisterState extends State<Register> {
       cMNDController = TextEditingController(),
       bHYTController = TextEditingController(),
       sDTController = TextEditingController();
+
   bool gender = true;
+  DateTime selectedDate = DateTime.now();
 
   Future<void> register() async {
     final String name = nameController.text;
@@ -56,15 +59,19 @@ class _RegisterState extends State<Register> {
         print(log);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Center(
-                child: Text(
-                    'Cant connect to the server right now. Please try again later'))));
+            content: Center(child: Text('Đăng ký không thành công do lỗi'))));
       }
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print(selectedDate);
   }
 
   @override
@@ -181,6 +188,19 @@ class _RegisterState extends State<Register> {
                                 fontSize: screenWidth * 0.03,
                                 color: Colors.grey),
                           ),
+                          style: TextStyle(fontSize: screenWidth * 0.035),
+                          onTap: () async {
+                            DateTime? datetime = await showDatePicker(
+                                context: context,
+                                initialDate: selectedDate,
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2100));
+                            datetime ??= DateTime.now();
+                            setState(() {
+                              namSinhController.text =
+                                  DateFormat('yyyy-MM-dd').format(datetime!);
+                            });
+                          },
                         ),
                       ),
                     ],
