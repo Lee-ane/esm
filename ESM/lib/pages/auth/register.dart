@@ -8,9 +8,14 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController genderController = TextEditingController();
+  TextEditingController nameController = TextEditingController(),
+      namSinhController = TextEditingController(),
+      cMNDController = TextEditingController(),
+      bHYTController = TextEditingController(),
+      sDTController = TextEditingController();
   bool gender = true;
+
+  Future<void> register() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +44,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -52,7 +57,7 @@ class _RegisterState extends State<Register> {
                               borderSide: BorderSide(
                                   color: Color(0xff4BC848), width: 2),
                             ),
-                            labelText: 'Họ Tên',
+                            labelText: 'Họ tên',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             hintStyle: TextStyle(
                                 fontSize: screenWidth * 0.03,
@@ -60,41 +65,49 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Giới tính',
-                            style: TextStyle(fontSize: screenWidth * 0.03),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.female,
-                              color: Colors.pink,
-                              size: screenWidth * 0.08,
+                      Padding(
+                        padding: EdgeInsets.only(right: screenWidth * 0.08),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Giới tính',
+                              style: TextStyle(fontSize: screenWidth * 0.03),
                             ),
-                          ),
-                        ],
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  gender = !gender;
+                                });
+                              },
+                              icon: Icon(
+                                gender ? Icons.female : Icons.male,
+                                color: gender ? Colors.pink : Colors.blue,
+                                size: screenWidth * 0.08,
+                              ),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
                         width: screenWidth * 0.6,
                         child: TextField(
+                          keyboardType: TextInputType.number,
                           controller: nameController,
                           decoration: InputDecoration(
                             enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                   color: Color(0xff4BC848), width: 2),
                             ),
-                            labelText: 'Họ Tên',
+                            labelText: 'CMND',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             hintStyle: TextStyle(
                                 fontSize: screenWidth * 0.03,
@@ -102,24 +115,64 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Giới tính',
-                            style: TextStyle(fontSize: screenWidth * 0.03),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.female,
-                              color: Colors.pink,
-                              size: screenWidth * 0.08,
+                      SizedBox(
+                        width: screenWidth * 0.2,
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color(0xff4BC848), width: 2),
                             ),
+                            labelText: 'Năm sinh',
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            hintStyle: TextStyle(
+                                fontSize: screenWidth * 0.03,
+                                color: Colors.grey),
                           ),
-                        ],
-                      )
+                        ),
+                      ),
                     ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
+                  child: SizedBox(
+                    width: screenWidth,
+                    child: TextField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff4BC848), width: 2),
+                        ),
+                        labelText: 'Bảo hiểm y tế',
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintStyle: TextStyle(
+                            fontSize: screenWidth * 0.03, color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
+                  child: SizedBox(
+                    width: screenWidth,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff4BC848), width: 2),
+                        ),
+                        labelText: 'Số điện thoại',
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintStyle: TextStyle(
+                            fontSize: screenWidth * 0.03, color: Colors.grey),
+                      ),
+                    ),
                   ),
                 ),
                 Padding(

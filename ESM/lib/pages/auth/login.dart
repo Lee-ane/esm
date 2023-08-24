@@ -12,7 +12,7 @@ class _LoginState extends State<Login> {
   TextEditingController passwordController = TextEditingController();
   bool isObscure = true;
 
-  Future<void> register() async {
+  Future<void> login() async {
     String username = usernameController.text;
     String password = passwordController.text;
   }
