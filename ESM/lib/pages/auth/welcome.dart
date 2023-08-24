@@ -1,3 +1,5 @@
+import 'package:esm/pages/auth/login.dart';
+import 'package:esm/pages/auth/register.dart';
 import 'package:flutter/material.dart';
 
 class Welcome extends StatelessWidget {
@@ -29,12 +31,13 @@ class Welcome extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 150),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.1,
+                      vertical: screenHeight * 0.2),
                   child: Image.asset('assets/logo.png'),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.05),
                   child: Container(
                     width: screenWidth * 0.65,
                     decoration: BoxDecoration(
@@ -47,7 +50,12 @@ class Welcome extends StatelessWidget {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Login()));
+                      },
                       child: Text(
                         'Đăng nhập',
                         style: TextStyle(
@@ -57,7 +65,7 @@ class Welcome extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.05),
                   child: Container(
                     width: screenWidth * 0.65,
                     decoration: BoxDecoration(
@@ -65,7 +73,12 @@ class Welcome extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Register()));
+                      },
                       child: Text(
                         'Đăng ký',
                         style: TextStyle(

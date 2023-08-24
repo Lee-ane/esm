@@ -10,8 +10,9 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isObscure = true;
 
-  Future<void> Register() async {
+  Future<void> register() async {
     String username = usernameController.text;
     String password = passwordController.text;
   }
@@ -23,115 +24,96 @@ class _LoginState extends State<Login> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           child: Container(
+            color: Colors.white,
             width: screenWidth,
             height: screenHeight,
-            padding: const EdgeInsets.all(10),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                colors: [
-                  Color(0xff4BC848),
-                  Color(0xff0077b6),
-                ],
-              ),
-            ),
+            padding: const EdgeInsets.all(20),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
-                  child: Image.asset('assets/logo.png'),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.grey,
+                    size: screenWidth * 0.08,
+                  ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    width: screenWidth,
-                    height: screenHeight * 0.06,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextField(
-                      controller: usernameController,
-                      decoration: InputDecoration(
-                        hintText: 'Tên đăng nhập',
-                        hintStyle: TextStyle(
-                            fontSize: screenWidth * 0.03, color: Colors.grey),
-                        border: const UnderlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                  child: Image.asset('assets/esm.jpg'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: TextField(
+                    controller: usernameController,
+                    decoration: InputDecoration(
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xff4BC848), width: 2),
                       ),
+                      labelText: 'Tên đăng nhập',
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintStyle: TextStyle(
+                          fontSize: screenWidth * 0.03, color: Colors.grey),
                     ),
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    width: screenWidth,
-                    height: screenHeight * 0.06,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextField(
-                      controller: usernameController,
-                      decoration: InputDecoration(
-                        hintText: 'Mật khẩu',
-                        hintStyle: TextStyle(
-                            fontSize: screenWidth * 0.03, color: Colors.grey),
-                        border: const UnderlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: TextField(
+                    controller: passwordController,
+                    obscureText: isObscure,
+                    decoration: InputDecoration(
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xff4BC848), width: 2),
                       ),
+                      suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.remove_red_eye,
+                            size: screenWidth * 0.05,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isObscure = !isObscure;
+                            });
+                          }),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      labelText: 'Mật khẩu',
+                      hintStyle: TextStyle(
+                          fontSize: screenWidth * 0.03, color: Colors.grey),
                     ),
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: screenWidth * 0.4,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Đăng nhập',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: screenWidth * 0.05),
-                          ),
-                        ),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.1),
+                  child: Container(
+                    width: screenWidth,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xff4BC848),
+                          Color(0xff56cfe1),
+                        ],
                       ),
-                      Container(
-                        width: screenWidth * 0.4,
-                        decoration: BoxDecoration(
-                          color: const Color(0xfffdc500),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Đăng ký',
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: screenWidth * 0.05,
-                            ),
-                          ),
-                        ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Đăng nhập',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: screenWidth * 0.05),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],
