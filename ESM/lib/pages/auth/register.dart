@@ -1,4 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -9,13 +15,57 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   TextEditingController nameController = TextEditingController(),
+      taiKhoanController = TextEditingController(),
+      matKhauController = TextEditingController(),
       namSinhController = TextEditingController(),
       cMNDController = TextEditingController(),
       bHYTController = TextEditingController(),
       sDTController = TextEditingController();
   bool gender = true;
 
-  Future<void> register() async {}
+  Future<void> register() async {
+    final String name = nameController.text;
+    final String taiKhoan = taiKhoanController.text;
+    final String matKhau = matKhauController.text;
+    final String namSinh = namSinhController.text;
+    final String cMND = cMNDController.text;
+    final String bHYT = bHYTController.text;
+    final String sDT = sDTController.text;
+    String url = 'http://192.168.1.10:4333/khachhang/create';
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.post(
+      Uri.parse(url),
+      body: json.encode({
+        'HoTen': name,
+        'GioiTinh': gender ? 'Nữ' : 'Nam',
+        'TaiKhoan': taiKhoan,
+        'MatKhau': matKhau,
+        'NamSinh': namSinh,
+        'CMND': cMND,
+        'BHYT': bHYT,
+        'SDT': sDT
+      }),
+      headers: headers,
+    );
+    try {
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        var log = decodedResponse["Data"];
+        print(log);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Center(
+                child: Text(
+                    'Cant connect to the server right now. Please try again later'))));
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +94,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -93,7 +143,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -101,7 +151,7 @@ class _RegisterState extends State<Register> {
                         width: screenWidth * 0.6,
                         child: TextField(
                           keyboardType: TextInputType.number,
-                          controller: nameController,
+                          controller: cMNDController,
                           decoration: InputDecoration(
                             enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -119,7 +169,7 @@ class _RegisterState extends State<Register> {
                         width: screenWidth * 0.2,
                         child: TextField(
                           keyboardType: TextInputType.number,
-                          controller: nameController,
+                          controller: namSinhController,
                           decoration: InputDecoration(
                             enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -137,11 +187,49 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
                   child: SizedBox(
                     width: screenWidth,
                     child: TextField(
-                      controller: nameController,
+                      controller: taiKhoanController,
+                      decoration: InputDecoration(
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff4BC848), width: 2),
+                        ),
+                        labelText: 'Tài khoản',
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintStyle: TextStyle(
+                            fontSize: screenWidth * 0.03, color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
+                  child: SizedBox(
+                    width: screenWidth,
+                    child: TextField(
+                      controller: matKhauController,
+                      decoration: InputDecoration(
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff4BC848), width: 2),
+                        ),
+                        labelText: 'Mật khẩu',
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintStyle: TextStyle(
+                            fontSize: screenWidth * 0.03, color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+                  child: SizedBox(
+                    width: screenWidth,
+                    child: TextField(
+                      controller: bHYTController,
                       decoration: InputDecoration(
                         enabledBorder: const UnderlineInputBorder(
                           borderSide:
@@ -156,12 +244,12 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
                   child: SizedBox(
                     width: screenWidth,
                     child: TextField(
                       keyboardType: TextInputType.number,
-                      controller: nameController,
+                      controller: sDTController,
                       decoration: InputDecoration(
                         enabledBorder: const UnderlineInputBorder(
                           borderSide:
@@ -176,7 +264,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 50),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.05),
                   child: Container(
                     width: screenWidth,
                     decoration: BoxDecoration(
@@ -192,9 +280,13 @@ class _RegisterState extends State<Register> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          register();
+                        });
+                      },
                       child: Text(
-                        'Đăng nhập',
+                        'Đăng ký',
                         style: TextStyle(
                             color: Colors.white, fontSize: screenWidth * 0.05),
                       ),

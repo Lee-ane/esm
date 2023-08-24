@@ -4,7 +4,7 @@ import 'package:esm/benhandientu.dart';
 import 'package:esm/model/models.dart';
 import 'package:esm/pages/auth/login.dart';
 import 'package:esm/pages/auth/register.dart';
-import 'package:esm/pages/auth/welcome.dart';
+import 'package:esm/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
