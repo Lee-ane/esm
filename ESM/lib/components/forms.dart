@@ -509,7 +509,8 @@ class __ParentExpansionTileState extends State<_ParentExpansionTile> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
             width: screenWidth,
             height: screenHeight * 0.05,
             decoration: BoxDecoration(

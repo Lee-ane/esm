@@ -19,3 +19,11 @@ class CheckBoxTileListItem {
 
   CheckBoxTileListItem(this.title, this.checked);
 }
+
+class Options {
+  final IconData icon;
+  final String title;
+  final void Function()? onPressed;
+
+  Options(this.icon, this.title, this.onPressed);
+}
