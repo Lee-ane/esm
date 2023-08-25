@@ -8,46 +8,103 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
-  bool shouldPop = false;
-
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async {
-        return shouldPop;
+        return false;
       },
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.white,
-            ),
-          ),
+          iconTheme: const IconThemeData(color: Colors.white),
           actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.shopping_cart,
-                  color: Colors.white,
-                )),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.more_vert,
-                  color: Colors.white,
-                )),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                )),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
           ],
           backgroundColor: const Color(0xff4BC484),
+        ),
+        drawer: Drawer(
+          surfaceTintColor: Colors.white,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              Image.asset(
+                'assets/esm.jpg',
+                height: screenHeight * 0.3,
+                fit: BoxFit.fill,
+                filterQuality: FilterQuality.high,
+              ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(
+                  Icons.menu_book,
+                  color: Color(0xff4BC848),
+                ),
+                title: const Text(
+                  'Đặt lịch',
+                  style: TextStyle(
+                    color: Color(0xff4BC848),
+                  ),
+                ),
+                onTap: () {},
+              ),
+              const ListTile(
+                leading: Icon(
+                  Icons.phone_android,
+                  color: Color(0xff4BC848),
+                ),
+                title: Text(
+                  'Bệnh án điện tử',
+                  style: TextStyle(
+                    color: Color(0xff4BC848),
+                  ),
+                ),
+              ),
+              const ListTile(
+                leading: Icon(
+                  Icons.search,
+                  color: Color(0xff4BC848),
+                ),
+                title: Text(
+                  'Tra cứu bệnh án điện tử',
+                  style: TextStyle(
+                    color: Color(0xff4BC848),
+                  ),
+                ),
+              ),
+              const Divider(),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'CÔNG TY CỔ PHẨN HEALTHCARE SOLUTION VIET NAM',
+                      style: TextStyle(
+                        color: Color(0xff023e8a),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                        'Địa chỉ: 232/7 Võ Văn Kiệt, Phường Cầu Ông Lãnh, Quận 1, Thành Phố Hồ Chí Minh'),
+                    Text('Liên hệ: 0917 632 112'),
+                    Text('Email: info@hsv.com.vn'),
+                  ],
+                ),
+              ),
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset('assets/icon.jpg', width: screenWidth * 0.3),
+                  Image.asset('assets/confirm.png', width: screenWidth * 0.3),
+                ],
+              ),
+            ],
+          ),
         ),
         body: Column(
           children: [
