@@ -19,6 +19,7 @@ class _RegisterState extends State<Register> {
       taiKhoanController = TextEditingController(),
       matKhauController = TextEditingController(),
       namSinhController = TextEditingController(),
+      diaChiController = TextEditingController(),
       cMNDController = TextEditingController(),
       bHYTController = TextEditingController(),
       sDTController = TextEditingController();
@@ -31,10 +32,11 @@ class _RegisterState extends State<Register> {
     final String taiKhoan = taiKhoanController.text;
     final String matKhau = matKhauController.text;
     final String namSinh = namSinhController.text;
+    final String diaChi = diaChiController.text;
     final String cMND = cMNDController.text;
     final String bHYT = bHYTController.text;
     final String sDT = sDTController.text;
-    String url = 'http://192.168.1.10:4333/khachhang/create';
+    String url = 'http://192.168.0.163:8080/api/khachhang/create';
     var headers = {
       'Content-Type': 'application/json',
     };
@@ -46,6 +48,7 @@ class _RegisterState extends State<Register> {
         'TaiKhoan': taiKhoan,
         'MatKhau': matKhau,
         'NamSinh': namSinh,
+        'DiaChi': diaChi,
         'CMND': cMND,
         'BHYT': bHYT,
         'SDT': sDT
@@ -56,7 +59,9 @@ class _RegisterState extends State<Register> {
       if (response.statusCode == 200) {
         var decodedResponse = jsonDecode(response.body);
         var log = decodedResponse["Data"];
-        print(log);
+        if (kDebugMode) {
+          print(log);
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Center(child: Text('Đăng ký không thành công do lỗi'))));
@@ -71,7 +76,6 @@ class _RegisterState extends State<Register> {
   @override
   void initState() {
     super.initState();
-    print(selectedDate);
   }
 
   @override
@@ -276,6 +280,25 @@ class _RegisterState extends State<Register> {
                               BorderSide(color: Color(0xff4BC848), width: 2),
                         ),
                         labelText: 'Số điện thoại',
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintStyle: TextStyle(
+                            fontSize: screenWidth * 0.03, color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
+                  child: SizedBox(
+                    width: screenWidth,
+                    child: TextField(
+                      controller: diaChiController,
+                      decoration: InputDecoration(
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff4BC848), width: 2),
+                        ),
+                        labelText: 'Địa chỉ',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         hintStyle: TextStyle(
                             fontSize: screenWidth * 0.03, color: Colors.grey),
