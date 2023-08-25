@@ -1,11 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-
+import 'package:esm/components/buttons.dart';
+import 'package:esm/model/data.dart';
+import 'package:esm/model/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -26,56 +29,12 @@ class _RegisterState extends State<Register> {
 
   bool gender = true;
   DateTime selectedDate = DateTime.now();
-
-  Future<void> register() async {
-    final String name = nameController.text;
-    final String taiKhoan = taiKhoanController.text;
-    final String matKhau = matKhauController.text;
-    final String namSinh = namSinhController.text;
-    final String diaChi = diaChiController.text;
-    final String cMND = cMNDController.text;
-    final String bHYT = bHYTController.text;
-    final String sDT = sDTController.text;
-    String url = 'http://192.168.0.163:8080/api/khachhang/create';
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-    final response = await http.post(
-      Uri.parse(url),
-      body: json.encode({
-        'HoTen': name,
-        'GioiTinh': gender ? 'Nữ' : 'Nam',
-        'TaiKhoan': taiKhoan,
-        'MatKhau': matKhau,
-        'NamSinh': namSinh,
-        'DiaChi': diaChi,
-        'CMND': cMND,
-        'BHYT': bHYT,
-        'SDT': sDT
-      }),
-      headers: headers,
-    );
-    try {
-      if (response.statusCode == 200) {
-        var decodedResponse = jsonDecode(response.body);
-        var log = decodedResponse["Data"];
-        if (kDebugMode) {
-          print(log);
-        }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Center(child: Text('Đăng ký không thành công do lỗi'))));
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
-  }
+  String urlHead = '';
 
   @override
   void initState() {
     super.initState();
+    urlHead = context.read<DataModel>().getUrlHead();
   }
 
   @override
@@ -94,18 +53,32 @@ class _RegisterState extends State<Register> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.grey,
-                    size: screenWidth * 0.08,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Colors.grey,
+                        size: screenWidth * 0.08,
+                      ),
+                    ),
+                    Text(
+                      'Đăng ký',
+                      style: TextStyle(
+                        color: const Color(0xff4BC848),
+                        fontWeight: FontWeight.bold,
+                        fontSize: screenWidth * 0.07,
+                      ),
+                    ),
+                    SizedBox(width: screenWidth * 0.1),
+                  ],
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -154,7 +127,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -211,7 +184,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
                   child: SizedBox(
                     width: screenWidth,
                     child: TextField(
@@ -230,7 +203,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
                   child: SizedBox(
                     width: screenWidth,
                     child: TextField(
@@ -268,7 +241,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
                   child: SizedBox(
                     width: screenWidth,
                     child: TextField(
@@ -288,7 +261,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
                   child: SizedBox(
                     width: screenWidth,
                     child: TextField(
@@ -306,36 +279,18 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.05),
-                  child: Container(
-                    width: screenWidth,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xff4BC848),
-                          Color(0xff56cfe1),
-                        ],
-                      ),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          register();
-                        });
-                      },
-                      child: Text(
-                        'Đăng ký',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: screenWidth * 0.05),
-                      ),
-                    ),
-                  ),
-                ),
+                RegistryBtn(
+                    khachHangInfo: KhachHangInfo(
+                  name: nameController.text,
+                  gioiTinh: gender ? 'Nữ' : 'Nam',
+                  taiKhoan: taiKhoanController.text,
+                  matKhau: matKhauController.text,
+                  namSinh: namSinhController.text,
+                  diaChi: diaChiController.text,
+                  cMND: cMNDController.text,
+                  bHYT: bHYTController.text,
+                  sDT: sDTController.text,
+                )),
               ],
             ),
           ),

@@ -1,4 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
+import 'package:esm/dashboard.dart';
+import 'package:esm/model/models.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,10 +20,56 @@ class _LoginState extends State<Login> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isObscure = true;
+  String urlHead = '';
 
   Future<void> login() async {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     String username = usernameController.text;
     String password = passwordController.text;
+    String url = '$urlHead/login';
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.post(
+      Uri.parse(url),
+      body: json.encode({
+        'taiKhoan': username,
+        'matKhau': password,
+      }),
+      headers: headers,
+    );
+    try {
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        var log = decodedResponse["data"];
+        print(log);
+        scaffoldMessenger.showSnackBar(
+            const SnackBar(content: Center(child: Text('Xin chào'))));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const DashBoard()));
+      } else if (response.statusCode == 401) {
+        scaffoldMessenger.showSnackBar(const SnackBar(
+            content: Center(child: Text('Tài khoản không đúng'))));
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    urlHead = context.read<DataModel>().getUrlHead();
+    print(urlHead);
+    usernameController.text = context.read<DataModel>().getTaiKhoan();
+    passwordController.text = context.read<DataModel>().getMatKhau();
+    if (usernameController.text.isNotEmpty) {
+      Future.delayed(const Duration(seconds: 3), () {
+        login();
+      });
+    }
   }
 
   @override
@@ -107,7 +162,9 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        login();
+                      },
                       child: Text(
                         'Đăng nhập',
                         style: TextStyle(
