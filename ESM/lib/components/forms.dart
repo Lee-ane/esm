@@ -1,18 +1,43 @@
 import 'package:esm/components/style.dart';
 import 'package:esm/components/textfields.dart';
 import 'package:esm/model/data.dart';
+import 'package:esm/model/models.dart';
 import 'package:esm/pages/them_tien_su_phau_thuat.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class Form1 extends StatefulWidget {
-  const Form1({super.key});
+  final bool editable;
+  const Form1({super.key, required this.editable});
 
   @override
   State<Form1> createState() => _Form1State();
 }
 
 class _Form1State extends State<Form1> {
-  bool editable = false;
+  TextEditingController nameController = TextEditingController(),
+      namSinhController = TextEditingController(),
+      canNangController = TextEditingController(),
+      nhomMauController = TextEditingController(),
+      diaChiController = TextEditingController(),
+      chieuCaotroller = TextEditingController(),
+      cMNDController = TextEditingController(),
+      bHYTController = TextEditingController(),
+      sDTController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = context.read<DataModel>().hoTen;
+    sDTController.text = context.read<DataModel>().sdt;
+    namSinhController.text =
+        DateFormat('dd-MM-yyyy').format(context.read<DataModel>().ngaySinh);
+    cMNDController.text = context.read<DataModel>().cMND;
+    bHYTController.text = context.read<DataModel>().bHYT;
+    diaChiController.text = context.read<DataModel>().diaChi;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,19 +53,58 @@ class _Form1State extends State<Form1> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            FormTF(label: 'Họ tên', editable: editable),
-            FormTF(label: 'Số điện thoại', editable: editable),
-            FormTF(label: 'Ngày Sinh', editable: editable),
-            FormTF(label: 'Số CMND', editable: editable),
-            FormTF(label: 'Số BHYT', editable: editable),
-            FormTF(label: 'Địa chỉ', editable: editable),
+            FormTF(
+                controller: nameController,
+                label: 'Họ tên',
+                editable: widget.editable),
+            FormTF(
+                controller: sDTController,
+                label: 'Số điện thoại',
+                editable: widget.editable),
+            FormTF(
+                controller: namSinhController,
+                label: 'Ngày Sinh',
+                editable: widget.editable),
+            FormTF(
+                controller: cMNDController,
+                label: 'Số CMND',
+                editable: widget.editable),
+            FormTF(
+                controller: bHYTController,
+                label: 'Số BHYT',
+                editable: widget.editable),
+            Padding(
+              padding:
+                  EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+              child: TextFormField(
+                controller: diaChiController,
+                readOnly: true,
+                decoration: InputDecoration(
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  labelText: 'Địa chỉ',
+                  hintText: 'Địa chỉ',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),onTap: () {},
+              ),
+            ),
             Table(
               children: [
                 TableRow(
                   children: [
-                    FormTF(label: 'Chiều cao(Cm)', editable: editable),
-                    FormTF(label: 'Cân nặng(Kg)', editable: editable),
-                    FormTF(label: 'Nhóm máu', editable: editable),
+                    FormTF(
+                        controller: chieuCaotroller,
+                        label: 'Chiều cao(Cm)',
+                        editable: widget.editable),
+                    FormTF(
+                        controller: canNangController,
+                        label: 'Cân nặng(Kg)',
+                        editable: widget.editable),
+                    FormTF(
+                        controller: nhomMauController,
+                        label: 'Nhóm máu',
+                        editable: widget.editable),
                   ],
                 ),
               ],
@@ -61,6 +125,7 @@ class Form2 extends StatefulWidget {
 
 class _Form2State extends State<Form2> {
   bool editable = false;
+  TextEditingController canNangController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -77,7 +142,10 @@ class _Form2State extends State<Form2> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            FormTF(label: 'Cân nặng(Kg)', editable: editable),
+            FormTF(
+                controller: canNangController,
+                label: 'Cân nặng(Kg)',
+                editable: editable),
             Padding(
               padding: EdgeInsets.all(screenHeight * 0.01),
               child: TextField(

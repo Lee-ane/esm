@@ -10,6 +10,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  TextEditingController nameController = TextEditingController(),
+      namsinhController = TextEditingController(),
+      diaChiController = TextEditingController(),
+      sdtController = TextEditingController();
   String _selectedGender = 'Giới tính';
   final List<ListItem> options = [
     ListItem('Đặt lịch khám tại nhà'),
@@ -26,6 +30,11 @@ class _HomeState extends State<Home> {
     setState(() {
       _selectedGender = value;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -54,14 +63,15 @@ class _HomeState extends State<Home> {
                           width: screenWidth * 0.48,
                           decoration: BoxDecoration(
                             color: index == selectedIndex
-                                ? Colors.white
-                                : const Color(0xff4CB848),
+                                ? const Color(0xff4CB848)
+                                : Colors.white,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: TextButton(
                               onPressed: () {
                                 setState(() {
                                   selectedIndex = index;
+                                  print(options[selectedIndex].title);
                                 });
                               },
                               child: Text(
@@ -70,8 +80,8 @@ class _HomeState extends State<Home> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: index == selectedIndex
-                                        ? const Color(0xff4CB848)
-                                        : Colors.white,
+                                        ? Colors.white
+                                        : const Color(0xff4CB848),
                                     fontWeight: FontWeight.bold,
                                     fontSize: screenHeight * 0.017),
                               )),
@@ -80,14 +90,14 @@ class _HomeState extends State<Home> {
                     }),
               ),
               Center(
-                child: 
-                  Icon(Icons.location_history, 
-                  size: screenWidth * 0.3,
-                  color: const Color(0xff4CB848),)
-                
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Họ và tên'),
+                  child: Icon(
+                Icons.location_history,
+                size: screenWidth * 0.3,
+                color: const Color(0xff4CB848),
+              )),
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(hintText: 'Họ và tên'),
               ),
               const TextField(
                 decoration: InputDecoration(hintText: 'Số điện thoại'),

@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
       sDTController = TextEditingController();
 
   bool gender = true;
-  DateTime selectedDate = DateTime.now();
+
   String urlHead = '';
 
   @override
@@ -36,6 +36,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    DateTime selectedDate = context.read<DataModel>().ngaySinh;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

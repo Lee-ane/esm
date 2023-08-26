@@ -37,7 +37,7 @@ class Welcome extends StatelessWidget {
                   child: Image.asset('assets/logo.png'),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.05),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
                   child: Container(
                     width: screenWidth * 0.65,
                     decoration: BoxDecoration(
@@ -65,7 +65,7 @@ class Welcome extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.05),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
                   child: Container(
                     width: screenWidth * 0.65,
                     decoration: BoxDecoration(

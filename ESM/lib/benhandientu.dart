@@ -1,7 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+import 'package:esm/model/models.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:esm/components/buttons.dart';
 import 'package:esm/components/forms.dart';
 import 'package:esm/model/data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BenhAnDienTu extends StatefulWidget {
   const BenhAnDienTu({super.key});
@@ -11,27 +18,36 @@ class BenhAnDienTu extends StatefulWidget {
 }
 
 class _BenhAnDienTuState extends State<BenhAnDienTu> {
-  final List<ExpansionTileData> titleData = [
-    ExpansionTileData('Thông tin thành viên', const Form1()),
-    ExpansionTileData('Tình trạng lúc sinh', const Form2()),
-    ExpansionTileData('Yếu tố nguy cơ đối với sức khỏe cá nhân', const Form3()),
-    ExpansionTileData('Khuyết tật', const Form4()),
-    ExpansionTileData('Tiền sử bệnh tật, dị ứng', const Form5()),
-    ExpansionTileData('Tiền sử phẩu thuật', const Form6()),
-    ExpansionTileData('Tiền sử gia đình', const Form7()),
-  ];
-
+  bool editable = false;
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+
+    final List<ExpansionTileData> titleData = [
+      ExpansionTileData('Thông tin thành viên', Form1(editable: editable)),
+      ExpansionTileData('Tình trạng lúc sinh', const Form2()),
+      ExpansionTileData(
+          'Yếu tố nguy cơ đối với sức khỏe cá nhân', const Form3()),
+      ExpansionTileData('Khuyết tật', const Form4()),
+      ExpansionTileData('Tiền sử bệnh tật, dị ứng', const Form5()),
+      ExpansionTileData('Tiền sử phẩu thuật', const Form6()),
+      ExpansionTileData('Tiền sử gia đình', const Form7()),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.create,
+            onPressed: () {
+              setState(() {
+                if (editable == true) {}
+                editable = !editable;
+                context.read<DataModel>().toggle(editable);
+              });
+            },
+            icon: Icon(
+              editable ? Icons.create : Icons.save,
               color: Colors.white,
             ),
           ),
@@ -53,13 +69,10 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.location_history,
-                    color: const Color(0xff4BC848),
-                    size: screenWidth * 0.3,
-                  ),
+                child: Icon(
+                  Icons.location_history,
+                  color: const Color(0xff4BC848),
+                  size: screenWidth * 0.3,
                 ),
               ),
               Padding(
@@ -77,7 +90,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
               //
               SizedBox(
                 width: screenWidth,
-                height: screenHeight * 0.65,
+                height: screenHeight * 0.68,
                 child: ListView(
                   children: titleData.map((data) {
                     return ExpansionChild(data: data);
@@ -110,7 +123,47 @@ class _ExpansionContainerTile extends StatefulWidget {
 }
 
 class __ExpansionContainerTileState extends State<_ExpansionContainerTile> {
+  String urlHead = '';
   bool _expanded = false;
+  dynamic data = [];
+
+  Future<void> fetchUser() async {
+    String url = '$urlHead/khachhang';
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.post(
+      Uri.parse(url),
+      body: json.encode({'taiKhoan': context.read<DataModel>().taiKhoan}),
+      headers: headers,
+    );
+    try {
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        var log = decodedResponse["data"];
+        data = log;
+        context.read<DataModel>().setSDT(data['SDT']);
+        context.read<DataModel>().setNgaySinh(DateTime.parse(data['NamSinh']));
+        context.read<DataModel>().setCMND(data['CMND']);
+        context.read<DataModel>().setBHYT(data['BHYT']);
+        context.read<DataModel>().setDiaChi(data['DiaChi']);
+      } else {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    urlHead = context.read<DataModel>().getUrlHead();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +190,10 @@ class __ExpansionContainerTileState extends State<_ExpansionContainerTile> {
               onPressed: () {
                 setState(() {
                   _expanded = !_expanded;
+                  if (_expanded == true &&
+                      context.read<DataModel>().cMND.isEmpty) {
+                    fetchUser();
+                  }
                 });
                 widget.onExpansionChanged(_expanded);
               },

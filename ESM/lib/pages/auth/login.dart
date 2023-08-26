@@ -42,9 +42,12 @@ class _LoginState extends State<Login> {
       if (response.statusCode == 200) {
         var decodedResponse = jsonDecode(response.body);
         var log = decodedResponse["data"];
-        print(log);
+        var name = log["name"];
+        var username = log["username"];
+        context.read<DataModel>().setHoTen(name);
+        context.read<DataModel>().setTaiKhoan(username);
         scaffoldMessenger.showSnackBar(
-            const SnackBar(content: Center(child: Text('Xin chào'))));
+            SnackBar(content: Center(child: Text('Xin chào, $name'))));
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const DashBoard()));
       } else if (response.statusCode == 401) {
@@ -62,9 +65,10 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
     urlHead = context.read<DataModel>().getUrlHead();
-    print(urlHead);
-    usernameController.text = context.read<DataModel>().getTaiKhoan();
-    passwordController.text = context.read<DataModel>().getMatKhau();
+    if (context.read<DataModel>().taiKhoan.isNotEmpty) {
+      usernameController.text = context.read<DataModel>().taiKhoan;
+      passwordController.text = context.read<DataModel>().matKhau;
+    }
     if (usernameController.text.isNotEmpty) {
       Future.delayed(const Duration(seconds: 3), () {
         login();

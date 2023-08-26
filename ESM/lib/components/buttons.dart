@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:esm/dashboard.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
 import 'package:esm/pages/auth/login.dart';
@@ -36,7 +37,8 @@ class ReturnBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const DashBoard()));
         },
         icon: const Icon(
           Icons.arrow_back,

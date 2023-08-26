@@ -4,7 +4,12 @@ import 'package:intl/intl.dart';
 class FormTF extends StatelessWidget {
   final bool editable;
   final String label;
-  const FormTF({super.key, required this.label, required this.editable});
+  final TextEditingController controller;
+  const FormTF(
+      {super.key,
+      required this.label,
+      required this.controller,
+      required this.editable});
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +17,7 @@ class FormTF extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(screenHeight * 0.01),
       child: TextFormField(
+        controller: controller,
         readOnly: !editable,
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,

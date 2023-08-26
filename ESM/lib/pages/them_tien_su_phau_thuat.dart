@@ -15,7 +15,12 @@ class _ThemTienSuPTState extends State<ThemTienSuPT> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leading: const ReturnBtn(),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.pop(context);
+            }),
         backgroundColor: const Color(0xff4BC484),
         centerTitle: true,
         title: const Text(

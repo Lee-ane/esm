@@ -1,4 +1,10 @@
+import 'package:esm/benhandientu.dart';
+import 'package:esm/datlich.dart';
+import 'package:esm/model/data.dart';
+import 'package:esm/model/models.dart';
+import 'package:esm/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -12,6 +18,21 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    final List<Options> options = [
+      Options(Icons.calendar_month, 'Đặt lịch khám', () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const DatLich()));
+      }),
+      Options(Icons.book, 'Bệnh án điện tử', () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const BenhAnDienTu()));
+      }),
+      Options(Icons.search, 'Tra cứu bệnh án điện tử', () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const DatLich()));
+      }),
+    ];
+
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -26,6 +47,7 @@ class _DashBoardState extends State<DashBoard> {
           ],
           backgroundColor: const Color(0xff4BC484),
         ),
+        //Drawer
         drawer: Drawer(
           surfaceTintColor: Colors.white,
           child: ListView(
@@ -49,19 +71,28 @@ class _DashBoardState extends State<DashBoard> {
                     color: Color(0xff4BC848),
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const DatLich()));
+                },
               ),
-              const ListTile(
-                leading: Icon(
+              ListTile(
+                leading: const Icon(
                   Icons.phone_android,
                   color: Color(0xff4BC848),
                 ),
-                title: Text(
+                title: const Text(
                   'Bệnh án điện tử',
                   style: TextStyle(
                     color: Color(0xff4BC848),
                   ),
                 ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BenhAnDienTu()));
+                },
               ),
               const ListTile(
                 leading: Icon(
@@ -70,6 +101,23 @@ class _DashBoardState extends State<DashBoard> {
                 ),
                 title: Text(
                   'Tra cứu bệnh án điện tử',
+                  style: TextStyle(
+                    color: Color(0xff4BC848),
+                  ),
+                ),
+              ),
+              ListTile(
+                onTap: () {
+                  context.read<DataModel>().clearData();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Welcome()));
+                },
+                leading: const Icon(
+                  Icons.logout,
+                  color: Color(0xff4BC848),
+                ),
+                title: const Text(
+                  'Đăng xuất',
                   style: TextStyle(
                     color: Color(0xff4BC848),
                   ),
@@ -135,7 +183,7 @@ class _DashBoardState extends State<DashBoard> {
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemCount: 8,
+                  itemCount: options.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.symmetric(
@@ -143,11 +191,43 @@ class _DashBoardState extends State<DashBoard> {
                           horizontal: screenWidth * 0.01),
                       child: Container(
                         alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black,
+                              offset: Offset(0, 1),
+                            ),
+                          ],
                         ),
                         width: screenWidth * 0.35,
-                        child: Text('$index'),
+                        child: TextButton(
+                          onPressed: options[index].onPressed,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                options[index].icon,
+                                color: const Color(0xff4BC848),
+                                size: screenWidth * 0.1,
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.28,
+                                child: Text(
+                                  options[index].title,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: const Color(0xff4BC848),
+                                    fontSize: screenWidth * 0.04,
+                                    fontWeight: FontWeight.bold,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     );
                   }),
