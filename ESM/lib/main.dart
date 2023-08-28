@@ -1,9 +1,5 @@
-import 'package:esm/dashboard.dart';
-import 'package:esm/datlich.dart';
-import 'package:esm/benhandientu.dart';
 import 'package:esm/model/models.dart';
 import 'package:esm/welcome.dart';
-import 'package:esm/components/map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const Map(),
+      home: const Welcome(),
     );
   }
 }

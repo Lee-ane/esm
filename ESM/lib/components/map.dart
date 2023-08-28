@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:esm/benhandientu.dart';
 import 'package:esm/model/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _MapState extends State<Map> {
           Placemark placemark = placemarks.first;
           setState(() {
             fullAdress =
-                "${placemark.street}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}";
+                "${placemark.street}, Q.${placemark.subAdministrativeArea}, ${placemark.administrativeArea}";
           });
           mapController.animateCamera(CameraUpdate.newLatLngZoom(
               LatLng(location.latitude, location.longitude), 15.0));
@@ -127,7 +128,10 @@ class _MapState extends State<Map> {
                 child: TextButton(
                   onPressed: () {
                     context.read<DataModel>().setDiaChi(fullAdress);
-                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BenhAnDienTu()));
                   },
                   child: const Text(
                     'Đặt làm địa chỉ',
