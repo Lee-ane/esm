@@ -84,34 +84,36 @@ class _MapState extends State<Map> {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 60, top: 13, left: 10),
-              child: SizedBox(
-                height: 38,
-                child: TextField(
-                  controller: searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Tìm kiếm địa chỉ',
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          if (searchController.text.isNotEmpty) {
-                            searchAdress(searchController.text);
-                            print(fullAdress);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Center(
-                                        child: Text(
-                                            'Vui lòng điền địa chỉ cần tìm'))));
-                          }
-                        });
-                      },
-                      icon: const Icon(Icons.search),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
+              child: TextField(
+                controller: searchController,
+                decoration: InputDecoration(
+                  prefixIcon: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back),
+                  ),
+                  hintText: 'Tìm kiếm địa chỉ',
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        if (searchController.text.isNotEmpty) {
+                          searchAdress(searchController.text);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Center(
+                                      child: Text(
+                                          'Vui lòng điền địa chỉ cần tìm'))));
+                        }
+                      });
+                    },
+                    icon: const Icon(Icons.search),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
                   ),
                 ),
               ),
