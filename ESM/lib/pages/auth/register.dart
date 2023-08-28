@@ -29,7 +29,7 @@ class _RegisterState extends State<Register> {
   @override
   void initState() {
     super.initState();
-    urlHead = context.read<DataModel>().getUrlHead();
+    urlHead = context.read<DataModel>().urlHead;
   }
 
   @override

@@ -8,6 +8,7 @@ import 'package:esm/pages/them_tien_su_phau_thuat.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:esm/components/map.dart';
 
 class Form1 extends StatefulWidget {
   final bool editable;
@@ -132,12 +133,10 @@ class _Form1State extends State<Form1> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                onChanged: (value) {
-                  context.read<DataModel>().setDiaChi(value);
-                },
                 onTap: () {
                   if (widget.editable) {
-                    print('hello');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Map()));
                   }
                 },
               ),

@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    urlHead = context.read<DataModel>().getUrlHead();
+    urlHead = context.read<DataModel>().urlHead;
     if (context.read<DataModel>().taiKhoan.isNotEmpty) {
       usernameController.text = context.read<DataModel>().taiKhoan;
       passwordController.text = context.read<DataModel>().matKhau;

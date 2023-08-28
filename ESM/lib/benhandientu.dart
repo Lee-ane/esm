@@ -162,7 +162,7 @@ class __ExpansionContainerTileState extends State<_ExpansionContainerTile> {
   @override
   void initState() {
     super.initState();
-    urlHead = context.read<DataModel>().getUrlHead();
+    urlHead = context.read<DataModel>().urlHead;
     if (context.read<DataModel>().cMND.isEmpty) {
       fetchUser();
     }

@@ -130,7 +130,7 @@ class _RegistryBtnState extends State<RegistryBtn> {
   @override
   void initState() {
     super.initState();
-    urlHead = context.read<DataModel>().getUrlHead();
+    urlHead = context.read<DataModel>().urlHead;
   }
 
   @override
