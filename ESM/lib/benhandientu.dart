@@ -47,7 +47,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
               });
             },
             icon: Icon(
-              editable ? Icons.create : Icons.save,
+              editable ? Icons.save : Icons.create,
               color: Colors.white,
             ),
           ),
@@ -163,6 +163,9 @@ class __ExpansionContainerTileState extends State<_ExpansionContainerTile> {
   void initState() {
     super.initState();
     urlHead = context.read<DataModel>().getUrlHead();
+    if (context.read<DataModel>().cMND.isEmpty) {
+      fetchUser();
+    }
   }
 
   @override
