@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:esm/model/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:provider/provider.dart';
@@ -128,6 +127,7 @@ class _MapState extends State<Map> {
                 child: TextButton(
                   onPressed: () {
                     context.read<DataModel>().setDiaChi(fullAdress);
+                    Navigator.pop(context);
                   },
                   child: const Text(
                     'Đặt làm địa chỉ',
