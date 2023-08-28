@@ -145,27 +145,51 @@ class _Form1State extends State<Form1> {
               children: [
                 TableRow(
                   children: [
-                    FormTF(
-                      controller: chieuCaotroller,
-                      label: 'Chiều cao(Cm)',
-                      editable: widget.editable,
-                      onChanged: (value) {
-                        setState(() {
-                          context.read<DataModel>().setHoTen(value);
-                          print(context.read<DataModel>().hoTen);
-                        });
-                      },
+                    Padding(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.01),
+                      child: TextFormField(
+                        controller: diaChiController,
+                        keyboardType: TextInputType.number,
+                        readOnly: widget.editable,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: 'Chiều cao(Cm)',
+                          hintText: 'Chiều cao(Cm)',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          context
+                              .read<DataModel>()
+                              .setChieuCao(int.parse(value));
+                          print(context.read<DataModel>().chieuCao);
+                        },
+                      ),
                     ),
-                    FormTF(
-                      controller: canNangController,
-                      label: 'Cân nặng(Kg)',
-                      editable: widget.editable,
-                      onChanged: (value) {
-                        setState(() {
-                          context.read<DataModel>().setHoTen(value);
-                          print(context.read<DataModel>().hoTen);
-                        });
-                      },
+                    Padding(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.01),
+                      child: TextFormField(
+                        controller: diaChiController,
+                        keyboardType: TextInputType.number,
+                        readOnly: widget.editable,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: 'Cân nặng(Kg)',
+                          hintText: 'Cân nặng(Kg)',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          context
+                              .read<DataModel>()
+                              .setCanNang(int.parse(value));
+                          print(context.read<DataModel>().canNang);
+                        },
+                      ),
                     ),
                     FormTF(
                       controller: nhomMauController,
@@ -173,8 +197,8 @@ class _Form1State extends State<Form1> {
                       editable: widget.editable,
                       onChanged: (value) {
                         setState(() {
-                          context.read<DataModel>().setHoTen(value);
-                          print(context.read<DataModel>().hoTen);
+                          context.read<DataModel>().setNhomMau(value);
+                          print(context.read<DataModel>().nhomMau);
                         });
                       },
                     ),
@@ -190,15 +214,14 @@ class _Form1State extends State<Form1> {
 }
 
 class Form2 extends StatefulWidget {
-  const Form2({super.key});
+  final bool editable;
+  const Form2({super.key, required this.editable});
 
   @override
   State<Form2> createState() => _Form2State();
 }
 
 class _Form2State extends State<Form2> {
-  bool editable = false;
-  TextEditingController canNangController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -215,21 +238,31 @@ class _Form2State extends State<Form2> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            FormTF(
-              controller: canNangController,
-              label: 'Cân nặng(Kg)',
-              editable: editable,
-              onChanged: (value) {
-                setState(() {
-                  context.read<DataModel>().setHoTen(value);
-                });
-              },
+            Padding(
+              padding:
+                  EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                readOnly: !widget.editable,
+                decoration: InputDecoration(
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  labelText: 'Cân nặng(Kg)',
+                  hintText: 'Cân nặng(Kg)',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onChanged: (value) {
+                  context.read<DataModel>().setCanNangKS(int.parse(value));
+                  print(context.read<DataModel>().canNangKS);
+                },
+              ),
             ),
             Padding(
               padding: EdgeInsets.all(screenHeight * 0.01),
               child: TextField(
                 maxLines: 5,
-                readOnly: !editable,
+                readOnly: !widget.editable,
                 decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   labelText: 'Tình trạng',
@@ -238,6 +271,10 @@ class _Form2State extends State<Form2> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
+                onChanged: (value) {
+                  context.read<DataModel>().setTinhTrang(value);
+                  print(context.read<DataModel>().tinhTrang);
+                },
               ),
             ),
           ],
@@ -349,6 +386,7 @@ class _Form3State extends State<Form3> {
               setState(
                 () {
                   _checkboxValues[index] = newValue!;
+                  print(_checkboxValues);
                 },
               );
             },
@@ -408,6 +446,7 @@ class _Form4State extends State<Form4> {
               setState(
                 () {
                   _checkboxValues[index] = newValue!;
+                  print(_checkboxValues);
                 },
               );
             },
@@ -488,6 +527,7 @@ class _Form5State extends State<Form5> {
                     setState(
                       () {
                         _checkboxValues[index] = newValue!;
+                        print(_checkboxValues);
                       },
                     );
                   },

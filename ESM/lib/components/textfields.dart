@@ -91,15 +91,7 @@ class _TienSuPTFTState extends State<TienSuPTFT> {
                 labelText: 'Giờ'),
             onTap: () async {
               TimeOfDay? newTime = await showTimePicker(
-                  builder: (BuildContext context, Widget? child) {
-                    return MediaQuery(
-                      data: MediaQuery.of(context)
-                          .copyWith(alwaysUse24HourFormat: true),
-                      child: child ?? Container(),
-                    );
-                  },
-                  context: context,
-                  initialTime: TimeOfDay.now());
+                  context: context, initialTime: TimeOfDay.now());
               newTime ??= TimeOfDay.now();
               setState(() {
                 timeController.text = '${newTime!.hour}:${newTime.minute}';

@@ -14,6 +14,7 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  TextEditingController maController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -28,8 +29,88 @@ class _DashBoardState extends State<DashBoard> {
             MaterialPageRoute(builder: (context) => const BenhAnDienTu()));
       }),
       Options(Icons.search, 'Tra cứu bệnh án điện tử', () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const DatLich()));
+        showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context) {
+              return AnimatedContainer(
+                width: screenWidth,
+                height: screenHeight * 0.5,
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeInOut,
+                child: Column(
+                  children: [
+                    Container(
+                      height: screenHeight * 0.07,
+                      color: const Color(0xff4BC848),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Tra cứu bệnh án điện tử',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.4,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.apartment,
+                              color: const Color(0xff4BC848),
+                              size: screenWidth * 0.1,
+                            ),
+                            const Text(
+                              'Tra cứu Bệnh án điện tử/CCCD/BHYT cần tra cứu',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 3, vertical: 10),
+                              child: TextField(
+                                controller: maController,
+                                decoration: const InputDecoration(
+                                  hintText: 'Mã bệnh án/CCCD/BHYT',
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color(0xff4BC848), width: 2),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: screenWidth,
+                              decoration: BoxDecoration(
+                                color: const Color(0xff4BC848),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Tra cứu',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            });
       }),
     ];
 

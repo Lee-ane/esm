@@ -26,7 +26,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
 
     final List<ExpansionTileData> titleData = [
       ExpansionTileData('Thông tin thành viên', Form1(editable: editable)),
-      ExpansionTileData('Tình trạng lúc sinh', const Form2()),
+      ExpansionTileData('Tình trạng lúc sinh', Form2(editable: editable)),
       ExpansionTileData(
           'Yếu tố nguy cơ đối với sức khỏe cá nhân', const Form3()),
       ExpansionTileData('Khuyết tật', const Form4()),
@@ -43,7 +43,6 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
               setState(() {
                 if (editable == true) {}
                 editable = !editable;
-                context.read<DataModel>().toggle(editable);
               });
             },
             icon: Icon(

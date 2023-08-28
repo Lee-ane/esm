@@ -5,7 +5,6 @@ class DataModel extends ChangeNotifier {
 
   //clear data
   void clearData() {
-    editable = false;
     hoTen = '';
     taiKhoan = '';
     matKhau = '';
@@ -17,13 +16,7 @@ class DataModel extends ChangeNotifier {
     canNang = 0;
     chieuCao = 0;
     nhomMau = '';
-    notifyListeners();
-  }
-
-  //toggle
-  bool editable = false;
-  void toggle(bool edit) {
-    editable = edit;
+    canNangKS = 0;
     notifyListeners();
   }
 
@@ -101,6 +94,20 @@ class DataModel extends ChangeNotifier {
   String nhomMau = '';
   void setNhomMau(String bloodtype) {
     nhomMau = bloodtype;
+    notifyListeners();
+  }
+
+  //CanNangKhiSinh
+  int canNangKS = 0;
+  void setCanNangKS(int kg) {
+    canNangKS = kg;
+    notifyListeners();
+  }
+
+  //TinhTrang
+  String tinhTrang = '';
+  void setTinhTrang(String note) {
+    tinhTrang = note;
     notifyListeners();
   }
 }
