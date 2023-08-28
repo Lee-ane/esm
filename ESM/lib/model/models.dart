@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DataModel extends ChangeNotifier {
-  String urlHead = 'http://192.168.1.21:8080/api';
+  String urlHead = 'http://192.168.1.14:8080/api';
   String getUrlHead() => urlHead;
 
   //clear data
@@ -78,6 +78,27 @@ class DataModel extends ChangeNotifier {
   String diaChi = '';
   void setDiaChi(String diachi) {
     diaChi = diachi;
+    notifyListeners();
+  }
+
+  //CanNang
+  int canNang = 0;
+  void setCanNang(int weight) {
+    canNang = weight;
+    notifyListeners();
+  }
+
+  //ChieuCao
+  int chieuCao = 0;
+  void setChieuCao(int height) {
+    chieuCao = height;
+    notifyListeners();
+  }
+
+  //NhomMau
+  String nhomMau = '';
+  void setNhomMau(String bloodtype) {
+    nhomMau = bloodtype;
     notifyListeners();
   }
 }

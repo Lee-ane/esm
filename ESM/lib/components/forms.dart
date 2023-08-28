@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:esm/components/style.dart';
 import 'package:esm/components/textfields.dart';
 import 'package:esm/model/data.dart';
@@ -40,7 +42,8 @@ class _Form1State extends State<Form1> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(seconds: 1),
       decoration: BoxDecoration(
         border: Border.all(
           color: const Color(0xff4BC848),
@@ -54,25 +57,67 @@ class _Form1State extends State<Form1> {
         child: Column(
           children: [
             FormTF(
-                controller: nameController,
-                label: 'Họ tên',
-                editable: widget.editable),
+              controller: nameController,
+              label: 'Họ tên',
+              editable: widget.editable,
+              onChanged: (value) {
+                context.read<DataModel>().setHoTen(value);
+              },
+            ),
             FormTF(
-                controller: sDTController,
-                label: 'Số điện thoại',
-                editable: widget.editable),
-            FormTF(
+              controller: sDTController,
+              label: 'Số điện thoại',
+              editable: widget.editable,
+              onChanged: (value) {
+                context.read<DataModel>().setSDT(value);
+              },
+            ),
+            Padding(
+              padding:
+                  EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+              child: TextFormField(
                 controller: namSinhController,
-                label: 'Ngày Sinh',
-                editable: widget.editable),
+                readOnly: true,
+                decoration: InputDecoration(
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  labelText: 'Ngày sinh',
+                  hintText: 'Ngày sinh',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onTap: () async {
+                  if (widget.editable) {
+                    DateTime? datetime = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2100));
+                    datetime ??= DateTime.now();
+                    namSinhController.text =
+                        DateFormat('dd-MM-yyyy').format(datetime);
+                    context.read<DataModel>().setNgaySinh(DateTime.parse(
+                        DateFormat('yyyy-MM-dd').format(datetime)));
+                  }
+                },
+              ),
+            ),
             FormTF(
-                controller: cMNDController,
-                label: 'Số CMND',
-                editable: widget.editable),
+              controller: cMNDController,
+              label: 'Số CMND',
+              editable: widget.editable,
+              onChanged: (value) {
+                context.read<DataModel>().setCMND(value);
+              },
+            ),
             FormTF(
-                controller: bHYTController,
-                label: 'Số BHYT',
-                editable: widget.editable),
+              controller: bHYTController,
+              label: 'Số BHYT',
+              editable: widget.editable,
+              onChanged: (value) {
+                context.read<DataModel>().setBHYT(value);
+              },
+            ),
             Padding(
               padding:
                   EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
@@ -86,7 +131,15 @@ class _Form1State extends State<Form1> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                ),onTap: () {},
+                ),
+                onChanged: (value) {
+                  context.read<DataModel>().setDiaChi(value);
+                },
+                onTap: () {
+                  if (widget.editable) {
+                    print('hello');
+                  }
+                },
               ),
             ),
             Table(
@@ -94,17 +147,38 @@ class _Form1State extends State<Form1> {
                 TableRow(
                   children: [
                     FormTF(
-                        controller: chieuCaotroller,
-                        label: 'Chiều cao(Cm)',
-                        editable: widget.editable),
+                      controller: chieuCaotroller,
+                      label: 'Chiều cao(Cm)',
+                      editable: widget.editable,
+                      onChanged: (value) {
+                        setState(() {
+                          context.read<DataModel>().setHoTen(value);
+                          print(context.read<DataModel>().hoTen);
+                        });
+                      },
+                    ),
                     FormTF(
-                        controller: canNangController,
-                        label: 'Cân nặng(Kg)',
-                        editable: widget.editable),
+                      controller: canNangController,
+                      label: 'Cân nặng(Kg)',
+                      editable: widget.editable,
+                      onChanged: (value) {
+                        setState(() {
+                          context.read<DataModel>().setHoTen(value);
+                          print(context.read<DataModel>().hoTen);
+                        });
+                      },
+                    ),
                     FormTF(
-                        controller: nhomMauController,
-                        label: 'Nhóm máu',
-                        editable: widget.editable),
+                      controller: nhomMauController,
+                      label: 'Nhóm máu',
+                      editable: widget.editable,
+                      onChanged: (value) {
+                        setState(() {
+                          context.read<DataModel>().setHoTen(value);
+                          print(context.read<DataModel>().hoTen);
+                        });
+                      },
+                    ),
                   ],
                 ),
               ],
@@ -143,9 +217,15 @@ class _Form2State extends State<Form2> {
         child: Column(
           children: [
             FormTF(
-                controller: canNangController,
-                label: 'Cân nặng(Kg)',
-                editable: editable),
+              controller: canNangController,
+              label: 'Cân nặng(Kg)',
+              editable: editable,
+              onChanged: (value) {
+                setState(() {
+                  context.read<DataModel>().setHoTen(value);
+                });
+              },
+            ),
             Padding(
               padding: EdgeInsets.all(screenHeight * 0.01),
               child: TextField(

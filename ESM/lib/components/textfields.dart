@@ -5,11 +5,13 @@ class FormTF extends StatelessWidget {
   final bool editable;
   final String label;
   final TextEditingController controller;
+  final void Function(String) onChanged;
   const FormTF(
       {super.key,
       required this.label,
       required this.controller,
-      required this.editable});
+      required this.editable,
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class FormTF extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
+        onChanged: onChanged,
       ),
     );
   }
