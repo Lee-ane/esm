@@ -2,10 +2,9 @@ import 'package:esm/dashboard.dart';
 import 'package:esm/datlich.dart';
 import 'package:esm/benhandientu.dart';
 import 'package:esm/model/models.dart';
-import 'package:esm/pages/auth/login.dart';
-import 'package:esm/pages/auth/register.dart';
 import 'package:esm/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,8 +22,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('vi'), // Vietnamese
+      ],
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
       ),
