@@ -143,6 +143,7 @@ class __ExpansionContainerTileState extends State<_ExpansionContainerTile> {
         var log = decodedResponse["data"];
         data = log;
         context.read<DataModel>().setSDT(data['SDT']);
+        context.read<DataModel>().setGioiTinh(data['GioiTinh']);
         context.read<DataModel>().setNgaySinh(DateTime.parse(data['NamSinh']));
         context.read<DataModel>().setCMND(data['CMND']);
         context.read<DataModel>().setBHYT(data['BHYT']);

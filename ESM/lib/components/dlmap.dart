@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:esm/benhandientu.dart';
 import 'package:esm/components/style.dart';
+import 'package:esm/datlich.dart';
 import 'package:esm/model/models.dart';
+import 'package:esm/pages/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -87,6 +89,9 @@ class _MapState extends State<MapDL> {
               padding: const EdgeInsets.only(right: 60, top: 13, left: 10),
               child: TextField(
                 controller: searchController,
+                onSubmitted: (value) {
+                  searchAdress(value);
+                },
                 decoration: InputDecoration(
                   prefixIcon: IconButton(
                     onPressed: () {
@@ -134,7 +139,7 @@ class _MapState extends State<MapDL> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const BenhAnDienTu()));
+                            builder: (context) => const DatLich()));
                   },
                   child: const Text(
                     'Đặt làm địa chỉ',

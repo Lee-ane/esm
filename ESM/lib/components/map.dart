@@ -100,7 +100,11 @@ class _MapState extends State<MapBADT> {
               padding: const EdgeInsets.only(right: 60, top: 13, left: 10),
               child: TextField(
                 controller: searchController,
+                onSubmitted: (value) {
+                  searchAdress(value);
+                },
                 decoration: InputDecoration(
+                  
                   prefixIcon: IconButton(
                     onPressed: () {
                       Navigator.pop(context);

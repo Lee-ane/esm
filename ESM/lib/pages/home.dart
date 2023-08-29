@@ -1,8 +1,10 @@
 import 'package:esm/components/buttons.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/model/data.dart';
+import 'package:esm/model/models.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,7 +19,8 @@ class _HomeState extends State<Home> {
       diaChiController = TextEditingController(),
       namSinhController = TextEditingController(),
       trieuChungController = TextEditingController(),
-      ngayKhamController = TextEditingController();
+      ngayKhamController = TextEditingController(),
+      gioKhamController = TextEditingController();
 
   String _selectedGender = 'Giới tính';
 
@@ -41,6 +44,15 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    nameController.text = context.read<DataModel>().hoTen;
+    sDTController.text = context.read<DataModel>().sdt;
+    diaChiController.text = context.read<DataModel>().diaChi;
+    _selectedGender = context.read<DataModel>().gioiTinh;
+    namSinhController.text =
+        DateFormat('dd-MM-yyyy').format(context.read<DataModel>().ngaySinh);
+    ngayKhamController.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    gioKhamController.text =
+        '${TimeOfDay.now().hour}:${TimeOfDay.now().minute}';
   }
 
   @override
@@ -115,6 +127,7 @@ class _HomeState extends State<Home> {
               TextField(
                 readOnly: true,
                 controller: diaChiController,
+                maxLines: 2,
                 decoration: const InputDecoration(
                     hintText: 'Địa chỉ', suffixIcon: MapIconBtn()),
               ),
@@ -160,7 +173,7 @@ class _HomeState extends State<Home> {
                   datetime ??= DateTime.now();
                   setState(() {
                     namSinhController.text =
-                        DateFormat('yyyy-MM-dd').format(datetime!);
+                        DateFormat('dd-MM-yyyy').format(datetime!);
                   });
                 },
               ),
@@ -300,6 +313,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               TextField(
+                maxLines: 2,
                 decoration: InputDecoration(
                   hintText: 'Triệu chứng',
                   suffixIcon: Icon(Icons.create, color: primaryColor),
@@ -340,13 +354,13 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                         TextField(
-                          controller: TextEditingController(text: '22/08/2023'),
+                          controller: ngayKhamController,
                           readOnly: true,
                           decoration: const InputDecoration(
                               labelText: 'Ngày dự kiến khám'),
                         ),
                         TextField(
-                          controller: TextEditingController(text: '11:45'),
+                          controller: gioKhamController,
                           readOnly: true,
                           decoration:
                               const InputDecoration(labelText: 'Giờ khám'),

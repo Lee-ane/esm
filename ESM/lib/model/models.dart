@@ -8,6 +8,7 @@ class DataModel extends ChangeNotifier {
     hoTen = '';
     taiKhoan = '';
     matKhau = '';
+    gioiTinh = '';
     sdt = '';
     ngaySinh = DateTime.now();
     cMND = '';
@@ -38,6 +39,13 @@ class DataModel extends ChangeNotifier {
   String matKhau = '';
   void setMatKhau(String pass) {
     matKhau = pass;
+    notifyListeners();
+  }
+
+  //GioiTinh
+  String gioiTinh = '';
+  void setGioiTinh(String gender) {
+    gioiTinh = gender;
     notifyListeners();
   }
 

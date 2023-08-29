@@ -1,6 +1,9 @@
 import 'package:esm/components/buttons.dart';
 import 'package:esm/components/style.dart';
+import 'package:esm/model/models.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class Online extends StatefulWidget {
   const Online({super.key});
@@ -13,10 +16,32 @@ class _OnlineState extends State<Online> {
   bool atHospital = true;
   String _selectedGender = 'Giới tính';
 
+  TextEditingController nameController = TextEditingController(),
+      sDTController = TextEditingController(),
+      diaChiController = TextEditingController(),
+      namSinhController = TextEditingController(),
+      trieuChungController = TextEditingController(),
+      ngayKhamController = TextEditingController(),
+      gioKhamController = TextEditingController();
+
   void _handleGenderChange(String value) {
     setState(() {
       _selectedGender = value;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = context.read<DataModel>().hoTen;
+    sDTController.text = context.read<DataModel>().sdt;
+    diaChiController.text = context.read<DataModel>().diaChi;
+    _selectedGender = context.read<DataModel>().gioiTinh;
+    namSinhController.text =
+        DateFormat('dd-MM-yyyy').format(context.read<DataModel>().ngaySinh);
+    ngayKhamController.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    gioKhamController.text =
+        '${TimeOfDay.now().hour}:${TimeOfDay.now().minute}';
   }
 
   @override
@@ -46,6 +71,7 @@ class _OnlineState extends State<Online> {
                           onPressed: () {
                             setState(() {
                               atHospital = true;
+                              print(atHospital);
                             });
                           },
                           child: Text(
@@ -68,6 +94,7 @@ class _OnlineState extends State<Online> {
                           onPressed: () {
                             setState(() {
                               atHospital = false;
+                              print(atHospital);
                             });
                           },
                           child: Text(
@@ -91,14 +118,19 @@ class _OnlineState extends State<Online> {
                   color: primaryColor,
                 ),
               ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Họ và tên'),
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(hintText: 'Họ và tên'),
               ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Số điện thoại'),
+              TextField(
+                controller: sDTController,
+                decoration: const InputDecoration(hintText: 'Số điện thoại'),
               ),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                readOnly: true,
+                controller: diaChiController,
+                maxLines: 2,
+                decoration: const InputDecoration(
                     hintText: 'Địa chỉ', suffixIcon: MapIconBtn()),
               ),
               Table(
@@ -130,8 +162,22 @@ class _OnlineState extends State<Online> {
                   ),
                 ],
               ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Năm sinh'),
+              TextField(
+                readOnly: true,
+                controller: namSinhController,
+                decoration: const InputDecoration(hintText: 'Năm sinh'),
+                onTap: () async {
+                  DateTime? datetime = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2100));
+                  datetime ??= DateTime.now();
+                  setState(() {
+                    namSinhController.text =
+                        DateFormat('dd-MM-yyyy').format(datetime!);
+                  });
+                },
               ),
               Divider(
                 color: Colors.brown,
@@ -279,6 +325,8 @@ class _OnlineState extends State<Online> {
                 ),
               ),
               TextField(
+                controller: trieuChungController,
+                maxLines: 2,
                 decoration: InputDecoration(
                   hintText: 'Triệu chứng',
                   suffixIcon: Icon(Icons.create, color: primaryColor),
@@ -307,7 +355,7 @@ class _OnlineState extends State<Online> {
                           ],
                         ),
                         TextField(
-                          controller: TextEditingController(text: '22/08/2023'),
+                          controller: ngayKhamController,
                           readOnly: true,
                           decoration: const InputDecoration(
                               focusedBorder: UnderlineInputBorder(
@@ -316,7 +364,7 @@ class _OnlineState extends State<Online> {
                               labelText: 'Ngày dự kiến khám'),
                         ),
                         TextField(
-                          controller: TextEditingController(text: '11:45'),
+                          controller: gioKhamController,
                           readOnly: true,
                           decoration: const InputDecoration(
                               focusedBorder: UnderlineInputBorder(
