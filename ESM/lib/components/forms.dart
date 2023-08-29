@@ -135,8 +135,10 @@ class _Form1State extends State<Form1> {
                 ),
                 onTap: () {
                   if (widget.editable) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Map()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MapBADT()));
                   }
                 },
               ),

@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
                           width: screenWidth * 0.48,
                           decoration: BoxDecoration(
                             color: index == selectedIndex
-                                ? const Color(0xff4CB848)
+                                ? primaryColor
                                 : Colors.white,
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
                                 style: TextStyle(
                                     color: index == selectedIndex
                                         ? Colors.white
-                                        : const Color(0xff4CB848),
+                                        : primaryColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: screenHeight * 0.017),
                               )),
@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
                   child: Icon(
                 Icons.location_history,
                 size: screenWidth * 0.3,
-                color: const Color(0xff4CB848),
+                color: primaryColor,
               )),
               TextField(
                 controller: nameController,
@@ -103,17 +103,9 @@ class _HomeState extends State<Home> {
               const TextField(
                 decoration: InputDecoration(hintText: 'Số điện thoại'),
               ),
-              TextField(
+              const TextField(
                 decoration: InputDecoration(
-                  hintText: 'Địa chỉ',
-                  suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.location_on,
-                      color: Color(0xff4CB484),
-                    ),
-                  ),
-                ),
+                    hintText: 'Địa chỉ', suffixIcon: MapIconBtn()),
               ),
               Table(
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
@@ -156,7 +148,7 @@ class _HomeState extends State<Home> {
                 'Thông tin nơi khám và gói khám',
                 style: TextStyle(
                     fontSize: screenWidth * 0.045,
-                    color: const Color(0xff4CB484),
+                    color: primaryColor,
                     fontWeight: FontWeight.bold),
               ),
               Padding(
@@ -165,23 +157,23 @@ class _HomeState extends State<Home> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(right: screenWidth * 0.01),
-                      child: const Icon(
+                      child: Icon(
                         Icons.location_on,
-                        color: Color(0xff4CB484),
+                        color: primaryColor,
                       ),
                     ),
                     Text(
                       'Nơi khám',
                       style: TextStyle(
                         fontSize: screenWidth * 0.04,
-                        color: const Color(0xff4CB484),
+                        color: primaryColor,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: screenWidth * 0.01),
-                      child: const Icon(
+                      child: Icon(
                         Icons.map,
-                        color: Color(0xff4CB484),
+                        color: primaryColor,
                       ),
                     ),
                   ],
@@ -204,9 +196,9 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
                 child: Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.medical_services,
-                      color: Color(0xff4BC484),
+                      color: primaryColor,
                     ),
                     Text(
                       'Chuyên khoa',
@@ -227,9 +219,9 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
                 child: Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.file_present,
-                      color: Color(0xff4BC484),
+                      color: primaryColor,
                     ),
                     Text(
                       'Gói khám',
@@ -250,9 +242,9 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
                 child: Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.monetization_on,
-                      color: Color(0xff4BC484),
+                      color: primaryColor,
                     ),
                     Text(
                       'Giá',
@@ -268,9 +260,9 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
                 child: Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.person,
-                      color: Color(0xff4BC484),
+                      color: primaryColor,
                     ),
                     Text(
                       'Triệu chứng',
@@ -282,22 +274,22 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              const TextField(
+              TextField(
                 decoration: InputDecoration(
                   hintText: 'Triệu chứng',
-                  suffixIcon: Icon(Icons.create, color: Color(0xff4BC484)),
+                  suffixIcon: Icon(Icons.create, color: primaryColor),
                 ),
               ),
-              const TextField(
+              TextField(
                 decoration: InputDecoration(
                   hintText: 'Số bác sĩ',
-                  suffixIcon: Icon(Icons.man, color: Color(0xff4BC484)),
+                  suffixIcon: Icon(Icons.man, color: primaryColor),
                 ),
               ),
-              const TextField(
+              TextField(
                 decoration: InputDecoration(
                   hintText: 'Số y tá',
-                  suffixIcon: Icon(Icons.woman, color: Color(0xff4BC484)),
+                  suffixIcon: Icon(Icons.woman, color: primaryColor),
                 ),
               ),
               Padding(

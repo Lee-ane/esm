@@ -97,17 +97,9 @@ class _OnlineState extends State<Online> {
               const TextField(
                 decoration: InputDecoration(hintText: 'Số điện thoại'),
               ),
-              TextField(
+              const TextField(
                 decoration: InputDecoration(
-                  hintText: 'Địa chỉ',
-                  suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.location_on,
-                      color: primaryColor,
-                    ),
-                  ),
-                ),
+                    hintText: 'Địa chỉ', suffixIcon: MapIconBtn()),
               ),
               Table(
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,

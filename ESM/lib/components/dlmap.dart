@@ -8,14 +8,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:provider/provider.dart';
 
-class MapBADT extends StatefulWidget {
-  const MapBADT({super.key});
+class MapDL extends StatefulWidget {
+  const MapDL({super.key});
 
   @override
-  State<MapBADT> createState() => _MapState();
+  State<MapDL> createState() => _MapState();
 }
 
-class _MapState extends State<MapBADT> {
+class _MapState extends State<MapDL> {
   late GoogleMapController mapController;
   TextEditingController searchController = TextEditingController();
 

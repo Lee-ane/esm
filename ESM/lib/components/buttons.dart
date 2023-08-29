@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:esm/components/dlmap.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/dashboard.dart';
 import 'package:esm/model/data.dart';
@@ -164,6 +165,24 @@ class _RegistryBtnState extends State<RegistryBtn> {
             style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.05),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MapIconBtn extends StatelessWidget {
+  const MapIconBtn({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const MapDL()));
+      },
+      icon: Icon(
+        Icons.location_on,
+        color: primaryColor,
       ),
     );
   }
