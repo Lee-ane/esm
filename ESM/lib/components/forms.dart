@@ -47,7 +47,7 @@ class _Form1State extends State<Form1> {
       duration: const Duration(seconds: 1),
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color(0xff4BC848),
+          color: primaryColor,
         ),
         borderRadius: const BorderRadius.vertical(
           bottom: Radius.circular(10),
@@ -149,7 +149,7 @@ class _Form1State extends State<Form1> {
                       padding: EdgeInsets.all(
                           MediaQuery.of(context).size.height * 0.01),
                       child: TextFormField(
-                        controller: diaChiController,
+                        controller: canNangController,
                         keyboardType: TextInputType.number,
                         readOnly: widget.editable,
                         decoration: InputDecoration(
@@ -172,7 +172,7 @@ class _Form1State extends State<Form1> {
                       padding: EdgeInsets.all(
                           MediaQuery.of(context).size.height * 0.01),
                       child: TextFormField(
-                        controller: diaChiController,
+                        controller: canNangController,
                         keyboardType: TextInputType.number,
                         readOnly: widget.editable,
                         decoration: InputDecoration(
@@ -228,7 +228,7 @@ class _Form2State extends State<Form2> {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color(0xff4BC848),
+          color: primaryColor,
         ),
         borderRadius: const BorderRadius.vertical(
           bottom: Radius.circular(10),
@@ -369,7 +369,7 @@ class _Form3State extends State<Form3> {
       height: screenHeight * 1.35,
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color(0xff4BC848),
+          color: primaryColor,
         ),
         borderRadius: const BorderRadius.vertical(
           bottom: Radius.circular(10),
@@ -430,7 +430,7 @@ class _Form4State extends State<Form4> {
       height: screenHeight * 0.15,
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color(0xff4BC848),
+          color: primaryColor,
         ),
         borderRadius: const BorderRadius.vertical(
           bottom: Radius.circular(10),
@@ -506,7 +506,7 @@ class _Form5State extends State<Form5> {
       height: screenHeight * 0.68,
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color(0xff4BC848),
+          color: primaryColor,
         ),
         borderRadius: const BorderRadius.vertical(
           bottom: Radius.circular(10),
@@ -570,7 +570,7 @@ class _Form6State extends State<Form6> {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color(0xff4BC848),
+          color: primaryColor,
         ),
         borderRadius: const BorderRadius.vertical(
           bottom: Radius.circular(10),
@@ -584,7 +584,7 @@ class _Form6State extends State<Form6> {
             Text(
               'Cắt ruột thừa',
               style: TextStyle(
-                color: const Color(0xff4BC848),
+                color: primaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: screenWidth * 0.04,
               ),
@@ -651,7 +651,7 @@ class _Form7State extends State<Form7> {
       height: screenHeight * 0.5,
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color(0xff4BC848),
+          color: primaryColor,
         ),
         borderRadius: const BorderRadius.vertical(
           bottom: Radius.circular(10),
@@ -701,8 +701,7 @@ class __ParentExpansionTileState extends State<_ParentExpansionTile> {
             width: screenWidth,
             height: screenHeight * 0.05,
             decoration: BoxDecoration(
-              color:
-                  _expanded ? const Color(0xff4BC848) : const Color(0xff1A6E30),
+              color: _expanded ? primaryColor : const Color(0xff1A6E30),
               borderRadius: _expanded
                   ? const BorderRadius.vertical(
                       top: Radius.circular(10),

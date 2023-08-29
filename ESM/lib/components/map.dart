@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:esm/benhandientu.dart';
+import 'package:esm/components/style.dart';
 import 'package:esm/model/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +127,7 @@ class _MapState extends State<Map> {
                 width: MediaQuery.of(context).size.width,
                 height: fullAdress.isNotEmpty ? 50 : 0,
                 duration: const Duration(seconds: 1),
-                color: const Color(0xff4BC848),
+                color: primaryColor,
                 child: TextButton(
                   onPressed: () {
                     context.read<DataModel>().setDiaChi(fullAdress);

@@ -1,3 +1,4 @@
+import 'package:esm/components/style.dart';
 import 'package:esm/pages/auth/login.dart';
 import 'package:esm/pages/auth/register.dart';
 import 'package:flutter/material.dart';
@@ -16,14 +17,14 @@ class Welcome extends StatelessWidget {
           child: Container(
             height: screenHeight,
             padding: const EdgeInsets.all(10),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [
-                  Color(0xff4BC848),
-                  Color(0xff56cfe1),
-                  Color(0xff023e8a),
+                  primaryColor,
+                  const Color(0xff56cfe1),
+                  const Color(0xff023e8a),
                 ],
               ),
             ),

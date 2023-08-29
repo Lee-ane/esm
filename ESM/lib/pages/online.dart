@@ -1,4 +1,5 @@
 import 'package:esm/components/buttons.dart';
+import 'package:esm/components/style.dart';
 import 'package:flutter/material.dart';
 
 class Online extends StatefulWidget {
@@ -38,8 +39,7 @@ class _OnlineState extends State<Online> {
                     Container(
                       width: screenWidth * 0.48,
                       decoration: BoxDecoration(
-                        color:
-                            atHospital ? const Color(0xff4CB848) : Colors.white,
+                        color: atHospital ? primaryColor : Colors.white,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: TextButton(
@@ -53,9 +53,7 @@ class _OnlineState extends State<Online> {
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: atHospital
-                                    ? Colors.white
-                                    : const Color(0xff4CB848),
+                                color: atHospital ? Colors.white : primaryColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: screenHeight * 0.017),
                           )),
@@ -63,8 +61,7 @@ class _OnlineState extends State<Online> {
                     Container(
                       width: screenWidth * 0.48,
                       decoration: BoxDecoration(
-                        color:
-                            atHospital ? Colors.white : const Color(0xff4CB848),
+                        color: atHospital ? Colors.white : primaryColor,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: TextButton(
@@ -78,9 +75,7 @@ class _OnlineState extends State<Online> {
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: atHospital
-                                    ? const Color(0xff4CB848)
-                                    : Colors.white,
+                                color: atHospital ? primaryColor : Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: screenHeight * 0.017),
                           )),
@@ -93,7 +88,7 @@ class _OnlineState extends State<Online> {
                   onPressed: () {},
                   icon: const Icon(Icons.location_history),
                   iconSize: screenWidth * 0.3,
-                  color: const Color(0xff4CB848),
+                  color: primaryColor,
                 ),
               ),
               const TextField(
@@ -107,9 +102,9 @@ class _OnlineState extends State<Online> {
                   hintText: 'Địa chỉ',
                   suffixIcon: IconButton(
                     onPressed: () {},
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.location_on,
-                      color: Color(0xff4CB484),
+                      color: primaryColor,
                     ),
                   ),
                 ),
@@ -155,7 +150,7 @@ class _OnlineState extends State<Online> {
                 'Thông tin nơi khám và gói khám',
                 style: TextStyle(
                     fontSize: screenWidth * 0.045,
-                    color: const Color(0xff4CB484),
+                    color: primaryColor,
                     fontWeight: FontWeight.bold),
               ),
               Padding(
@@ -164,16 +159,16 @@ class _OnlineState extends State<Online> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(right: screenWidth * 0.01),
-                      child: const Icon(
+                      child: Icon(
                         Icons.home_work,
-                        color: Color(0xff4CB484),
+                        color: primaryColor,
                       ),
                     ),
                     Text(
                       'Bệnh viên/Phòng khám gần nhất',
                       style: TextStyle(
                         fontSize: screenWidth * 0.04,
-                        color: const Color(0xff4CB484),
+                        color: primaryColor,
                       ),
                     ),
                   ],
@@ -196,7 +191,7 @@ class _OnlineState extends State<Online> {
                 onTap: () {},
                 readOnly: true,
                 controller: TextEditingController(text: 'Đi đến bản đồ'),
-                style: const TextStyle(color: Color(0xff4CB484)),
+                style: TextStyle(color: primaryColor),
                 decoration: const InputDecoration(
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
@@ -207,14 +202,14 @@ class _OnlineState extends State<Online> {
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
                 child: Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.medical_services,
-                      color: Color(0xff4BC484),
+                      color: primaryColor,
                     ),
                     Text(
                       'Chuyên khoa',
                       style: TextStyle(
-                        color: const Color(0xff4BC848),
+                        color: primaryColor,
                         fontSize: screenWidth * 0.04,
                       ),
                     ),
@@ -233,14 +228,14 @@ class _OnlineState extends State<Online> {
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
                 child: Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.file_present,
-                      color: Color(0xff4BC484),
+                      color: primaryColor,
                     ),
                     Text(
                       'Gói khám',
                       style: TextStyle(
-                        color: const Color(0xff4BC848),
+                        color: primaryColor,
                         fontSize: screenWidth * 0.04,
                       ),
                     ),
@@ -259,14 +254,14 @@ class _OnlineState extends State<Online> {
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
                 child: Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.monetization_on,
-                      color: Color(0xff4BC484),
+                      color: primaryColor,
                     ),
                     Text(
                       'Giá',
                       style: TextStyle(
-                        color: const Color(0xff4BC848),
+                        color: primaryColor,
                         fontSize: screenWidth * 0.04,
                       ),
                     ),
@@ -277,24 +272,24 @@ class _OnlineState extends State<Online> {
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
                 child: Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.person,
-                      color: Color(0xff4BC484),
+                      color: primaryColor,
                     ),
                     Text(
                       'Triệu chứng',
                       style: TextStyle(
-                        color: const Color(0xff4BC848),
+                        color: primaryColor,
                         fontSize: screenWidth * 0.04,
                       ),
                     ),
                   ],
                 ),
               ),
-              const TextField(
+              TextField(
                 decoration: InputDecoration(
                   hintText: 'Triệu chứng',
-                  suffixIcon: Icon(Icons.create, color: Color(0xff4BC484)),
+                  suffixIcon: Icon(Icons.create, color: primaryColor),
                 ),
               ),
               Padding(
@@ -308,13 +303,13 @@ class _OnlineState extends State<Online> {
                           children: [
                             Icon(
                               Icons.cases_rounded,
-                              color: const Color(0xff4BC848),
+                              color: primaryColor,
                               size: screenWidth * 0.05,
                             ),
                             Text(
                               'Ngày khám',
                               style: TextStyle(
-                                  color: const Color(0xff4bc848),
+                                  color: primaryColor,
                                   fontSize: screenWidth * 0.04),
                             ),
                           ],

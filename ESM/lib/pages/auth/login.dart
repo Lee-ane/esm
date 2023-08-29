@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:esm/components/style.dart';
 import 'package:esm/dashboard.dart';
 import 'package:esm/model/models.dart';
 import 'package:flutter/foundation.dart';
@@ -111,9 +112,8 @@ class _LoginState extends State<Login> {
                   child: TextField(
                     controller: usernameController,
                     decoration: InputDecoration(
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xff4BC848), width: 2),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor, width: 2),
                       ),
                       labelText: 'Tên đăng nhập',
                       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -128,9 +128,8 @@ class _LoginState extends State<Login> {
                     controller: passwordController,
                     obscureText: isObscure,
                     decoration: InputDecoration(
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xff4BC848), width: 2),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor, width: 2),
                       ),
                       suffixIcon: IconButton(
                           icon: Icon(
@@ -154,12 +153,12 @@ class _LoginState extends State<Login> {
                   child: Container(
                     width: screenWidth,
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
+                      gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          Color(0xff4BC848),
-                          Color(0xff56cfe1),
+                          primaryColor,
+                          const Color(0xff56cfe1),
                         ],
                       ),
                       color: Colors.white,

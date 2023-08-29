@@ -1,4 +1,5 @@
 import 'package:esm/components/buttons.dart';
+import 'package:esm/components/style.dart';
 import 'package:esm/components/textfields.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class _ThemTienSuPTState extends State<ThemTienSuPT> {
             onPressed: () {
               Navigator.pop(context);
             }),
-        backgroundColor: const Color(0xff4BC484),
+        backgroundColor: primaryColor,
         centerTitle: true,
         title: const Text(
           'Thêm tiền sử phẫu thuật',

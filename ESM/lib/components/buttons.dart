@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:esm/components/style.dart';
 import 'package:esm/dashboard.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
@@ -22,7 +23,7 @@ class ContactBtn extends StatelessWidget {
     return Container(
       width: screenWidth,
       decoration: BoxDecoration(
-        color: const Color(0xff4BC848),
+        color: primaryColor,
         borderRadius: BorderRadius.circular(5),
       ),
       child: TextButton(onPressed: onPressed, child: child),
@@ -62,8 +63,7 @@ class _SaveTienSuBtnState extends State<SaveTienSuBtn> {
     return Container(
       width: screenWidth,
       decoration: BoxDecoration(
-          color: const Color(0xff4BC848),
-          borderRadius: BorderRadius.circular(10)),
+          color: primaryColor, borderRadius: BorderRadius.circular(10)),
       child: TextButton(
         onPressed: widget.onPressed,
         child: const Text(
@@ -142,12 +142,12 @@ class _RegistryBtnState extends State<RegistryBtn> {
       child: Container(
         width: screenWidth,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
+          gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xff4BC848),
-              Color(0xff56cfe1),
+              primaryColor,
+              const Color(0xff56cfe1),
             ],
           ),
           color: Colors.white,

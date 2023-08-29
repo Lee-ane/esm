@@ -1,4 +1,5 @@
 import 'package:esm/components/buttons.dart';
+import 'package:esm/components/style.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,7 @@ class _RegisterState extends State<Register> {
                     Text(
                       'Đăng ký',
                       style: TextStyle(
-                        color: const Color(0xff4BC848),
+                        color: primaryColor,
                         fontWeight: FontWeight.bold,
                         fontSize: screenWidth * 0.07,
                       ),
@@ -83,9 +84,9 @@ class _RegisterState extends State<Register> {
                         child: TextField(
                           controller: nameController,
                           decoration: InputDecoration(
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xff4BC848), width: 2),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: primaryColor, width: 2),
                             ),
                             labelText: 'Họ tên',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -133,9 +134,9 @@ class _RegisterState extends State<Register> {
                           keyboardType: TextInputType.number,
                           controller: cMNDController,
                           decoration: InputDecoration(
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xff4BC848), width: 2),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: primaryColor, width: 2),
                             ),
                             labelText: 'CMND',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -151,9 +152,9 @@ class _RegisterState extends State<Register> {
                           keyboardType: TextInputType.number,
                           controller: namSinhController,
                           decoration: InputDecoration(
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xff4BC848), width: 2),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: primaryColor, width: 2),
                             ),
                             labelText: 'Năm sinh',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -186,9 +187,8 @@ class _RegisterState extends State<Register> {
                     child: TextField(
                       controller: taiKhoanController,
                       decoration: InputDecoration(
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xff4BC848), width: 2),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primaryColor, width: 2),
                         ),
                         labelText: 'Tài khoản',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -205,9 +205,8 @@ class _RegisterState extends State<Register> {
                     child: TextField(
                       controller: matKhauController,
                       decoration: InputDecoration(
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xff4BC848), width: 2),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primaryColor, width: 2),
                         ),
                         labelText: 'Mật khẩu',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -224,9 +223,8 @@ class _RegisterState extends State<Register> {
                     child: TextField(
                       controller: bHYTController,
                       decoration: InputDecoration(
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xff4BC848), width: 2),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primaryColor, width: 2),
                         ),
                         labelText: 'Bảo hiểm y tế',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -244,9 +242,8 @@ class _RegisterState extends State<Register> {
                       keyboardType: TextInputType.number,
                       controller: sDTController,
                       decoration: InputDecoration(
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xff4BC848), width: 2),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primaryColor, width: 2),
                         ),
                         labelText: 'Số điện thoại',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -263,9 +260,8 @@ class _RegisterState extends State<Register> {
                     child: TextField(
                       controller: diaChiController,
                       decoration: InputDecoration(
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xff4BC848), width: 2),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primaryColor, width: 2),
                         ),
                         labelText: 'Địa chỉ',
                         floatingLabelBehavior: FloatingLabelBehavior.always,

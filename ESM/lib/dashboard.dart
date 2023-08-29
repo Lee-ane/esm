@@ -1,4 +1,5 @@
 import 'package:esm/benhandientu.dart';
+import 'package:esm/components/style.dart';
 import 'package:esm/datlich.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
@@ -31,83 +32,92 @@ class _DashBoardState extends State<DashBoard> {
       Options(Icons.search, 'Tra cứu bệnh án điện tử', () {
         showModalBottomSheet(
             context: context,
+            isScrollControlled: true,
             builder: (BuildContext context) {
               return AnimatedContainer(
-                width: screenWidth,
-                height: screenHeight * 0.5,
+                height: screenHeight * 0.8,
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
                 duration: const Duration(seconds: 1),
                 curve: Curves.easeInOut,
-                child: Column(
-                  children: [
-                    Container(
-                      height: screenHeight * 0.07,
-                      color: const Color(0xff4BC848),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'Tra cứu bệnh án điện tử',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: screenHeight * 0.07,
+                        color: primaryColor,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'Tra cứu bệnh án điện tử',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.4,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.apartment,
-                              color: const Color(0xff4BC848),
-                              size: screenWidth * 0.1,
-                            ),
-                            const Text(
-                              'Tra cứu Bệnh án điện tử/CCCD/BHYT cần tra cứu',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 3, vertical: 10),
-                              child: TextField(
-                                controller: maController,
-                                decoration: const InputDecoration(
-                                  hintText: 'Mã bệnh án/CCCD/BHYT',
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Color(0xff4BC848), width: 2),
-                                  ),
+                      SingleChildScrollView(
+                        child: SizedBox(
+                          height: screenHeight * 0.4,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.apartment,
+                                  color: primaryColor,
+                                  size: screenWidth * 0.1,
                                 ),
-                              ),
-                            ),
-                            Container(
-                              width: screenWidth,
-                              decoration: BoxDecoration(
-                                color: const Color(0xff4BC848),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'Tra cứu',
+                                const Text(
+                                  'Tra cứu Bệnh án điện tử/CCCD/BHYT cần tra cứu',
                                   style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
                                   ),
                                 ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 3, vertical: 10),
+                                  child: SingleChildScrollView(
+                                    child: TextField(
+                                      controller: maController,
+                                      decoration: InputDecoration(
+                                        hintText: 'Mã bệnh án/CCCD/BHYT',
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: primaryColor, width: 2),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: screenWidth,
+                                  decoration: BoxDecoration(
+                                    color: primaryColor,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: TextButton(
+                                    onPressed: () {},
+                                    child: const Text(
+                                      'Tra cứu',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               );
             });
@@ -126,7 +136,7 @@ class _DashBoardState extends State<DashBoard> {
             IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
             IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
           ],
-          backgroundColor: const Color(0xff4BC484),
+          backgroundColor: primaryColor,
         ),
         //Drawer
         drawer: Drawer(
@@ -142,14 +152,14 @@ class _DashBoardState extends State<DashBoard> {
               ),
               const Divider(),
               ListTile(
-                leading: const Icon(
+                leading: Icon(
                   Icons.menu_book,
-                  color: Color(0xff4BC848),
+                  color: primaryColor,
                 ),
-                title: const Text(
+                title: Text(
                   'Đặt lịch',
                   style: TextStyle(
-                    color: Color(0xff4BC848),
+                    color: primaryColor,
                   ),
                 ),
                 onTap: () {
@@ -158,14 +168,14 @@ class _DashBoardState extends State<DashBoard> {
                 },
               ),
               ListTile(
-                leading: const Icon(
+                leading: Icon(
                   Icons.phone_android,
-                  color: Color(0xff4BC848),
+                  color: primaryColor,
                 ),
-                title: const Text(
+                title: Text(
                   'Bệnh án điện tử',
                   style: TextStyle(
-                    color: Color(0xff4BC848),
+                    color: primaryColor,
                   ),
                 ),
                 onTap: () {
@@ -175,15 +185,15 @@ class _DashBoardState extends State<DashBoard> {
                           builder: (context) => const BenhAnDienTu()));
                 },
               ),
-              const ListTile(
+              ListTile(
                 leading: Icon(
                   Icons.search,
-                  color: Color(0xff4BC848),
+                  color: primaryColor,
                 ),
                 title: Text(
                   'Tra cứu bệnh án điện tử',
                   style: TextStyle(
-                    color: Color(0xff4BC848),
+                    color: primaryColor,
                   ),
                 ),
               ),
@@ -193,15 +203,13 @@ class _DashBoardState extends State<DashBoard> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Welcome()));
                 },
-                leading: const Icon(
+                leading: Icon(
                   Icons.logout,
-                  color: Color(0xff4BC848),
+                  color: primaryColor,
                 ),
-                title: const Text(
+                title: Text(
                   'Đăng xuất',
-                  style: TextStyle(
-                    color: Color(0xff4BC848),
-                  ),
+                  style: TextStyle(color: primaryColor),
                 ),
               ),
               const Divider(),
@@ -290,7 +298,7 @@ class _DashBoardState extends State<DashBoard> {
                             children: [
                               Icon(
                                 options[index].icon,
-                                color: const Color(0xff4BC848),
+                                color: primaryColor,
                                 size: screenWidth * 0.1,
                               ),
                               SizedBox(
@@ -299,7 +307,7 @@ class _DashBoardState extends State<DashBoard> {
                                   options[index].title,
                                   maxLines: 1,
                                   style: TextStyle(
-                                    color: const Color(0xff4BC848),
+                                    color: primaryColor,
                                     fontSize: screenWidth * 0.04,
                                     fontWeight: FontWeight.bold,
                                     overflow: TextOverflow.ellipsis,

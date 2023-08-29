@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+import 'package:esm/components/style.dart';
 import 'package:esm/model/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -52,7 +53,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
           ),
         ],
         leading: const ReturnBtn(),
-        backgroundColor: const Color(0xff4BC484),
+        backgroundColor: primaryColor,
         centerTitle: true,
         title: const Text(
           'Bệnh án điện tử',
@@ -70,7 +71,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
               Center(
                 child: Icon(
                   Icons.location_history,
-                  color: const Color(0xff4BC848),
+                  color: primaryColor,
                   size: screenWidth * 0.3,
                 ),
               ),
@@ -181,7 +182,7 @@ class __ExpansionContainerTileState extends State<_ExpansionContainerTile> {
             width: screenWidth,
             height: screenHeight * 0.05,
             decoration: BoxDecoration(
-              color: const Color(0xff4BC848),
+              color: primaryColor,
               borderRadius: _expanded
                   ? const BorderRadius.vertical(
                       top: Radius.circular(10),

@@ -1,4 +1,5 @@
 import 'package:esm/components/buttons.dart';
+import 'package:esm/components/style.dart';
 import 'package:esm/model/data.dart';
 import 'package:flutter/material.dart';
 
@@ -210,7 +211,7 @@ class _HomeState extends State<Home> {
                     Text(
                       'Chuyên khoa',
                       style: TextStyle(
-                        color: const Color(0xff4BC848),
+                        color: primaryColor,
                         fontSize: screenWidth * 0.04,
                       ),
                     ),
@@ -233,7 +234,7 @@ class _HomeState extends State<Home> {
                     Text(
                       'Gói khám',
                       style: TextStyle(
-                        color: const Color(0xff4BC848),
+                        color: primaryColor,
                         fontSize: screenWidth * 0.04,
                       ),
                     ),
@@ -256,7 +257,7 @@ class _HomeState extends State<Home> {
                     Text(
                       'Giá',
                       style: TextStyle(
-                        color: const Color(0xff4BC848),
+                        color: primaryColor,
                         fontSize: screenWidth * 0.04,
                       ),
                     ),
@@ -274,7 +275,7 @@ class _HomeState extends State<Home> {
                     Text(
                       'Triệu chứng',
                       style: TextStyle(
-                        color: const Color(0xff4BC848),
+                        color: primaryColor,
                         fontSize: screenWidth * 0.04,
                       ),
                     ),
@@ -310,13 +311,13 @@ class _HomeState extends State<Home> {
                           children: [
                             Icon(
                               Icons.cases_rounded,
-                              color: const Color(0xff4BC848),
+                              color: primaryColor,
                               size: screenWidth * 0.05,
                             ),
                             Text(
                               'Ngày khám',
                               style: TextStyle(
-                                  color: const Color(0xff4bc848),
+                                  color: primaryColor,
                                   fontSize: screenWidth * 0.04),
                             ),
                           ],
