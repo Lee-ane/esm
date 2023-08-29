@@ -12,10 +12,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   TextEditingController nameController = TextEditingController(),
-      namsinhController = TextEditingController(),
+      sDTController = TextEditingController(),
       diaChiController = TextEditingController(),
-      sdtController = TextEditingController();
+      namSinhController = TextEditingController(),
+      trieuChungController = TextEditingController(),
+      ngayKhamController = TextEditingController();
+
   String _selectedGender = 'Giới tính';
+
   final List<ListItem> options = [
     ListItem('Đặt lịch khám tại nhà'),
     ListItem('Đặt lịch khám tại công ty'),
@@ -100,7 +104,7 @@ class _HomeState extends State<Home> {
                 controller: nameController,
                 decoration: const InputDecoration(hintText: 'Họ và tên'),
               ),
-              const TextField(
+              TextField(controller: sDTController,
                 decoration: InputDecoration(hintText: 'Số điện thoại'),
               ),
               const TextField(
