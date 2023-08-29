@@ -2,6 +2,7 @@ import 'package:esm/components/buttons.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/model/data.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -58,41 +59,44 @@ class _HomeState extends State<Home> {
                 width: screenWidth,
                 height: screenHeight * 0.06,
                 child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: options.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.025),
-                        child: Container(
-                          width: screenWidth * 0.48,
-                          decoration: BoxDecoration(
-                            color: index == selectedIndex
-                                ? primaryColor
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  selectedIndex = index;
-                                  print(options[selectedIndex].title);
-                                });
-                              },
-                              child: Text(
-                                options[index].title,
-                                overflow: TextOverflow.fade,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: index == selectedIndex
-                                        ? Colors.white
-                                        : primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: screenHeight * 0.017),
-                              )),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: options.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
+                      child: Container(
+                        width: screenWidth * 0.48,
+                        decoration: BoxDecoration(
+                          color: index == selectedIndex
+                              ? primaryColor
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                      );
-                    }),
+                        child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              selectedIndex = index;
+                              print(options[selectedIndex].title);
+                            });
+                          },
+                          child: Text(
+                            options[index].title,
+                            overflow: TextOverflow.fade,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: index == selectedIndex
+                                  ? Colors.white
+                                  : primaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenHeight * 0.017,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
               Center(
                   child: Icon(
@@ -104,11 +108,14 @@ class _HomeState extends State<Home> {
                 controller: nameController,
                 decoration: const InputDecoration(hintText: 'Họ và tên'),
               ),
-              TextField(controller: sDTController,
-                decoration: InputDecoration(hintText: 'Số điện thoại'),
+              TextField(
+                controller: sDTController,
+                decoration: const InputDecoration(hintText: 'Số điện thoại'),
               ),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                readOnly: true,
+                controller: diaChiController,
+                decoration: const InputDecoration(
                     hintText: 'Địa chỉ', suffixIcon: MapIconBtn()),
               ),
               Table(
@@ -140,8 +147,22 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Năm sinh'),
+              TextField(
+                controller: namSinhController,
+                readOnly: true,
+                decoration: const InputDecoration(hintText: 'Năm sinh'),
+                onTap: () async {
+                  DateTime? datetime = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2100));
+                  datetime ??= DateTime.now();
+                  setState(() {
+                    namSinhController.text =
+                        DateFormat('yyyy-MM-dd').format(datetime!);
+                  });
+                },
               ),
               Divider(
                 color: Colors.brown,
