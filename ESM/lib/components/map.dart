@@ -38,7 +38,7 @@ class _MapState extends State<MapBADT> {
           Placemark placemark = placemarks.first;
           setState(() {
             fullAdress =
-                "${placemark.street}, Q.${placemark.subAdministrativeArea}, ${placemark.administrativeArea}";
+                "${placemark.street}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}";
           });
           mapController.animateCamera(CameraUpdate.newLatLngZoom(
               LatLng(location.latitude, location.longitude), 15.0));
@@ -68,87 +68,84 @@ class _MapState extends State<MapBADT> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            GoogleMap(
-              compassEnabled: true,
-              mapType: MapType.normal,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-              zoomControlsEnabled: false,
-              initialCameraPosition: _kGooglePlex,
-              onMapCreated: (GoogleMapController controller) {
-                mapController = controller;
-              },
-              markers: markers,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 60, top: 13, left: 10),
-              child: TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                  prefixIcon: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back),
-                  ),
-                  hintText: 'Tìm kiếm địa chỉ',
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        if (searchController.text.isNotEmpty) {
-                          searchAdress(searchController.text);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Center(
-                                      child: Text(
-                                          'Vui lòng điền địa chỉ cần tìm'))));
-                        }
-                      });
-                    },
-                    icon: const Icon(Icons.search),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: AnimatedContainer(
-                width: MediaQuery.of(context).size.width,
-                height: fullAdress.isNotEmpty ? 50 : 0,
-                duration: const Duration(seconds: 1),
-                color: primaryColor,
-                child: TextButton(
+      body: Stack(
+        children: [
+          GoogleMap(
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            zoomControlsEnabled: false,
+            mapType: MapType.hybrid,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              mapController = controller;
+            },
+            markers: markers,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 60, top: 50, left: 10),
+            child: TextField(
+              controller: searchController,
+              decoration: InputDecoration(
+                prefixIcon: IconButton(
                   onPressed: () {
-                    context.read<DataModel>().setDiaChi(fullAdress);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const BenhAnDienTu()));
+                    Navigator.pop(context);
                   },
-                  child: const Text(
-                    'Đặt làm địa chỉ',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  icon: const Icon(Icons.arrow_back),
+                ),
+                hintText: 'Tìm kiếm địa chỉ',
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (searchController.text.isNotEmpty) {
+                        searchAdress(searchController.text);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Center(
+                                    child: Text(
+                                        'Vui lòng điền địa chỉ cần tìm'))));
+                      }
+                    });
+                  },
+                  icon: const Icon(Icons.search),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: AnimatedContainer(
+              width: MediaQuery.of(context).size.width,
+              height: fullAdress.isNotEmpty ? 50 : 0,
+              duration: const Duration(seconds: 1),
+              color: primaryColor,
+              child: TextButton(
+                onPressed: () {
+                  context.read<DataModel>().setDiaChi(fullAdress);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BenhAnDienTu()));
+                },
+                child: const Text(
+                  'Đặt làm địa chỉ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
