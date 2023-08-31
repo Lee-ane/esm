@@ -18,6 +18,10 @@ class DataModel extends ChangeNotifier {
     chieuCao = 0;
     nhomMau = '';
     canNangKS = 0;
+    tinhTrang = '';
+    goiKham = [];
+    giaGoi = [];
+    chuyenKhoa = [];
     notifyListeners();
   }
 
@@ -116,6 +120,34 @@ class DataModel extends ChangeNotifier {
   String tinhTrang = '';
   void setTinhTrang(String note) {
     tinhTrang = note;
+    notifyListeners();
+  }
+
+  //goiKham
+  List<String> goiKham = [];
+  void setGoiKham(List<String> list) {
+    goiKham = list;
+    notifyListeners();
+  }
+
+  //GiaGoiKham
+  List<int> giaGoi = [];
+  void setGiaGoi(List<int> list) {
+    giaGoi = list;
+    notifyListeners();
+  }
+
+  //chuyenKhoa
+  List<String> chuyenKhoa = [];
+  void setChuyenKhoa(List<String> list) {
+    chuyenKhoa = list;
+    notifyListeners();
+  }
+
+  //noiKham
+  String noiKham = '';
+  void setNoiKham(String name) {
+    noiKham = name;
     notifyListeners();
   }
 }

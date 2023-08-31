@@ -23,6 +23,11 @@ class _HomeState extends State<Home> {
       gioKhamController = TextEditingController();
 
   String _selectedGender = 'Giới tính';
+  String selectedGK = '';
+  List<String> goiKhamList = [];
+  List<String> chuyenKhoaList = [];
+  String selectedCK = '';
+  int index = 0;
 
   final List<ListItem> options = [
     ListItem('Đặt lịch khám tại nhà'),
@@ -53,6 +58,10 @@ class _HomeState extends State<Home> {
     ngayKhamController.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
     gioKhamController.text =
         '${TimeOfDay.now().hour}:${TimeOfDay.now().minute}';
+    goiKhamList = context.read<DataModel>().goiKham;
+    selectedGK = goiKhamList[0];
+    chuyenKhoaList = context.read<DataModel>().chuyenKhoa;
+    selectedCK = chuyenKhoaList[0];
   }
 
   @override
@@ -110,12 +119,15 @@ class _HomeState extends State<Home> {
                   },
                 ),
               ),
-              Center(
-                  child: Icon(
-                Icons.location_history,
-                size: screenWidth * 0.3,
-                color: primaryColor,
-              )),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+                child: Center(
+                    child: Icon(
+                  Icons.location_history,
+                  size: screenWidth * 0.3,
+                  color: primaryColor,
+                )),
+              ),
               TextField(
                 controller: nameController,
                 decoration: const InputDecoration(hintText: 'Họ và tên'),
@@ -248,10 +260,23 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              const TextField(
-                readOnly: true,
-                decoration:
-                    InputDecoration(suffixIcon: Icon(Icons.arrow_drop_down)),
+              DropdownButtonFormField(
+                value: selectedCK,
+                decoration: const InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                items: chuyenKhoaList
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                      value: value, child: Text(value));
+                }).toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedCK = value!;
+                  });
+                },
               ),
               Padding(
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
@@ -271,10 +296,24 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              const TextField(
-                readOnly: true,
-                decoration:
-                    InputDecoration(suffixIcon: Icon(Icons.arrow_drop_down)),
+              DropdownButtonFormField(
+                value: selectedGK,
+                decoration: const InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                items:
+                    goiKhamList.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                      value: value, child: Text(value));
+                }).toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedGK = value!;
+                    index = context.read<DataModel>().goiKham.indexOf(value);
+                  });
+                },
               ),
               Padding(
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
@@ -289,6 +328,14 @@ class _HomeState extends State<Home> {
                       style: TextStyle(
                         color: primaryColor,
                         fontSize: screenWidth * 0.04,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: screenWidth * 0.1),
+                      child: Text(
+                        NumberFormat.currency(symbol: 'đ', locale: 'vi_VN')
+                            .format(context.read<DataModel>().giaGoi[index]),
+                        style: TextStyle(fontSize: screenWidth * 0.04),
                       ),
                     ),
                   ],

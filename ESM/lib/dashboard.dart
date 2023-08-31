@@ -1,11 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
 import 'package:esm/benhandientu.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/datlich.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
 import 'package:esm/welcome.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -16,6 +22,79 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   TextEditingController maController = TextEditingController();
+  dynamic data = [];
+  List<String> namelist = [];
+  List<int> pricelist = [];
+  List<String> chuyenKhoa = [];
+
+  Future<void> fetchGK() async {
+    String url = '${context.read<DataModel>().urlHead}/goiKham';
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.get(
+      Uri.parse(url),
+      headers: headers,
+    );
+    try {
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        var log = decodedResponse["data"];
+        data = log;
+        for (int i = 0; i < data.length; i++) {
+          namelist.add(data[i]['TenGoiKham']);
+          pricelist.add(data[i]['Gia']);
+        }
+        context.read<DataModel>().setGoiKham(namelist);
+        context.read<DataModel>().setGiaGoi(pricelist);
+      } else {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  Future<void> fetchCK() async {
+    String url = '${context.read<DataModel>().urlHead}/ChuyenKhoa';
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.get(
+      Uri.parse(url),
+      headers: headers,
+    );
+    try {
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        var log = decodedResponse["data"];
+        for (int i = 0; i < log.length; i++) {
+          chuyenKhoa.add(log[i]['tenChuyenKhoa']);
+        }
+        context.read<DataModel>().setChuyenKhoa(chuyenKhoa);
+      } else {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchGK();
+    fetchCK();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

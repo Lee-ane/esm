@@ -1,8 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
 import 'package:esm/components/buttons.dart';
 import 'package:esm/components/style.dart';
+import 'package:esm/model/models.dart';
 import 'package:esm/pages/home.dart';
 import 'package:esm/pages/online.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class DatLich extends StatefulWidget {
   const DatLich({super.key});
@@ -12,6 +20,47 @@ class DatLich extends StatefulWidget {
 }
 
 class _DatLichState extends State<DatLich> {
+  dynamic data = [];
+
+  Future<void> fetchUser() async {
+    String url = '${context.read<DataModel>().urlHead}/khachhang';
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.post(
+      Uri.parse(url),
+      body: json.encode({'taiKhoan': context.read<DataModel>().taiKhoan}),
+      headers: headers,
+    );
+    try {
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        var log = decodedResponse["data"];
+        data = log;
+        context.read<DataModel>().setSDT(data['SDT']);
+        context.read<DataModel>().setGioiTinh(data['GioiTinh']);
+        context.read<DataModel>().setNgaySinh(DateTime.parse(data['NamSinh']));
+        context.read<DataModel>().setCMND(data['CMND']);
+        context.read<DataModel>().setBHYT(data['BHYT']);
+        context.read<DataModel>().setDiaChi(data['DiaChi']);
+      } else {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

@@ -1,4 +1,5 @@
 import 'package:esm/components/buttons.dart';
+import 'package:esm/components/map.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/model/models.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,11 @@ class Online extends StatefulWidget {
 class _OnlineState extends State<Online> {
   bool atHospital = true;
   String _selectedGender = 'Giới tính';
+  String selectedGK = '';
+  List<String> goiKhamList = [];
+  List<String> chuyenKhoaList = [];
+  String selectedCK = '';
+  int index = 0;
 
   TextEditingController nameController = TextEditingController(),
       sDTController = TextEditingController(),
@@ -42,6 +48,10 @@ class _OnlineState extends State<Online> {
     ngayKhamController.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
     gioKhamController.text =
         '${TimeOfDay.now().hour}:${TimeOfDay.now().minute}';
+    goiKhamList = context.read<DataModel>().goiKham;
+    selectedGK = goiKhamList[0];
+    chuyenKhoaList = context.read<DataModel>().chuyenKhoa;
+    selectedCK = chuyenKhoaList[0];
   }
 
   @override
@@ -226,7 +236,12 @@ class _OnlineState extends State<Online> {
                 ],
               ),
               TextField(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PhongKhamMap()));
+                },
                 readOnly: true,
                 controller: TextEditingController(text: 'Đi đến bản đồ'),
                 style: TextStyle(color: primaryColor),
@@ -254,13 +269,23 @@ class _OnlineState extends State<Online> {
                   ],
                 ),
               ),
-              const TextField(
-                readOnly: true,
-                decoration: InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    suffixIcon: Icon(Icons.arrow_drop_down)),
+              DropdownButtonFormField(
+                value: selectedCK,
+                decoration: const InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                items: chuyenKhoaList
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                      value: value, child: Text(value));
+                }).toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedCK = value!;
+                  });
+                },
               ),
               Padding(
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
@@ -280,13 +305,24 @@ class _OnlineState extends State<Online> {
                   ],
                 ),
               ),
-              const TextField(
-                readOnly: true,
-                decoration: InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    suffixIcon: Icon(Icons.arrow_drop_down)),
+              DropdownButtonFormField(
+                value: selectedGK,
+                decoration: const InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                items:
+                    goiKhamList.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                      value: value, child: Text(value));
+                }).toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedGK = value!;
+                    index = context.read<DataModel>().goiKham.indexOf(value);
+                  });
+                },
               ),
               Padding(
                 padding: EdgeInsets.only(top: screenHeight * 0.025),
@@ -301,6 +337,14 @@ class _OnlineState extends State<Online> {
                       style: TextStyle(
                         color: primaryColor,
                         fontSize: screenWidth * 0.04,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: screenWidth * 0.1),
+                      child: Text(
+                        NumberFormat.currency(symbol: 'đ', locale: 'vi_VN')
+                            .format(context.read<DataModel>().giaGoi[index]),
+                        style: TextStyle(fontSize: screenWidth * 0.04),
                       ),
                     ),
                   ],

@@ -1,8 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-
-import 'package:esm/components/dlmap.dart';
+import 'package:esm/components/map.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/dashboard.dart';
 import 'package:esm/model/data.dart';

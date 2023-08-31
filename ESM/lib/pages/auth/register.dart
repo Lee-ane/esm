@@ -1,4 +1,5 @@
 import 'package:esm/components/buttons.dart';
+import 'package:esm/components/map.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
@@ -24,14 +25,7 @@ class _RegisterState extends State<Register> {
       sDTController = TextEditingController();
 
   bool gender = true;
-
-  String urlHead = '';
-
-  @override
-  void initState() {
-    super.initState();
-    urlHead = context.read<DataModel>().urlHead;
-  }
+  String selected = '';
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +35,6 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
           child: Container(
             color: Colors.white,
             width: screenWidth,
@@ -149,7 +142,7 @@ class _RegisterState extends State<Register> {
                       SizedBox(
                         width: screenWidth * 0.2,
                         child: TextField(
-                          keyboardType: TextInputType.number,
+                          readOnly: true,
                           controller: namSinhController,
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
@@ -172,7 +165,9 @@ class _RegisterState extends State<Register> {
                             datetime ??= DateTime.now();
                             setState(() {
                               namSinhController.text =
-                                  DateFormat('yyyy-MM-dd').format(datetime!);
+                                  DateFormat('dd-MM-yyyy').format(datetime!);
+                              selected =
+                                  DateFormat('yyyy-MM-dd').format(datetime);
                             });
                           },
                         ),
@@ -239,6 +234,7 @@ class _RegisterState extends State<Register> {
                   child: SizedBox(
                     width: screenWidth,
                     child: TextField(
+                      maxLength: 10,
                       keyboardType: TextInputType.number,
                       controller: sDTController,
                       decoration: InputDecoration(
@@ -258,6 +254,7 @@ class _RegisterState extends State<Register> {
                   child: SizedBox(
                     width: screenWidth,
                     child: TextField(
+                      maxLines: 2,
                       controller: diaChiController,
                       decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(
@@ -277,7 +274,7 @@ class _RegisterState extends State<Register> {
                   gioiTinh: gender ? 'Nữ' : 'Nam',
                   taiKhoan: taiKhoanController.text,
                   matKhau: matKhauController.text,
-                  namSinh: namSinhController.text,
+                  namSinh: selected,
                   diaChi: diaChiController.text,
                   cMND: cMNDController.text,
                   bHYT: bHYTController.text,

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Branches</name>
+    <Style id="icon-1899-673AB7-nodesc-normal">
+      <IconStyle>
+        <color>ffb73a67</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-673AB7-nodesc-highlight">
+      <IconStyle>
+        <color>ffb73a67</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-673AB7-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-673AB7-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-673AB7-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-C2185B-nodesc-normal">
+      <IconStyle>
+        <color>ff5b18c2</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-C2185B-nodesc-highlight">
+      <IconStyle>
+        <color>ff5b18c2</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-C2185B-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-C2185B-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-C2185B-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Placemark>
+      <name>Trung tâm Healthcare Solution Việt Nam</name>
+      <styleUrl>#icon-1899-C2185B-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          106.6963737,10.7447024,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bệnh viện chấn thương chỉnh hình</name>
+      <styleUrl>#icon-1899-C2185B-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          106.6783321,10.7541748,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bệnh viện nhi đồng 2</name>
+      <styleUrl>#icon-1899-C2185B-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          106.702319,10.7808425,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Phòng khám đa khoa Diamond</name>
+      <styleUrl>#icon-1899-673AB7-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          106.6864592,10.7818742,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bệnh viện quận 7</name>
+      <styleUrl>#icon-1899-C2185B-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          106.7241422,10.7373797,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bệnh viện tim Tâm Đức</name>
+      <styleUrl>#icon-1899-C2185B-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          106.7179195,10.7334186,0
+        </coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

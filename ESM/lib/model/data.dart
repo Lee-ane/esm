@@ -50,7 +50,7 @@ class KhachHangInfo {
       required this.sDT});
 }
 
-class ThongTinDatLich{
+class ThongTinDatLich {
   final String loaiDK;
   final String hoTen;
   final int sDT;
@@ -64,5 +64,17 @@ class ThongTinDatLich{
   final String trieuChung;
   final DateTime ngayKham;
 
-  ThongTinDatLich({required this.loaiDK, required this.hoTen, required this.sDT, required this.diaChi, required this.gioiTinh, required this.namSinh, required this.maPK, required this.maCK, required this.maGK, required this.giaTien, required this.trieuChung, required this.ngayKham});
+  ThongTinDatLich(
+      {required this.loaiDK,
+      required this.hoTen,
+      required this.sDT,
+      required this.diaChi,
+      required this.gioiTinh,
+      required this.namSinh,
+      required this.maPK,
+      required this.maCK,
+      required this.maGK,
+      required this.giaTien,
+      required this.trieuChung,
+      required this.ngayKham});
 }

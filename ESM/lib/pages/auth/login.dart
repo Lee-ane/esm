@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
       passwordController.text = context.read<DataModel>().matKhau;
     }
     if (usernameController.text.isNotEmpty) {
-      Future.delayed(const Duration(seconds: 3), () {
+      Future.delayed(const Duration(seconds: 2), () {
         login();
       });
     }
