@@ -23,6 +23,11 @@ class DataModel extends ChangeNotifier {
     giaGoi = [];
     chuyenKhoa = [];
     noiKham = '';
+    yeuTo = [];
+    khuyetTat = [];
+    ctBenhTat = '';
+    giaDinh = '';
+    ctGD = '';
     notifyListeners();
   }
 
@@ -149,6 +154,55 @@ class DataModel extends ChangeNotifier {
   String noiKham = '';
   void setNoiKham(String name) {
     noiKham = name;
+    notifyListeners();
+  }
+
+  //listYeuTo
+  List<bool> yeuTo = [];
+  void setYeuTo(List<bool> list) {
+    yeuTo = list;
+    notifyListeners();
+  }
+
+  //khuyetTat
+  List<bool> khuyetTat = [];
+  void setKhuyetTat(List<bool> list) {
+    khuyetTat = list;
+    notifyListeners();
+  }
+
+  //benhTat
+  List<bool> benhTat = [];
+  void setBenhTat(List<bool> list) {
+    benhTat = list;
+    notifyListeners();
+  }
+
+  //chiTietBenhTat
+  String ctBenhTat = '';
+  void setCTBenhTat(String benh) {
+    ctBenhTat = benh;
+    notifyListeners();
+  }
+
+  //giaDinh
+  String giaDinh = '';
+  void setGD(String string) {
+    giaDinh = string;
+    notifyListeners();
+  }
+
+  //benhGD
+  List<bool> benhGD = [];
+  void setBenhGD(List<bool> list) {
+    benhGD = list;
+    notifyListeners();
+  }
+
+  //Chi tiet benh GD
+  String ctGD = '';
+  void setCTGD(String string) {
+    ctGD = string;
     notifyListeners();
   }
 }

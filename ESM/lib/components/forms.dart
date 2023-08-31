@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:esm/benhandientu.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/components/textfields.dart';
 import 'package:esm/model/data.dart';
@@ -152,9 +151,9 @@ class _Form1State extends State<Form1> {
                       padding: EdgeInsets.all(
                           MediaQuery.of(context).size.height * 0.01),
                       child: TextFormField(
-                        controller: canNangController,
+                        controller: chieuCaotroller,
                         keyboardType: TextInputType.number,
-                        readOnly: widget.editable,
+                        readOnly: !widget.editable,
                         decoration: InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: 'Chiều cao(Cm)',
@@ -177,7 +176,7 @@ class _Form1State extends State<Form1> {
                       child: TextFormField(
                         controller: canNangController,
                         keyboardType: TextInputType.number,
-                        readOnly: widget.editable,
+                        readOnly: !widget.editable,
                         decoration: InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: 'Cân nặng(Kg)',
@@ -369,7 +368,7 @@ class _Form3State extends State<Form3> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: screenHeight * 1.35,
+      height: screenHeight * 1.1,
       decoration: BoxDecoration(
         border: Border.all(
           color: primaryColor,
@@ -389,7 +388,7 @@ class _Form3State extends State<Form3> {
               setState(
                 () {
                   _checkboxValues[index] = newValue!;
-                  print(_checkboxValues);
+                  context.read<DataModel>().setYeuTo(_checkboxValues);
                 },
               );
             },
@@ -449,7 +448,7 @@ class _Form4State extends State<Form4> {
               setState(
                 () {
                   _checkboxValues[index] = newValue!;
-                  print(_checkboxValues);
+                  context.read<DataModel>().setKhuyetTat(_checkboxValues);
                 },
               );
             },
@@ -530,7 +529,7 @@ class _Form5State extends State<Form5> {
                     setState(
                       () {
                         _checkboxValues[index] = newValue!;
-                        print(_checkboxValues);
+                        context.read<DataModel>().setBenhTat(_checkboxValues);
                       },
                     );
                   },
@@ -550,6 +549,9 @@ class _Form5State extends State<Form5> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
+              onChanged: (value) {
+                context.read<DataModel>().setCTBenhTat(value);
+              },
             ),
           ),
         ],
@@ -640,12 +642,12 @@ class Form7 extends StatefulWidget {
 
 class _Form7State extends State<Form7> {
   List<ExpansionTileData> titleData = [
-    ExpansionTileData('Cha', const Form5()),
-    ExpansionTileData('Mẹ', const Form5()),
-    ExpansionTileData('Ông nội', const Form5()),
-    ExpansionTileData('Bà nội', const Form5()),
-    ExpansionTileData('Ông ngoại', const Form5()),
-    ExpansionTileData('Bà ngoại', const Form5()),
+    ExpansionTileData('Cha', const Form7a()),
+    ExpansionTileData('Mẹ', const Form7a()),
+    ExpansionTileData('Ông nội', const Form7a()),
+    ExpansionTileData('Bà nội', const Form7a()),
+    ExpansionTileData('Ông ngoại', const Form7a()),
+    ExpansionTileData('Bà ngoại', const Form7a()),
   ];
   @override
   Widget build(BuildContext context) {
@@ -762,9 +764,112 @@ class _ParentExpansionState extends State<ParentExpansion> {
       onExpansionChanged: (expanded) {
         setState(() {
           _isExpanded = expanded;
+          context.read<DataModel>().setGD(widget.data.title);
+          print(widget.data.title);
         });
       },
       expandedContent: widget.data.expandedForm,
+    );
+  }
+}
+
+class Form7a extends StatefulWidget {
+  const Form7a({super.key});
+
+  @override
+  State<Form7a> createState() => _Form7aState();
+}
+
+class _Form7aState extends State<Form7a> {
+  List<bool> _checkboxValues = [];
+  final List<CheckBoxTileListItem> checkBoxTitle = [
+    CheckBoxTileListItem(
+      'Dị ứng',
+      false,
+    ),
+    CheckBoxTileListItem(
+      'Ma túy',
+      false,
+    ),
+    CheckBoxTileListItem(
+      'Rượu bia',
+      false,
+    ),
+    CheckBoxTileListItem(
+      'Thuốc lá',
+      false,
+    ),
+    CheckBoxTileListItem(
+      'Thuốc lào',
+      false,
+    ),
+    CheckBoxTileListItem(
+      'Khác',
+      false,
+    ),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _checkboxValues = checkBoxTitle.map((item) => item.checked).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+      height: screenHeight * 0.68,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: primaryColor,
+        ),
+        borderRadius: const BorderRadius.vertical(
+          bottom: Radius.circular(10),
+        ),
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: screenHeight * 0.43,
+            child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: checkBoxTitle.length,
+              itemBuilder: ((context, index) {
+                return CheckboxListTile(
+                  title: Text(checkBoxTitle[index].title),
+                  value: _checkboxValues[index],
+                  onChanged: (newValue) {
+                    setState(
+                      () {
+                        _checkboxValues[index] = newValue!;
+                        context.read<DataModel>().setBenhTat(_checkboxValues);
+                      },
+                    );
+                  },
+                );
+              }),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(screenHeight * 0.01),
+            child: TextField(
+              maxLines: 5,
+              decoration: InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                labelText: 'Chi tiết',
+                hintText: 'Chi tiết',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onChanged: (value) {
+                context.read<DataModel>().setCTBenhTat(value);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
