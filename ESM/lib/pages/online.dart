@@ -19,6 +19,7 @@ class _OnlineState extends State<Online> {
   String selectedGK = '';
   List<String> goiKhamList = [];
   List<String> chuyenKhoaList = [];
+  String noiKham = 'Chọn nơi khám';
   String selectedCK = '';
   int index = 0;
 
@@ -52,6 +53,7 @@ class _OnlineState extends State<Online> {
     selectedGK = goiKhamList[0];
     chuyenKhoaList = context.read<DataModel>().chuyenKhoa;
     selectedCK = chuyenKhoaList[0];
+    noiKham = context.read<DataModel>().noiKham;
   }
 
   @override
@@ -112,19 +114,19 @@ class _OnlineState extends State<Online> {
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: atHospital ? primaryColor : Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: screenHeight * 0.017),
+                              color: atHospital ? primaryColor : Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenHeight * 0.017,
+                            ),
                           )),
                     )
                   ],
                 ),
               ),
               Center(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.location_history),
-                  iconSize: screenWidth * 0.3,
+                child: Icon(
+                  Icons.location_history,
+                  size: screenWidth * 0.3,
                   color: primaryColor,
                 ),
               ),
@@ -226,12 +228,8 @@ class _OnlineState extends State<Online> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Chọn nơi khám',
+                    noiKham,
                     style: TextStyle(fontSize: screenWidth * 0.04),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_drop_down),
                   ),
                 ],
               ),

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'package:esm/benhandientu.dart';
 import 'package:esm/components/style.dart';
@@ -5,12 +7,14 @@ import 'package:esm/datlich.dart';
 import 'package:esm/model/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:xml/xml.dart' as xml;
+import 'package:google_maps_routes/google_maps_routes.dart';
 
 class MapBADT extends StatefulWidget {
   const MapBADT({super.key});
@@ -25,7 +29,6 @@ class _MapBADTState extends State<MapBADT> {
 
   Set<Marker> markers = {};
   String fullAdress = '';
-  LatLng? currentLocation;
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(10.7447, 106.6964),
@@ -343,12 +346,19 @@ class PhongKhamMap extends StatefulWidget {
 
 class _PhongKhamMapState extends State<PhongKhamMap> {
   late GoogleMapController mapController;
-  TextEditingController searchController = TextEditingController();
 
-  String fullAdress = '';
+  bool isVisible = false;
+
   Set<Marker> markers = {};
+  Set<Polyline> polyLines = {};
+  Map<PolylineId, Polyline> polylines = {};
   List<LatLng> cN = [];
   List<String> locationName = [];
+  List<LatLng> polylineCoordinate = [];
+  DistanceCalculator distanceCalculator = DistanceCalculator();
+  String googleApiKey = 'AIzaSyDwlo11bBEgWSbLOvFAIyAy1-a1sECNT4I';
+  String totalDistance = 'No route';
+  int selected = 0;
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(10.7447, 106.6964),
@@ -364,6 +374,66 @@ class _PhongKhamMapState extends State<PhongKhamMap> {
         return Future.error('Unable to get your location');
       }
     }
+  }
+
+  void getPolyPoints(LatLng cN) async {
+    polylineCoordinate.clear();
+    PolylinePoints polylinePoints = PolylinePoints();
+    LatLng currentLocation = await getCurrentLocation();
+
+    try {
+      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+        googleApiKey,
+        PointLatLng(currentLocation.latitude, currentLocation.longitude),
+        PointLatLng(cN.latitude, cN.longitude),
+      );
+      setState(() {
+        isVisible = true;
+      });
+
+      if (result.errorMessage != null && result.errorMessage!.isNotEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Center(child: Text('Too much request please try later')),
+          ),
+        );
+      } else if (result.points.isNotEmpty) {
+        for (var point in result.points) {
+          polylineCoordinate.add(LatLng(point.latitude, point.longitude));
+        }
+        setState(() {
+          addPolyLine();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Center(child: Text('Routing'))),
+          );
+          totalDistance = distanceCalculator
+              .calculateRouteDistance(polylineCoordinate, decimals: 1);
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Center(child: Text('No route found')),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Center(child: Text('Error: $e')),
+        ),
+      );
+    }
+  }
+
+  addPolyLine() {
+    PolylineId id = const PolylineId("poly");
+    Polyline polyline = Polyline(
+        polylineId: id,
+        color: primaryColor,
+        width: 6,
+        points: polylineCoordinate);
+    polylines[id] = polyline;
+    setState(() {});
   }
 
   Future<void> readKmlFile() async {
@@ -400,8 +470,38 @@ class _PhongKhamMapState extends State<PhongKhamMap> {
     }
   }
 
-  void centerMapOnPoint(LatLng point) {
-    mapController.animateCamera(CameraUpdate.newLatLngZoom(point, 17));
+  void centerMapOnPoint(LatLng point) async {
+    LatLng currentLocation = await getCurrentLocation();
+    LatLngBounds bounds = LatLngBounds(
+      southwest: LatLng(
+        currentLocation.latitude < point.latitude
+            ? currentLocation.latitude
+            : point.latitude,
+        currentLocation.longitude < point.longitude
+            ? currentLocation.longitude
+            : point.longitude,
+      ),
+      northeast: LatLng(
+        currentLocation.latitude > point.latitude
+            ? currentLocation.latitude
+            : point.latitude,
+        currentLocation.longitude > point.longitude
+            ? currentLocation.longitude
+            : point.longitude,
+      ),
+    );
+
+    CameraUpdate cameraUpdate =
+        CameraUpdate.newLatLngBounds(bounds, 80); // 100 is padding
+    mapController.animateCamera(cameraUpdate);
+  }
+
+  Future<LatLng> getCurrentLocation() async {
+    LatLng? currentLocation;
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    currentLocation = LatLng(position.latitude, position.longitude);
+    return currentLocation;
   }
 
   @override
@@ -430,6 +530,7 @@ class _PhongKhamMapState extends State<PhongKhamMap> {
                 mapController = controller;
               },
               markers: markers,
+              polylines: Set<Polyline>.of(polylines.values),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -472,21 +573,21 @@ class _PhongKhamMapState extends State<PhongKhamMap> {
                                               alignment: Alignment.center,
                                               height: screenHeight * 0.05,
                                               decoration: BoxDecoration(
-                                                color: Colors.amber,
+                                                color: primaryColor,
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
                                               child: TextButton(
                                                 onPressed: () {
-                                                  setState(() {
-                                                    centerMapOnPoint(cN[index]);
-                                                    Navigator.pop(context);
-                                                  });
+                                                  getPolyPoints(cN[index]);
+                                                  Navigator.pop(context);
+                                                  centerMapOnPoint(cN[index]);
+                                                  selected = index;
                                                 },
                                                 child: Text(
                                                   locationName[index],
                                                   style: TextStyle(
-                                                    color: Colors.black,
+                                                    color: Colors.white,
                                                     fontSize:
                                                         screenWidth * 0.04,
                                                   ),
@@ -512,6 +613,59 @@ class _PhongKhamMapState extends State<PhongKhamMap> {
               ),
             ),
             const BackButton(),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Container(
+                  width: screenWidth * 0.2,
+                  height: screenHeight * 0.05,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white),
+                  child: Text(
+                    totalDistance,
+                    style: TextStyle(fontSize: screenWidth * 0.04),
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Visibility(
+                  visible: isVisible,
+                  child: AnimatedContainer(
+                    duration: const Duration(seconds: 1),
+                    width: screenWidth * 0.5,
+                    height: screenHeight * 0.05,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        context
+                            .read<DataModel>()
+                            .setNoiKham(locationName[selected]);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const DatLich()));
+                      },
+                      child: Text(
+                        'Chọn nơi khám',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: screenWidth * 0.04),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
