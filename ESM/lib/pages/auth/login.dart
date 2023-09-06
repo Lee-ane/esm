@@ -161,7 +161,6 @@ class _LoginState extends State<Login> {
                           const Color(0xff56cfe1),
                         ],
                       ),
-                      color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextButton(

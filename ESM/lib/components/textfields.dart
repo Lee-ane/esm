@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class FormTF extends StatelessWidget {
-  final bool editable;
   final String label;
-  final TextEditingController controller;
+  final bool editable;
+  final TextInputType? inputType;
   final void Function(String) onChanged;
+  final TextEditingController controller;
+
   const FormTF(
       {super.key,
       required this.label,
       required this.controller,
+      required this.inputType,
       required this.editable,
       required this.onChanged});
 
@@ -18,18 +21,24 @@ class FormTF extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     return Padding(
       padding: EdgeInsets.all(screenHeight * 0.01),
-      child: TextFormField(
-        controller: controller,
-        readOnly: !editable,
-        decoration: InputDecoration(
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          labelText: label,
-          hintText: label,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+      child: SizedBox(
+        height: screenHeight * 0.06,
+        child: TextFormField(keyboardType: inputType,
+          readOnly: !editable,
+          onChanged: onChanged,
+          controller: controller,
+          decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            labelText: label,
+            labelStyle: TextStyle(fontSize: screenHeight * 0.025),
+            hintText: label,
+            hintStyle: TextStyle(fontSize: screenHeight * 0.015),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
+          style: TextStyle(fontSize: screenHeight * 0.02),
         ),
-        onChanged: onChanged,
       ),
     );
   }
