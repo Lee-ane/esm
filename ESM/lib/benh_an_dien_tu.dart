@@ -577,7 +577,8 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                 expanded: expanded[5],
                 child: Column(
                   children: [
-                    SizedBox(
+                    Container(
+                      color: Colors.grey[50],
                       height: screenHeight * 0.33,
                       child: ListView.builder(
                           itemCount: 5,
