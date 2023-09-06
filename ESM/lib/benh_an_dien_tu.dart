@@ -59,10 +59,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
   Set<Marker> markers = {};
   String fullAdress = '';
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(10.7447, 106.6964),
-    zoom: 18,
-  );
+  final CameraPosition _kGooglePlex = MapData().kGooglePlex;
 
   Future<void> searchAdress(String address) async {
     try {
@@ -97,8 +94,9 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
     }
   }
 
-  Future<void> setDiaChi() async {
-    Map().getPermisson();
+  void setDiaChi() async {
+    fullAdress = '';
+    MapData().getPermisson();
     showDialog(
         context: context,
         builder: ((context) {

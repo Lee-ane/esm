@@ -42,6 +42,57 @@ class FormTF extends StatelessWidget {
   }
 }
 
+class DateTF extends StatelessWidget {
+  final TextEditingController controller;
+  const DateTF({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      readOnly: true,
+      decoration: const InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          labelText: 'Ngày dự kiến khám'),
+      onTap: () async {
+        DateTime? newDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime.now());
+        newDate ??= DateTime.now();
+        controller.text = DateFormat('dd-MM-yyyy').format(newDate);
+      },
+    );
+  }
+}
+
+class TimeTF extends StatelessWidget {
+  final TextEditingController controller;
+  const TimeTF({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      readOnly: true,
+      decoration: const InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          labelText: 'Giờ khám'),
+      onTap: () async {
+        TimeOfDay? newTime = await showTimePicker(
+            context: context, initialTime: TimeOfDay.now());
+        newTime ??= TimeOfDay.now();
+        controller.text = '${newTime.hour}:${newTime.minute}';
+      },
+    );
+  }
+}
+
 class TienSuPTFT extends StatefulWidget {
   final String title;
   const TienSuPTFT({super.key, required this.title});

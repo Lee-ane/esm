@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'package:esm/components/map.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/dashboard.dart';
 import 'package:esm/model/data.dart';
@@ -170,15 +169,13 @@ class _RegistryBtnState extends State<RegistryBtn> {
 }
 
 class MapIconBtn extends StatelessWidget {
-  const MapIconBtn({super.key});
+  final void Function()? onPressed;
+  const MapIconBtn({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const MapDL()));
-      },
+      onPressed: onPressed,
       icon: Icon(
         Icons.location_on,
         color: primaryColor,

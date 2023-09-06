@@ -43,6 +43,7 @@ class _DatLichState extends State<DatLich> {
         context.read<DataModel>().setCMND(data['CMND']);
         context.read<DataModel>().setBHYT(data['BHYT']);
         context.read<DataModel>().setDiaChi(data['DiaChi']);
+        setState(() {});
       } else {
         if (kDebugMode) {
           print(response.statusCode);
@@ -58,7 +59,9 @@ class _DatLichState extends State<DatLich> {
   @override
   void initState() {
     super.initState();
-    fetchUser();
+    if (data.isEmpty) {
+      fetchUser();
+    }
   }
 
   @override
@@ -81,9 +84,11 @@ class _DatLichState extends State<DatLich> {
               title: const Text('Đặt lịch'),
               centerTitle: true,
               leading: const ReturnBtn()),
-          body: const TabBarView(
-            children: [Online(), Home()],
-          ),
+          body: data.isEmpty
+              ? Center(child: CircularProgressIndicator(color: primaryColor))
+              : const TabBarView(
+                  children: [Online(), Home()],
+                ),
         ),
       ),
     );

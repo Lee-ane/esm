@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
 import 'dart:async';
 import 'package:esm/benh_an_dien_tu.dart';
@@ -612,7 +612,7 @@ class _PhongKhamMapState extends State<PhongKhamMap> {
                 ),
               ),
             ),
-            BackButton(),
+            const BackButton(),
             Align(
               alignment: Alignment.bottomLeft,
               child: Padding(

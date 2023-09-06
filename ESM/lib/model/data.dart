@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class ListItem {
@@ -216,7 +217,12 @@ class ReadData {
   }
 }
 
-class Map {
+class MapData {
+  final CameraPosition kGooglePlex = const CameraPosition(
+    target: LatLng(10.7447, 106.6964),
+    zoom: 18,
+  );
+
   Future<void> getPermisson() async {
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
@@ -227,4 +233,6 @@ class Map {
       }
     }
   }
+
+
 }
