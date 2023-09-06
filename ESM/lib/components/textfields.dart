@@ -5,7 +5,6 @@ class FormTF extends StatelessWidget {
   final String label;
   final bool editable;
   final TextInputType? inputType;
-  final void Function(String) onChanged;
   final TextEditingController controller;
 
   const FormTF(
@@ -13,8 +12,7 @@ class FormTF extends StatelessWidget {
       required this.label,
       required this.controller,
       required this.inputType,
-      required this.editable,
-      required this.onChanged});
+      required this.editable});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +21,9 @@ class FormTF extends StatelessWidget {
       padding: EdgeInsets.all(screenHeight * 0.01),
       child: SizedBox(
         height: screenHeight * 0.06,
-        child: TextFormField(keyboardType: inputType,
+        child: TextFormField(
+          keyboardType: inputType,
           readOnly: !editable,
-          onChanged: onChanged,
           controller: controller,
           decoration: InputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,

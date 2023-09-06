@@ -277,17 +277,17 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                 child: Column(
                   children: [
                     FormTF(
-                        label: 'Họ tên',
-                        controller: nameController,
-                        inputType: TextInputType.name,
-                        editable: editable,
-                        onChanged: (value) {}),
+                      label: 'Họ tên',
+                      controller: nameController,
+                      inputType: TextInputType.name,
+                      editable: editable,
+                    ),
                     FormTF(
-                        label: 'Số điện thoại',
-                        controller: sDTController,
-                        inputType: TextInputType.phone,
-                        editable: editable,
-                        onChanged: (value) {}),
+                      label: 'Số điện thoại',
+                      controller: sDTController,
+                      inputType: TextInputType.phone,
+                      editable: editable,
+                    ),
                     Padding(
                       padding: EdgeInsets.all(
                           MediaQuery.of(context).size.height * 0.01),
@@ -325,17 +325,17 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                       ),
                     ),
                     FormTF(
-                        label: 'Số CMND',
-                        controller: cMNDController,
-                        inputType: TextInputType.number,
-                        editable: editable,
-                        onChanged: (value) {}),
+                      label: 'Số CMND',
+                      controller: cMNDController,
+                      inputType: TextInputType.number,
+                      editable: editable,
+                    ),
                     FormTF(
-                        label: 'Số BHYT',
-                        controller: bHYTController,
-                        inputType: TextInputType.visiblePassword,
-                        editable: editable,
-                        onChanged: (value) {}),
+                      label: 'Số BHYT',
+                      controller: bHYTController,
+                      inputType: TextInputType.visiblePassword,
+                      editable: editable,
+                    ),
                     Padding(
                       padding: EdgeInsets.all(
                           MediaQuery.of(context).size.height * 0.01),
@@ -370,23 +370,23 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                         TableRow(
                           children: [
                             FormTF(
-                                label: 'Chiều cao(Cm)',
-                                controller: chieuCaotroller,
-                                inputType: TextInputType.number,
-                                editable: editable,
-                                onChanged: (value) {}),
+                              label: 'Chiều cao(Cm)',
+                              controller: chieuCaotroller,
+                              inputType: TextInputType.number,
+                              editable: editable,
+                            ),
                             FormTF(
-                                label: 'Cân nặng(kg)',
-                                controller: canNangController,
-                                inputType: TextInputType.number,
-                                editable: editable,
-                                onChanged: (value) {}),
+                              label: 'Cân nặng(kg)',
+                              controller: canNangController,
+                              inputType: TextInputType.number,
+                              editable: editable,
+                            ),
                             FormTF(
-                                inputType: TextInputType.text,
-                                controller: nhomMauController,
-                                label: 'Nhóm máu',
-                                editable: editable,
-                                onChanged: (value) {}),
+                              inputType: TextInputType.text,
+                              controller: nhomMauController,
+                              label: 'Nhóm máu',
+                              editable: editable,
+                            ),
                           ],
                         ),
                       ],
@@ -408,11 +408,11 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                 child: Column(
                   children: [
                     FormTF(
-                        label: 'Cân nặng(Kg)',
-                        controller: canNangKSController,
-                        inputType: TextInputType.name,
-                        editable: editable,
-                        onChanged: (value) {}),
+                      label: 'Cân nặng(Kg)',
+                      controller: canNangKSController,
+                      inputType: TextInputType.name,
+                      editable: editable,
+                    ),
                     Padding(
                       padding: EdgeInsets.all(
                           MediaQuery.of(context).size.height * 0.01),
