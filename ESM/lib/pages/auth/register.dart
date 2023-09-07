@@ -35,237 +35,199 @@ class _RegisterState extends State<Register> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            color: Colors.white,
             width: screenWidth,
-            height: screenHeight,
-            padding: const EdgeInsets.all(10),
+            height: screenHeight * 0.9,
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
+                    TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Colors.grey,
-                        size: screenWidth * 0.08,
-                      ),
+                      child: Icon(Icons.arrow_back,
+                          color: Colors.grey, size: screenWidth * 0.08),
                     ),
-                    Text(
-                      'Đăng ký',
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: screenWidth * 0.07,
-                      ),
-                    ),
+                    Text('Đăng ký', style: register),
                     SizedBox(width: screenWidth * 0.1),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: screenWidth * 0.6,
-                        child: TextField(
-                          controller: nameController,
-                          decoration: InputDecoration(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: screenWidth * 0.6,
+                      child: TextField(
+                        controller: nameController,
+                        decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                               borderSide:
                                   BorderSide(color: primaryColor, width: 2),
                             ),
                             labelText: 'Họ tên',
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
                             hintStyle: TextStyle(
                                 fontSize: screenWidth * 0.03,
                                 color: Colors.grey),
+                            floatingLabelBehavior:
+                                FloatingLabelBehavior.always),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: screenWidth * 0.08),
+                      child: Column(
+                        children: [
+                          const Text(
+                            'Giới tính',
+                            style: TextStyle(fontSize: 12),
                           ),
-                        ),
+                          IconButton(
+                            onPressed: () {
+                              gender = !gender;
+                              setState(() {});
+                            },
+                            icon: Icon(gender ? Icons.female : Icons.male),
+                            color: gender ? Colors.pink : Colors.blue,
+                            iconSize: screenWidth * 0.08,
+                          )
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(right: screenWidth * 0.08),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Giới tính',
-                              style: TextStyle(fontSize: screenWidth * 0.03),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  gender = !gender;
-                                });
-                              },
-                              icon: Icon(
-                                gender ? Icons.female : Icons.male,
-                                color: gender ? Colors.pink : Colors.blue,
-                                size: screenWidth * 0.08,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: screenWidth * 0.6,
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          controller: cMNDController,
-                          decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: primaryColor, width: 2),
-                            ),
-                            labelText: 'CMND',
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            hintStyle: TextStyle(
-                                fontSize: screenWidth * 0.03,
-                                color: Colors.grey),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: screenWidth * 0.6,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        controller: cMNDController,
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primaryColor, width: 2),
                           ),
+                          labelText: 'CMND',
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          hintStyle: TextStyle(
+                              fontSize: screenWidth * 0.03, color: Colors.grey),
                         ),
                       ),
-                      SizedBox(
-                        width: screenWidth * 0.2,
-                        child: TextField(
-                          readOnly: true,
-                          controller: namSinhController,
-                          decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: primaryColor, width: 2),
-                            ),
-                            labelText: 'Năm sinh',
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            hintStyle: TextStyle(
-                                fontSize: screenWidth * 0.03,
-                                color: Colors.grey),
+                    ),
+                    SizedBox(
+                      width: screenWidth * 0.2,
+                      child: TextField(
+                        readOnly: true,
+                        controller: namSinhController,
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primaryColor, width: 2),
                           ),
-                          style: TextStyle(fontSize: screenWidth * 0.035),
-                          onTap: () async {
-                            DateTime? datetime = await showDatePicker(
-                                context: context,
-                                initialDate: selectedDate,
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(2100));
-                            datetime ??= DateTime.now();
-                            setState(() {
-                              namSinhController.text =
-                                  DateFormat('dd-MM-yyyy').format(datetime!);
-                              selected =
-                                  DateFormat('yyyy-MM-dd').format(datetime);
-                            });
-                          },
+                          labelText: 'Năm sinh',
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          hintStyle: TextStyle(
+                              fontSize: screenWidth * 0.03, color: Colors.grey),
                         ),
+                        style: TextStyle(fontSize: screenWidth * 0.035),
+                        onTap: () async {
+                          DateTime? datetime = await showDatePicker(
+                              context: context,
+                              initialDate: selectedDate,
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2100));
+                          datetime ??= DateTime.now();
+                          setState(() {
+                            namSinhController.text =
+                                DateFormat('dd-MM-yyyy').format(datetime!);
+                            selected =
+                                DateFormat('yyyy-MM-dd').format(datetime);
+                          });
+                        },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: SizedBox(
-                    width: screenWidth,
-                    child: TextField(
-                      controller: taiKhoanController,
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor, width: 2),
-                        ),
-                        labelText: 'Tài khoản',
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintStyle: TextStyle(
-                            fontSize: screenWidth * 0.03, color: Colors.grey),
+                SizedBox(
+                  width: screenWidth,
+                  child: TextField(
+                    controller: taiKhoanController,
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor, width: 2),
                       ),
+                      labelText: 'Tài khoản',
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintStyle: TextStyle(
+                          fontSize: screenWidth * 0.03, color: Colors.grey),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: SizedBox(
-                    width: screenWidth,
-                    child: TextField(
-                      obscureText: true,
-                      controller: matKhauController,
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor, width: 2),
-                        ),
-                        labelText: 'Mật khẩu',
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintStyle: TextStyle(
-                            fontSize: screenWidth * 0.03, color: Colors.grey),
+                SizedBox(
+                  width: screenWidth,
+                  child: TextField(
+                    obscureText: true,
+                    controller: matKhauController,
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor, width: 2),
                       ),
+                      labelText: 'Mật khẩu',
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintStyle: TextStyle(
+                          fontSize: screenWidth * 0.03, color: Colors.grey),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: SizedBox(
-                    width: screenWidth,
-                    child: TextField(
-                      controller: bHYTController,
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor, width: 2),
-                        ),
-                        labelText: 'Bảo hiểm y tế',
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintStyle: TextStyle(
-                            fontSize: screenWidth * 0.03, color: Colors.grey),
+                SizedBox(
+                  width: screenWidth,
+                  child: TextField(
+                    controller: bHYTController,
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor, width: 2),
                       ),
+                      labelText: 'Bảo hiểm y tế',
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintStyle: TextStyle(
+                          fontSize: screenWidth * 0.03, color: Colors.grey),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: SizedBox(
-                    width: screenWidth,
-                    child: TextField(
-                      maxLength: 10,
-                      keyboardType: TextInputType.number,
-                      controller: sDTController,
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor, width: 2),
-                        ),
-                        labelText: 'Số điện thoại',
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintStyle: TextStyle(
-                            fontSize: screenWidth * 0.03, color: Colors.grey),
+                SizedBox(
+                  width: screenWidth,
+                  child: TextField(
+                    maxLength: 10,
+                    keyboardType: TextInputType.number,
+                    controller: sDTController,
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor, width: 2),
                       ),
+                      labelText: 'Số điện thoại',
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintStyle: TextStyle(
+                          fontSize: screenWidth * 0.03, color: Colors.grey),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: SizedBox(
-                    width: screenWidth,
-                    height: screenHeight * 0.1,
-                    child: TextField(
-                      maxLines: 2,
-                      controller: diaChiController,
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor, width: 2),
-                        ),
-                        labelText: 'Địa chỉ',
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintStyle: TextStyle(
-                            fontSize: screenWidth * 0.03, color: Colors.grey),
+                SizedBox(
+                  width: screenWidth,
+                  height: screenHeight * 0.1,
+                  child: TextField(
+                    maxLines: 2,
+                    controller: diaChiController,
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor, width: 2),
                       ),
+                      labelText: 'Địa chỉ',
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintStyle: TextStyle(
+                          fontSize: screenWidth * 0.03, color: Colors.grey),
                     ),
                   ),
                 ),

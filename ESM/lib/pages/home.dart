@@ -300,7 +300,10 @@ class _HomeState extends State<Home> {
                         style: TextStyle(fontSize: screenWidth * 0.04),
                       ),
                       RadioListTile(
-                        title: const Text('Nam'),
+                        title: Text(
+                          'Nam',
+                          style: TextStyle(fontSize: screenWidth * 0.04),
+                        ),
                         value: 'Nam',
                         groupValue: _selectedGender,
                         onChanged: (value) {
