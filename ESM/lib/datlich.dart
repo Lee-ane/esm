@@ -19,17 +19,21 @@ class DatLich extends StatefulWidget {
 class _DatLichState extends State<DatLich> {
   dynamic data = [];
 
+  void fetchData() async {
+    data = await ReadData().fetchUser(context.read<DataModel>().taiKhoan);
+    context.read<DataModel>().setSDT(data['SDT']);
+    context.read<DataModel>().setGioiTinh(data['GioiTinh']);
+    context.read<DataModel>().setNgaySinh(DateTime.parse(data['NamSinh']));
+    context.read<DataModel>().setCMND(data['CMND']);
+    context.read<DataModel>().setBHYT(data['BHYT']);
+    context.read<DataModel>().setDiaChi(data['DiaChi']);
+  }
+
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     if (data.isEmpty) {
-      data = await ReadData().fetchUser(context.read<DataModel>().taiKhoan);
-      context.read<DataModel>().setSDT(data['SDT']);
-      context.read<DataModel>().setGioiTinh(data['GioiTinh']);
-      context.read<DataModel>().setNgaySinh(DateTime.parse(data['NamSinh']));
-      context.read<DataModel>().setCMND(data['CMND']);
-      context.read<DataModel>().setBHYT(data['BHYT']);
-      context.read<DataModel>().setDiaChi(data['DiaChi']);
+      fetchData();
     }
   }
 

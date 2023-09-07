@@ -253,6 +253,7 @@ class _RegisterState extends State<Register> {
                   padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
                   child: SizedBox(
                     width: screenWidth,
+                    height: screenHeight * 0.1,
                     child: TextField(
                       maxLines: 2,
                       controller: diaChiController,
