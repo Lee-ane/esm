@@ -6,6 +6,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
+String urlHead = 'http://192.168.1.11:8080/api';
+
 class ListItem {
   final String title;
 
@@ -186,8 +188,6 @@ class ThongTinDatLich {
       required this.ngayKham});
 }
 
-String urlHead = 'http://192.168.1.12:8080/api';
-
 class ReadData {
   Future<dynamic> fetchUser(String taiKhoan) async {
     String url = '$urlHead/khachhang';
@@ -197,6 +197,32 @@ class ReadData {
     final response = await http.post(
       Uri.parse(url),
       body: json.encode({'taiKhoan': taiKhoan}),
+      headers: headers,
+    );
+    try {
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        var log = decodedResponse["data"];
+        return log;
+      } else {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  Future<dynamic> fetchPK() async {
+    String url = '$urlHead/phongKham';
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.get(
+      Uri.parse(url),
       headers: headers,
     );
     try {
@@ -233,6 +259,4 @@ class MapData {
       }
     }
   }
-
-
 }

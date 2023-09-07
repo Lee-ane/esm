@@ -170,12 +170,12 @@ class _OnlineState extends State<Online> {
       var placemarks = document.findAllElements('Placemark');
       for (var placemark in placemarks) {
         var name = placemark.findElements('name').first;
-        var nameString = name.text;
+        var nameString = name.innerText;
         var points = placemark.findElements('Point').toList();
         var pointsElement = points.first;
         var coordinatesElement =
             pointsElement.findElements('coordinates').single;
-        var coordinates = coordinatesElement.text.split(',');
+        var coordinates = coordinatesElement.innerText.split(',');
         var lat = double.parse(coordinates[1]);
         var lon = double.parse(coordinates[0]);
         var markerId = MarkerId(nameString);
