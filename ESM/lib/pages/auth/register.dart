@@ -38,7 +38,7 @@ class _RegisterState extends State<Register> {
             color: Colors.white,
             width: screenWidth,
             height: screenHeight,
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
