@@ -27,6 +27,7 @@ class _DatLichState extends State<DatLich> {
     context.read<DataModel>().setCMND(data['CMND']);
     context.read<DataModel>().setBHYT(data['BHYT']);
     context.read<DataModel>().setDiaChi(data['DiaChi']);
+    setState(() {});
   }
 
   @override
