@@ -32,6 +32,8 @@ class _HomeState extends State<Home> {
   List<String> chuyenKhoaList = [];
   String selectedCK = '';
   int index = 0;
+  List<String> noiKhamList = [];
+  String selectedNK = '';
 
   final List<ListItem> options = [
     ListItem('Đặt lịch khám tại nhà'),
@@ -201,6 +203,8 @@ class _HomeState extends State<Home> {
     selectedGK = goiKhamList[0];
     chuyenKhoaList = context.read<DataModel>().chuyenKhoa;
     selectedCK = chuyenKhoaList[0];
+    noiKhamList = context.read<DataModel>().noiKham;
+    selectedNK = noiKhamList[0];
   }
 
   @override
@@ -251,7 +255,7 @@ class _HomeState extends State<Home> {
                                   ? Colors.white
                                   : primaryColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: screenHeight * 0.017,
+                              fontSize: screenHeight * 0.016,
                             ),
                           ),
                         ),
@@ -302,7 +306,7 @@ class _HomeState extends State<Home> {
                       RadioListTile(
                         title: Text(
                           'Nam',
-                          style: TextStyle(fontSize: screenWidth * 0.04),
+                          style: TextStyle(fontSize: screenWidth * 0.035),
                         ),
                         value: 'Nam',
                         groupValue: _selectedGender,
@@ -311,7 +315,10 @@ class _HomeState extends State<Home> {
                         },
                       ),
                       RadioListTile(
-                        title: const Text('Nữ'),
+                        title: Text(
+                          'Nữ',
+                          style: TextStyle(fontSize: screenWidth * 0.035),
+                        ),
                         value: 'Nữ',
                         groupValue: _selectedGender,
                         onChanged: (value) {
@@ -379,18 +386,23 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Chọn nơi khám',
-                    style: TextStyle(fontSize: screenWidth * 0.04),
+              DropdownButtonFormField(
+                value: selectedNK,
+                decoration: const InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_drop_down),
-                  ),
-                ],
+                ),
+                items:
+                    noiKhamList.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                      value: value, child: Text(value));
+                }).toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedNK = value!;
+                  });
+                },
               ),
               Padding(
                 padding: EdgeInsets.only(top: screenHeight * 0.025),

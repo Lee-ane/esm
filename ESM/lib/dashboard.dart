@@ -26,6 +26,37 @@ class _DashBoardState extends State<DashBoard> {
   List<String> namelist = [];
   List<int> pricelist = [];
   List<String> chuyenKhoa = [];
+  List<String> phongKhamlist = [];
+
+  Future<void> fetchPK() async {
+    String url = '${context.read<DataModel>().urlHead}/phongKham';
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.get(
+      Uri.parse(url),
+      headers: headers,
+    );
+    try {
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        var log = decodedResponse["data"];
+        data = log;
+        for (int i = 0; i < data.length; i++) {
+          phongKhamlist.add(data[i]['TenPhongKham']);
+        }
+        context.read<DataModel>().setNoiKham(phongKhamlist);
+      } else {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
 
   Future<void> fetchGK() async {
     String url = '${context.read<DataModel>().urlHead}/goiKham';
@@ -93,6 +124,7 @@ class _DashBoardState extends State<DashBoard> {
     super.initState();
     fetchGK();
     fetchCK();
+    fetchPK();
   }
 
   @override

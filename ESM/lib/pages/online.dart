@@ -113,11 +113,7 @@ class _OnlineState extends State<Online> {
 
       if (result.errorMessage != null && result.errorMessage!.isNotEmpty) {
         setState(() {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Center(child: Text('Too much request please try later')),
-            ),
-          );
+          totalDistance = 'Quota';
         });
       } else if (result.points.isNotEmpty) {
         for (var point in result.points) {
@@ -125,19 +121,8 @@ class _OnlineState extends State<Online> {
         }
         setState(() {
           addPolyLine();
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Center(child: Text('Routing'))),
-          );
           totalDistance = distanceCalculator
               .calculateRouteDistance(polylineCoordinate, decimals: 1);
-        });
-      } else {
-        setState(() {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Center(child: Text('No route found')),
-            ),
-          );
         });
       }
     } catch (e) {
@@ -168,6 +153,7 @@ class _OnlineState extends State<Online> {
           await rootBundle.loadString('assets/Branches.kml');
       var document = xml.XmlDocument.parse(kmlContent);
       var placemarks = document.findAllElements('Placemark');
+      locationName.clear();
       for (var placemark in placemarks) {
         var name = placemark.findElements('name').first;
         var nameString = name.innerText;
@@ -325,7 +311,6 @@ class _OnlineState extends State<Online> {
 
   void setPhongKham() async {
     fullAdress = '';
-    markers.clear();
     readKmlFile();
     MapData().getPermisson();
     showDialog(
@@ -386,7 +371,7 @@ class _OnlineState extends State<Online> {
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.5,
+                                                0.45,
                                             child: ListView.builder(
                                               itemCount: locationName.length,
                                               itemBuilder: (context, index) {
@@ -414,8 +399,9 @@ class _OnlineState extends State<Online> {
                                                         centerMapOnPoint(
                                                             cN[index]);
                                                         selected = index;
-                                                        isVisible = true;
-                                                        setState(() {});
+                                                        setState(() {
+                                                          isVisible = true;
+                                                        });
                                                       },
                                                       child: Text(
                                                         locationName[index],
@@ -474,29 +460,28 @@ class _OnlineState extends State<Online> {
                     alignment: Alignment.bottomRight,
                     child: Padding(
                       padding: const EdgeInsets.all(10),
-                      child: Visibility(
-                        visible: isVisible,
-                        child: AnimatedContainer(
-                          duration: const Duration(seconds: 1),
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: TextButton(
-                            onPressed: () {
+                      child: AnimatedContainer(
+                        duration: const Duration(seconds: 1),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            if (isVisible) {
                               noiKham = locationName[selected];
                               Navigator.pop(context);
                               setState(() {});
-                            },
-                            child: Text(
-                              'Chọn nơi khám',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.04),
-                            ),
+                            }
+                          },
+                          child: Text(
+                            'Đặt làm nơi khám',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.04),
                           ),
                         ),
                       ),
@@ -525,7 +510,6 @@ class _OnlineState extends State<Online> {
     selectedGK = goiKhamList[0];
     chuyenKhoaList = context.read<DataModel>().chuyenKhoa;
     selectedCK = chuyenKhoaList[0];
-    noiKham = context.read<DataModel>().noiKham;
   }
 
   @override
@@ -637,7 +621,10 @@ class _OnlineState extends State<Online> {
                         style: TextStyle(fontSize: screenWidth * 0.04),
                       ),
                       RadioListTile(
-                        title: const Text('Nam'),
+                        title: Text(
+                          'Nam',
+                          style: TextStyle(fontSize: screenWidth * 0.035),
+                        ),
                         value: 'Nam',
                         groupValue: _selectedGender,
                         onChanged: (value) {
@@ -645,7 +632,10 @@ class _OnlineState extends State<Online> {
                         },
                       ),
                       RadioListTile(
-                        title: const Text('Nữ'),
+                        title: Text(
+                          'Nữ',
+                          style: TextStyle(fontSize: screenWidth * 0.035),
+                        ),
                         value: 'Nữ',
                         groupValue: _selectedGender,
                         onChanged: (value) {
