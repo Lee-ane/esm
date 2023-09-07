@@ -197,6 +197,7 @@ class _RegisterState extends State<Register> {
                   child: SizedBox(
                     width: screenWidth,
                     child: TextField(
+                      obscureText: true,
                       controller: matKhauController,
                       decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(
