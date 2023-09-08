@@ -62,14 +62,13 @@ class TraCuuState extends State<TraCuu> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(screenWidth * 0.05),
-          height: screenHeight,
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           width: screenWidth,
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const BackButton(),
                 //-----Thông tin thành viên-----//
                 AnimatedTile(
                     expanded: expanded[0],
@@ -87,12 +86,12 @@ class TraCuuState extends State<TraCuu> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Họ tên'),
-                        const Text('Số điện thoại'),
-                        const Text('Năm sinh'),
-                        const Text('Số CMND'),
-                        const Text('Số BHYT'),
-                        const Text('Địa chỉ'),
+                        const Text('Họ tên:'),
+                        const Text('Số điện thoại:'),
+                        const Text('Năm sinh:'),
+                        const Text('Số CMND:'),
+                        const Text('Số BHYT:'),
+                        const Text('Địa chỉ:'),
                         Table(
                           children: const [
                             TableRow(
@@ -352,11 +351,13 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
-                                        title: Text(
-                                          checkBoxTitleDU[index].title,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: screenWidth * 0.035),
+                                        title: Expanded(
+                                          child: Text(
+                                            checkBoxTitleDU[index].title,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: screenWidth * 0.035),
+                                          ),
                                         ),
                                         value: checkboxValuesCha[index],
                                         onChanged: null,
@@ -396,11 +397,13 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
-                                        title: Text(
-                                          checkBoxTitleDU[index].title,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: screenWidth * 0.035),
+                                        title: Expanded(
+                                          child: Text(
+                                            checkBoxTitleDU[index].title,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: screenWidth * 0.035),
+                                          ),
                                         ),
                                         value: checkboxValuesMe[index],
                                         onChanged: null,
@@ -443,11 +446,13 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
-                                        title: Text(
-                                          checkBoxTitleDU[index].title,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: screenWidth * 0.035),
+                                        title: Expanded(
+                                          child: Text(
+                                            checkBoxTitleDU[index].title,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: screenWidth * 0.035),
+                                          ),
                                         ),
                                         value: checkboxValuesONoi[index],
                                         onChanged: null,
@@ -490,11 +495,13 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
-                                        title: Text(
-                                          checkBoxTitleDU[index].title,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: screenWidth * 0.035),
+                                        title: Expanded(
+                                          child: Text(
+                                            checkBoxTitleDU[index].title,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: screenWidth * 0.035),
+                                          ),
                                         ),
                                         value: checkboxValuesBNoi[index],
                                         onChanged: null,
@@ -537,11 +544,13 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
-                                        title: Text(
-                                          checkBoxTitleDU[index].title,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: screenWidth * 0.035),
+                                        title: Expanded(
+                                          child: Text(
+                                            checkBoxTitleDU[index].title,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: screenWidth * 0.035),
+                                          ),
                                         ),
                                         value: checkboxValuesONgoai[index],
                                         onChanged: null,
@@ -584,11 +593,13 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
-                                        title: Text(
-                                          checkBoxTitleDU[index].title,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: screenWidth * 0.035),
+                                        title: Expanded(
+                                          child: Text(
+                                            checkBoxTitleDU[index].title,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: screenWidth * 0.035),
+                                          ),
                                         ),
                                         value: checkboxValuesBNgoai[index],
                                         onChanged: null,
