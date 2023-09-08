@@ -109,7 +109,9 @@ class _DashBoardState extends State<DashBoard> {
         for (int i = 0; i < log.length; i++) {
           chuyenKhoa.add(log[i]['tenChuyenKhoa']);
         }
-        context.read<DataModel>().setChuyenKhoa(chuyenKhoa);
+        setState(() {
+          context.read<DataModel>().setChuyenKhoa(chuyenKhoa);
+        });
       } else {
         if (kDebugMode) {
           print(response.statusCode);
