@@ -190,20 +190,14 @@ class ThongTinDatLich {
 
 class ReadData {
   Future<dynamic> fetchUser(String taiKhoan) async {
-    String url = '$urlHead/khachhang';
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-    final response = await http.post(
-      Uri.parse(url),
-      body: json.encode({'taiKhoan': taiKhoan}),
-      headers: headers,
-    );
+    String url = '$urlHead/khachhang/$taiKhoan';
+
+    final response = await http.get(Uri.parse(url));
     try {
       if (response.statusCode == 200) {
         var decodedResponse = jsonDecode(response.body);
-        var log = decodedResponse["data"];
-        return log;
+        print(decodedResponse);
+        return decodedResponse;
       } else {
         if (kDebugMode) {
           print(response.statusCode);

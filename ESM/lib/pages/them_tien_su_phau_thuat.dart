@@ -1,7 +1,9 @@
+import 'package:esm/benh_an_dien_tu.dart';
 import 'package:esm/components/buttons.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/components/textfields.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ThemTienSuPT extends StatefulWidget {
   const ThemTienSuPT({super.key});
@@ -11,9 +13,36 @@ class ThemTienSuPT extends StatefulWidget {
 }
 
 class _ThemTienSuPTState extends State<ThemTienSuPT> {
+  TextEditingController tenController = TextEditingController(),
+      ngayTHController = TextEditingController(),
+      gioTHController = TextEditingController(),
+      ngayGMController = TextEditingController(),
+      gioGMController = TextEditingController(),
+      ngayBDController = TextEditingController(),
+      gioBDController = TextEditingController(),
+      ngayKTController = TextEditingController(),
+      gioKTController = TextEditingController();
+
+  String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
+  String time = '${TimeOfDay.now().hour}:${TimeOfDay.now().minute}';
+
+  @override
+  void initState() {
+    super.initState();
+    ngayTHController.text = date;
+    gioTHController.text = time;
+    ngayGMController.text = date;
+    gioGMController.text = time;
+    ngayBDController.text = date;
+    gioBDController.text = time;
+    ngayKTController.text = date;
+    gioKTController.text = time;
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -37,25 +66,88 @@ class _ThemTienSuPTState extends State<ThemTienSuPT> {
           height: screenHeight,
           child: Stack(
             children: [
-              const Column(
+              Column(
                 children: [
                   TextField(
-                    decoration: InputDecoration(
+                    controller: tenController,
+                    decoration: const InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         labelText: 'Tên phẫu thuật',
                         hintText: 'Tên phẫu thuật'),
                   ),
-                  TienSuPTFT(title: 'Ngày thực hiện'),
-                  TienSuPTFT(title: 'Thời gian gây mê'),
-                  TienSuPTFT(title: 'Thời gian bắt đầu'),
-                  TienSuPTFT(title: 'Thời gian kết thúc'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: screenWidth * 0.6,
+                        child: DateTF(
+                            controller: ngayTHController,
+                            title: 'Ngày thực hiện'),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.3,
+                        child:
+                            TimeTF(controller: gioTHController, title: 'Giờ'),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: screenWidth * 0.6,
+                        child: DateTF(
+                            controller: ngayGMController, title: 'Ngày gây mê'),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.3,
+                        child:
+                            TimeTF(controller: gioGMController, title: 'Giờ'),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: screenWidth * 0.6,
+                        child: DateTF(
+                            controller: ngayBDController,
+                            title: 'Ngày bắt đầu'),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.3,
+                        child:
+                            TimeTF(controller: gioBDController, title: 'Giờ'),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: screenWidth * 0.6,
+                        child: DateTF(
+                            controller: ngayKTController,
+                            title: 'Ngày kết thúc'),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.3,
+                        child:
+                            TimeTF(controller: gioKTController, title: 'Giờ'),
+                      ),
+                    ],
+                  ),
                 ],
               ),
               //Nút lưu
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SaveTienSuBtn(onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BenhAnDienTu()));
                 }),
               ),
             ],

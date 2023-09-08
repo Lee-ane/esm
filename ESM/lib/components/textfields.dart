@@ -44,18 +44,19 @@ class FormTF extends StatelessWidget {
 
 class DateTF extends StatelessWidget {
   final TextEditingController controller;
-  const DateTF({super.key, required this.controller});
+  final String title;
+  const DateTF({super.key, required this.controller, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
       readOnly: true,
-      decoration: const InputDecoration(
-          focusedBorder: UnderlineInputBorder(
+      decoration: InputDecoration(
+          focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
           ),
-          labelText: 'Ngày dự kiến khám'),
+          labelText: title),
       onTap: () async {
         DateTime? newDate = await showDatePicker(
             context: context,
@@ -71,18 +72,19 @@ class DateTF extends StatelessWidget {
 
 class TimeTF extends StatelessWidget {
   final TextEditingController controller;
-  const TimeTF({super.key, required this.controller});
+  final String title;
+  const TimeTF({super.key, required this.controller, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
       readOnly: true,
-      decoration: const InputDecoration(
-          focusedBorder: UnderlineInputBorder(
+      decoration: InputDecoration(
+          focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
           ),
-          labelText: 'Giờ khám'),
+          labelText: title),
       onTap: () async {
         TimeOfDay? newTime = await showTimePicker(
             context: context, initialTime: TimeOfDay.now());

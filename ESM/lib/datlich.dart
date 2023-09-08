@@ -6,6 +6,7 @@ import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
 import 'package:esm/pages/home.dart';
 import 'package:esm/pages/online.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,14 +21,20 @@ class _DatLichState extends State<DatLich> {
   dynamic data = [];
 
   void fetchData() async {
-    data = await ReadData().fetchUser(context.read<DataModel>().taiKhoan);
-    context.read<DataModel>().setSDT(data['SDT']);
-    context.read<DataModel>().setGioiTinh(data['GioiTinh']);
-    context.read<DataModel>().setNgaySinh(DateTime.parse(data['NamSinh']));
-    context.read<DataModel>().setCMND(data['CMND']);
-    context.read<DataModel>().setBHYT(data['BHYT']);
-    context.read<DataModel>().setDiaChi(data['DiaChi']);
-    setState(() {});
+    try {
+      data = await ReadData().fetchUser(context.read<DataModel>().taiKhoan);
+      // context.read<DataModel>().setSDT(data['SDT']);
+      // context.read<DataModel>().setGioiTinh(data['GioiTinh']);
+      // context.read<DataModel>().setNgaySinh(DateTime.parse(data['NamSinh']));
+      // context.read<DataModel>().setCMND(data['CMND']);
+      // context.read<DataModel>().setBHYT(data['BHYT']);
+      // context.read<DataModel>().setDiaChi(data['DiaChi']);
+      setState(() {});
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   @override

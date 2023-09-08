@@ -865,8 +865,11 @@ class _OnlineState extends State<Online> {
                             ),
                           ],
                         ),
-                        DateTF(controller: ngayKhamController),
-                        TimeTF(controller: gioKhamController),
+                        DateTF(
+                            controller: ngayKhamController,
+                            title: 'Ngày khám bệnh'),
+                        TimeTF(
+                            controller: gioKhamController, title: 'Giờ khám'),
                       ],
                     ),
                   ],

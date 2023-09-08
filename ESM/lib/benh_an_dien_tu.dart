@@ -6,6 +6,7 @@ import 'package:esm/components/style.dart';
 import 'package:esm/components/textfields.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
+import 'package:esm/pages/them_tien_su_phau_thuat.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -41,6 +42,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
       chiTietONgoaiController = TextEditingController(),
       chiTietBNgoaiController = TextEditingController();
   List<bool> expanded = List.generate(13, (index) => false);
+  late int previousExpanded;
   List<bool> _checkboxValuesNC = [];
   List<bool> _checkboxValuesKT = [];
   List<bool> _checkboxValuesDU = [];
@@ -573,7 +575,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                   },
                   text: 'Tiền sử phẫu thuật'),
               AnimatedContent(
-                heightRatio: 0.42,
+                heightRatio: 0.44,
                 expanded: expanded[5],
                 child: Column(
                   children: [
@@ -629,7 +631,12 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                     const Divider(),
                     TextButton(
                       onPressed: () {
-                        if (editable) {}
+                        if (editable) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ThemTienSuPT()));
+                        }
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,

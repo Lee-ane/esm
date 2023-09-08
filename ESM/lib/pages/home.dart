@@ -562,8 +562,11 @@ class _HomeState extends State<Home> {
                             ),
                           ],
                         ),
-                        DateTF(controller: ngayKhamController),
-                        TimeTF(controller: gioKhamController),
+                        DateTF(
+                            controller: ngayKhamController,
+                            title: 'Ngày khám bệnh'),
+                        TimeTF(
+                            controller: gioKhamController, title: 'Giờ khám'),
                       ],
                     ),
                   ],
