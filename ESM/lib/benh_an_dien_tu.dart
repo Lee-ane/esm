@@ -42,7 +42,6 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
       chiTietONgoaiController = TextEditingController(),
       chiTietBNgoaiController = TextEditingController();
   List<bool> expanded = List.generate(13, (index) => false);
-  late int previousExpanded;
   List<bool> _checkboxValuesNC = [];
   List<bool> _checkboxValuesKT = [];
   List<bool> _checkboxValuesDU = [];
@@ -52,6 +51,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
   List<bool> _checkboxValuesBNoi = [];
   List<bool> _checkboxValuesONgoai = [];
   List<bool> _checkboxValuesBNgoai = [];
+  int count = 0;
 
   dynamic data = [];
 
@@ -190,6 +190,24 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
         }));
   }
 
+  void toggleItem(int index) {
+    setState(() {
+      for (int i = 0; i < expanded.length; i++) {
+        if (expanded[i] == true) {
+          count++;
+          if (count > 1) {
+            if (i == index) {
+              expanded[i] = true;
+            } else {
+              expanded[i] = false;
+            }
+            count = 1;
+          }
+        }
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -257,6 +275,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                   expanded: expanded[0],
                   onTap: () async {
                     expanded[0] = !expanded[0];
+                    toggleItem(0);
                     if (data.isEmpty) {
                       data = await ReadData()
                           .fetchUser(context.read<DataModel>().taiKhoan);
@@ -272,7 +291,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                   },
                   text: 'Thông tin thành viên'),
               AnimatedContent(
-                heightRatio: 0.6,
+                heightRatio: 0.61,
                 expanded: expanded[0],
                 child: Column(
                   children: [
@@ -399,7 +418,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                   expanded: expanded[1],
                   onTap: () {
                     expanded[1] = !expanded[1];
-                    setState(() {});
+                    toggleItem(1);
                   },
                   text: 'Tình trạng lúc sinh'),
               AnimatedContent(
@@ -440,7 +459,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                   expanded: expanded[2],
                   onTap: () {
                     expanded[2] = !expanded[2];
-                    setState(() {});
+                    toggleItem(2);
                   },
                   text: 'Yếu tố nguy cơ đối với sức khỏe cá nhân'),
               AnimatedContent(
@@ -476,7 +495,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                   expanded: expanded[3],
                   onTap: () {
                     expanded[3] = !expanded[3];
-                    setState(() {});
+                    toggleItem(3);
                   },
                   text: 'Khuyết tật'),
               AnimatedContent(
@@ -513,7 +532,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                   expanded: expanded[4],
                   onTap: () {
                     expanded[4] = !expanded[4];
-                    setState(() {});
+                    toggleItem(4);
                   },
                   text: 'Tiền sử bệnh tật, dị ứng'),
               AnimatedContent(
@@ -531,7 +550,8 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                             alignment: Alignment.center,
                             height: screenHeight * 0.1,
                             child: CheckboxListTile(
-                              title: Text(checkBoxTitleDU[index].title),
+                              title: Expanded(
+                                  child: Text(checkBoxTitleDU[index].title)),
                               value: _checkboxValuesDU[index],
                               onChanged: (newValue) {
                                 setState(
@@ -571,11 +591,11 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                   expanded: expanded[5],
                   onTap: () {
                     expanded[5] = !expanded[5];
-                    setState(() {});
+                    toggleItem(5);
                   },
                   text: 'Tiền sử phẫu thuật'),
               AnimatedContent(
-                heightRatio: 0.44,
+                heightRatio: 0.42,
                 expanded: expanded[5],
                 child: Column(
                   children: [
@@ -659,7 +679,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                 expanded: expanded[6],
                 onTap: () {
                   expanded[6] = !expanded[6];
-                  setState(() {});
+                  toggleItem(6);
                 },
                 text: 'Tiền sử gia đình',
               ),

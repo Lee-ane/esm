@@ -6,6 +6,7 @@ import 'package:esm/components/style.dart';
 import 'package:esm/datlich.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
+import 'package:esm/pages/tracuu_badt.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -151,99 +152,92 @@ class _DashBoardState extends State<DashBoard> {
             isScrollControlled: true,
             builder: (BuildContext context) {
               return AnimatedContainer(
-                height: screenHeight * 0.8,
+                height: screenHeight * 0.73,
                 padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom,
                 ),
                 duration: const Duration(seconds: 1),
                 curve: Curves.easeInOut,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        height: screenHeight * 0.07,
-                        color: primaryColor,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Tra cứu bệnh án điện tử',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
+                child: Column(
+                  children: [
+                    Container(
+                      height: screenHeight * 0.07,
+                      color: primaryColor,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Tra cứu bệnh án điện tử',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
                       ),
-                      isChecking
-                          ? Text('hello')
-                          : SingleChildScrollView(
-                              child: SizedBox(
-                                height: screenHeight * 0.4,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.apartment,
-                                        color: primaryColor,
-                                        size: screenWidth * 0.1,
-                                      ),
-                                      const Text(
-                                        'Tra cứu Bệnh án điện tử/CCCD/BHYT cần tra cứu',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 3, vertical: 10),
-                                        child: SingleChildScrollView(
-                                          child: TextField(
-                                            controller: maController,
-                                            decoration: InputDecoration(
-                                              hintText: 'Mã bệnh án/CCCD/BHYT',
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: primaryColor,
-                                                    width: 2),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: screenWidth,
-                                        decoration: BoxDecoration(
-                                          color: primaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        child: TextButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              isChecking = !isChecking;
-                                            });
-                                          },
-                                          child: const Text(
-                                            'Tra cứu',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                    ),
+                    SizedBox(
+                      width: screenWidth,
+                      height: screenHeight * 0.28,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.apartment,
+                              color: primaryColor,
+                              size: screenWidth * 0.1,
+                            ),
+                            const Text(
+                              'Tra cứu Bệnh án điện tử/CCCD/BHYT cần tra cứu',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 3, vertical: 10),
+                              child: SingleChildScrollView(
+                                child: TextField(
+                                  controller: maController,
+                                  decoration: InputDecoration(
+                                    hintText: 'Mã bệnh án/CCCD/BHYT',
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: primaryColor, width: 2),
+                                    ),
                                   ),
                                 ),
                               ),
-                            )
-                    ],
-                  ),
+                            ),
+                            Container(
+                              width: screenWidth,
+                              decoration: BoxDecoration(
+                                color: primaryColor,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const TraCuu()));
+                                },
+                                child: const Text(
+                                  'Tra cứu',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
             });

@@ -6,3 +6,5 @@ TextStyle description = const TextStyle(
 TextStyle register =
     TextStyle(color: primaryColor, fontSize: 30, fontWeight: FontWeight.bold);
 Color primaryColor = const Color(0xff4BC848);
+TextStyle checkedTitle =
+    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16);

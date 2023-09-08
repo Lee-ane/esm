@@ -41,7 +41,7 @@ class AnimatedTile extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: screenWidth * 0.04),
+                    fontSize: screenWidth * 0.038),
               ),
               Icon(
                 expanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
