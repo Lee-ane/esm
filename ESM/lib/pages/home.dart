@@ -1,6 +1,7 @@
 import 'package:esm/components/buttons.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/components/textfields.dart';
+import 'package:esm/dashboard.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
 import 'package:flutter/foundation.dart';
@@ -31,9 +32,11 @@ class _HomeState extends State<Home> {
   List<String> goiKhamList = [];
   List<String> chuyenKhoaList = [];
   String selectedCK = '';
-  int index = 0;
   List<String> noiKhamList = [];
   String selectedNK = '';
+  int indexGK = 1;
+  int indexCK = 1;
+  int indexNK = 1;
 
   final List<ListItem> options = [
     ListItem('Đặt lịch khám tại nhà'),
@@ -401,6 +404,8 @@ class _HomeState extends State<Home> {
                 onChanged: (String? value) {
                   setState(() {
                     selectedNK = value!;
+                    indexNK =
+                        context.read<DataModel>().noiKham.indexOf(value) + 1;
                   });
                 },
               ),
@@ -437,6 +442,8 @@ class _HomeState extends State<Home> {
                 onChanged: (String? value) {
                   setState(() {
                     selectedCK = value!;
+                    indexCK =
+                        context.read<DataModel>().chuyenKhoa.indexOf(value) + 1;
                   });
                 },
               ),
@@ -473,7 +480,8 @@ class _HomeState extends State<Home> {
                 onChanged: (String? value) {
                   setState(() {
                     selectedGK = value!;
-                    index = context.read<DataModel>().goiKham.indexOf(value);
+                    indexGK =
+                        context.read<DataModel>().goiKham.indexOf(value) + 1;
                   });
                 },
               ),
@@ -496,7 +504,7 @@ class _HomeState extends State<Home> {
                       padding: EdgeInsets.only(left: screenWidth * 0.1),
                       child: Text(
                         NumberFormat.currency(symbol: 'đ', locale: 'vi_VN')
-                            .format(context.read<DataModel>().giaGoi[index]),
+                            .format(context.read<DataModel>().giaGoi[indexGK]),
                         style: TextStyle(fontSize: screenWidth * 0.04),
                       ),
                     ),
@@ -522,6 +530,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               TextField(
+                controller: trieuChungController,
                 maxLines: 2,
                 decoration: InputDecoration(
                   hintText: 'Triệu chứng',
@@ -577,7 +586,41 @@ class _HomeState extends State<Home> {
                   'Đặt lịch hẹn',
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  List<int> timeComponents =
+                      gioKhamController.text.split(':').map(int.parse).toList();
+                  int hours = timeComponents[0];
+                  int minutes = timeComponents[1];
+                  DateTime date = DateFormat('dd-MM-yyyy')
+                      .parse(ngayKhamController.text, true);
+                  DateTime combine =
+                      DateTime(date.year, date.month, date.day, hours, minutes);
+                  String message = await Submit().submit(
+                      context.read<DataModel>().makh,
+                      indexCK,
+                      diaChiController.text,
+                      options[selectedIndex].title,
+                      combine.toString(),
+                      trieuChungController.text,
+                      indexGK,
+                      indexNK);
+                  if (message.isNotEmpty) {
+                    setState(() {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Center(child: Text(message))));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const DashBoard()));
+                    });
+                  } else {
+                    setState(() {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content:
+                              Center(child: Text('Vui lòng thử lại sau'))));
+                    });
+                  }
+                },
               ),
               Padding(
                 padding: EdgeInsets.only(top: screenHeight * 0.02),

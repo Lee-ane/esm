@@ -23,12 +23,12 @@ class _DatLichState extends State<DatLich> {
   void fetchData() async {
     try {
       data = await ReadData().fetchUser(context.read<DataModel>().taiKhoan);
-      // context.read<DataModel>().setSDT(data['SDT']);
-      // context.read<DataModel>().setGioiTinh(data['GioiTinh']);
-      // context.read<DataModel>().setNgaySinh(DateTime.parse(data['NamSinh']));
-      // context.read<DataModel>().setCMND(data['CMND']);
-      // context.read<DataModel>().setBHYT(data['BHYT']);
-      // context.read<DataModel>().setDiaChi(data['DiaChi']);
+      context.read<DataModel>().setSDT(data['SDT']);
+      context.read<DataModel>().setGioiTinh(data['GioiTinh']);
+      context.read<DataModel>().setNgaySinh(DateTime.parse(data['NamSinh']));
+      context.read<DataModel>().setCMND(data['CMND']);
+      context.read<DataModel>().setBHYT(data['BHYT']);
+      context.read<DataModel>().setDiaChi(data['DiaChi']);
       setState(() {});
     } catch (e) {
       if (kDebugMode) {

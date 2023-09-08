@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
-String urlHead = 'http://192.168.1.11:8080/api';
+String urlHead = 'http://192.168.1.8:8080/api';
 
 class ListItem {
   final String title;
@@ -196,8 +196,8 @@ class ReadData {
     try {
       if (response.statusCode == 200) {
         var decodedResponse = jsonDecode(response.body);
-        print(decodedResponse);
-        return decodedResponse;
+        var data = decodedResponse['data'];
+        return data;
       } else {
         if (kDebugMode) {
           print(response.statusCode);
@@ -234,6 +234,46 @@ class ReadData {
         print(e);
       }
     }
+  }
+}
+
+class Submit {
+  Future<String> submit(int maKH, int maCK, String diaChi, String loaiDK,
+      String tgKham, String trieuChung, int maGK, int maPK) async {
+    String url = '$urlHead/PhieuDK';
+    String log = '';
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.post(
+      Uri.parse(url),
+      body: json.encode({
+        'Makh': maKH,
+        'MaCK': maCK,
+        'DiaChi': diaChi,
+        'loaiDK': loaiDK,
+        'TGKham': tgKham,
+        'TrieuChung': trieuChung,
+        'MaGK': maGK,
+        'MaPK': maPK
+      }),
+      headers: headers,
+    );
+    try {
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        log = decodedResponse["message"];
+      } else {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+    return log;
   }
 }
 

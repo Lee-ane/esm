@@ -43,8 +43,10 @@ class _LoginState extends State<Login> {
       if (response.statusCode == 200) {
         var decodedResponse = jsonDecode(response.body);
         var log = decodedResponse["data"];
+        var id = log["id"];
         var name = log["name"];
         var username = log["username"];
+        context.read<DataModel>().setMaKH(id);
         context.read<DataModel>().setHoTen(name);
         context.read<DataModel>().setTaiKhoan(username);
         scaffoldMessenger.showSnackBar(
@@ -133,7 +135,9 @@ class _LoginState extends State<Login> {
                       ),
                       suffixIcon: IconButton(
                           icon: Icon(
-                            Icons.remove_red_eye,
+                            isObscure
+                                ? Icons.visibility_off
+                                : Icons.remove_red_eye,
                             size: screenWidth * 0.05,
                           ),
                           onPressed: () {

@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:esm/benh_an_dien_tu.dart';
+import 'package:esm/components/drawer.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/datlich.dart';
 import 'package:esm/model/data.dart';
@@ -122,9 +123,9 @@ class _DashBoardState extends State<DashBoard> {
   @override
   void initState() {
     super.initState();
-    fetchGK();
-    fetchCK();
-    fetchPK();
+    // fetchGK();
+    // fetchCK();
+    // fetchPK();
   }
 
   @override
@@ -250,189 +251,222 @@ class _DashBoardState extends State<DashBoard> {
           backgroundColor: primaryColor,
         ),
         //Drawer
-        drawer: Drawer(
-          surfaceTintColor: Colors.white,
-          child: ListView(
-            padding: EdgeInsets.zero,
+        drawer:
+            const Drawer(surfaceTintColor: Colors.white, child: DrawerCtn()),
+        body: SingleChildScrollView(
+          child: Column(
             children: [
-              Image.asset(
-                'assets/esm.jpg',
-                height: screenHeight * 0.3,
-                fit: BoxFit.fill,
-                filterQuality: FilterQuality.high,
-              ),
-              const Divider(),
-              ListTile(
-                leading: Icon(
-                  Icons.menu_book,
-                  color: primaryColor,
-                ),
-                title: Text(
-                  'Đặt lịch',
-                  style: TextStyle(
-                    color: primaryColor,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const DatLich()));
-                },
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.phone_android,
-                  color: primaryColor,
-                ),
-                title: Text(
-                  'Bệnh án điện tử',
-                  style: TextStyle(
-                    color: primaryColor,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BenhAnDienTu()));
-                },
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.search,
-                  color: primaryColor,
-                ),
-                title: Text(
-                  'Tra cứu bệnh án điện tử',
-                  style: TextStyle(
-                    color: primaryColor,
-                  ),
-                ),
-              ),
-              ListTile(
-                onTap: () {
-                  context.read<DataModel>().clearData();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Welcome()));
-                },
-                leading: Icon(
-                  Icons.logout,
-                  color: primaryColor,
-                ),
-                title: Text(
-                  'Đăng xuất',
-                  style: TextStyle(color: primaryColor),
-                ),
-              ),
-              const Divider(),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'CÔNG TY CỔ PHẨN HEALTHCARE SOLUTION VIET NAM',
-                      style: TextStyle(
-                        color: Color(0xff023e8a),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                        'Địa chỉ: 232/7 Võ Văn Kiệt, Phường Cầu Ông Lãnh, Quận 1, Thành Phố Hồ Chí Minh'),
-                    Text('Liên hệ: 0917 632 112'),
-                    Text('Email: info@hsv.com.vn'),
-                  ],
-                ),
-              ),
-              const Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Image.asset('assets/icon.jpg', width: screenWidth * 0.3),
-                  Image.asset('assets/confirm.png', width: screenWidth * 0.3),
-                ],
-              ),
-            ],
-          ),
-        ),
-        body: Column(
-          children: [
-            SizedBox(
-              height: screenHeight * 0.18,
-              child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 8,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.01,
-                          horizontal: screenWidth * 0.01),
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
+              SizedBox(
+                height: screenHeight * 0.18,
+                child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 8,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.01,
+                            horizontal: screenWidth * 0.01),
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: const BoxDecoration(
+                            color: Colors.grey,
+                          ),
+                          width: screenWidth * 0.35,
+                          child: Text('$index'),
                         ),
-                        width: screenWidth * 0.35,
-                        child: Text('$index'),
-                      ),
-                    );
-                  }),
-            ),
-            SizedBox(
-              height: screenHeight * 0.15,
-              child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: options.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.01,
-                          horizontal: screenWidth * 0.01),
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black,
-                              offset: Offset(0, 1),
-                            ),
-                          ],
-                        ),
-                        width: screenWidth * 0.35,
-                        child: TextButton(
-                          onPressed: options[index].onPressed,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(
-                                options[index].icon,
-                                color: primaryColor,
-                                size: screenWidth * 0.1,
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.28,
-                                child: Text(
-                                  options[index].title,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    color: primaryColor,
-                                    fontSize: screenWidth * 0.04,
-                                    fontWeight: FontWeight.bold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
+                      );
+                    }),
+              ),
+              SizedBox(
+                height: screenHeight * 0.15,
+                child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: options.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.01,
+                            horizontal: screenWidth * 0.01),
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black,
+                                offset: Offset(0, 1),
                               ),
                             ],
                           ),
+                          width: screenWidth * 0.35,
+                          child: TextButton(
+                            onPressed: options[index].onPressed,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  options[index].icon,
+                                  color: primaryColor,
+                                  size: screenWidth * 0.1,
+                                ),
+                                SizedBox(
+                                  width: screenWidth * 0.28,
+                                  child: Text(
+                                    options[index].title,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      color: primaryColor,
+                                      fontSize: screenWidth * 0.04,
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+                child: Container(
+                  color: Colors.white,
+                  width: screenWidth,
+                  height: screenHeight * 0.05,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Sản phẩm',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.05,
                         ),
                       ),
-                    );
-                  }),
-            )
-          ],
+                      Text(
+                        'Xem thêm',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.05,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.23,
+                child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 8,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.01,
+                            horizontal: screenWidth * 0.01),
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: const BoxDecoration(
+                            color: Colors.grey,
+                          ),
+                          width: screenWidth * 0.31,
+                          child: Text('$index'),
+                        ),
+                      );
+                    }),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+                child: Container(
+                  color: Colors.white,
+                  width: screenWidth,
+                  height: screenHeight * 0.05,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Bác sĩ tiêu biểu',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.05,
+                        ),
+                      ),
+                      Text(
+                        'Xem thêm',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.05,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+                child: Container(
+                  color: Colors.white,
+                  width: screenWidth,
+                  height: screenHeight * 0.05,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Thông tin y khoa',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.05,
+                        ),
+                      ),
+                      Text(
+                        'Xem thêm',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.05,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
+                height: screenHeight * 0.5,
+                child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
+                    itemCount: 4,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.01,
+                            horizontal: screenWidth * 0.01),
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: const BoxDecoration(
+                            color: Colors.grey,
+                          ),
+                          width: screenWidth * 0.31,
+                          child: Text('$index'),
+                        ),
+                      );
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );
