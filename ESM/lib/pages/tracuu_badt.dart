@@ -84,7 +84,6 @@ class TraCuuState extends State<TraCuu> {
                     height: screenHeight * 0.5,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('Họ tên:'),
                         const Text('Số điện thoại:'),
