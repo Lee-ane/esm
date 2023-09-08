@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
 
 import 'package:esm/benh_an_dien_tu.dart';
@@ -8,7 +6,6 @@ import 'package:esm/components/style.dart';
 import 'package:esm/datlich.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
-import 'package:esm/welcome.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +25,7 @@ class _DashBoardState extends State<DashBoard> {
   List<int> pricelist = [];
   List<String> chuyenKhoa = [];
   List<String> phongKhamlist = [];
+  bool isChecking = false;
 
   Future<void> fetchPK() async {
     String url = '${context.read<DataModel>().urlHead}/phongKham';
@@ -46,7 +44,9 @@ class _DashBoardState extends State<DashBoard> {
         for (int i = 0; i < data.length; i++) {
           phongKhamlist.add(data[i]['TenPhongKham']);
         }
-        context.read<DataModel>().setNoiKham(phongKhamlist);
+        setState(() {
+          context.read<DataModel>().setNoiKham(phongKhamlist);
+        });
       } else {
         if (kDebugMode) {
           print(response.statusCode);
@@ -77,8 +77,10 @@ class _DashBoardState extends State<DashBoard> {
           namelist.add(data[i]['TenGoiKham']);
           pricelist.add(data[i]['Gia']);
         }
-        context.read<DataModel>().setGoiKham(namelist);
-        context.read<DataModel>().setGiaGoi(pricelist);
+        setState(() {
+          context.read<DataModel>().setGoiKham(namelist);
+          context.read<DataModel>().setGiaGoi(pricelist);
+        });
       } else {
         if (kDebugMode) {
           print(response.statusCode);
@@ -169,65 +171,75 @@ class _DashBoardState extends State<DashBoard> {
                           ),
                         ),
                       ),
-                      SingleChildScrollView(
-                        child: SizedBox(
-                          height: screenHeight * 0.4,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.apartment,
-                                  color: primaryColor,
-                                  size: screenWidth * 0.1,
-                                ),
-                                const Text(
-                                  'Tra cứu Bệnh án điện tử/CCCD/BHYT cần tra cứu',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Padding(
+                      isChecking
+                          ? Text('hello')
+                          : SingleChildScrollView(
+                              child: SizedBox(
+                                height: screenHeight * 0.4,
+                                child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 3, vertical: 10),
-                                  child: SingleChildScrollView(
-                                    child: TextField(
-                                      controller: maController,
-                                      decoration: InputDecoration(
-                                        hintText: 'Mã bệnh án/CCCD/BHYT',
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: primaryColor, width: 2),
+                                      horizontal: 10),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.apartment,
+                                        color: primaryColor,
+                                        size: screenWidth * 0.1,
+                                      ),
+                                      const Text(
+                                        'Tra cứu Bệnh án điện tử/CCCD/BHYT cần tra cứu',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: screenWidth,
-                                  decoration: BoxDecoration(
-                                    color: primaryColor,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: TextButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                      'Tra cứu',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 3, vertical: 10),
+                                        child: SingleChildScrollView(
+                                          child: TextField(
+                                            controller: maController,
+                                            decoration: InputDecoration(
+                                              hintText: 'Mã bệnh án/CCCD/BHYT',
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: primaryColor,
+                                                    width: 2),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      Container(
+                                        width: screenWidth,
+                                        decoration: BoxDecoration(
+                                          color: primaryColor,
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        child: TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              isChecking = !isChecking;
+                                            });
+                                          },
+                                          child: const Text(
+                                            'Tra cứu',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
+                              ),
+                            )
                     ],
                   ),
                 ),
