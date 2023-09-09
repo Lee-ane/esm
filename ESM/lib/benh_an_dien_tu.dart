@@ -592,6 +592,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                         alignment: Alignment.center,
                         height: screenHeight * 0.13,
                         child: CheckboxListTile(
+                          activeColor: primaryColor,
                           title: Text(checkBoxTitleNC[index].title),
                           value: _checkboxValuesNC[index],
                           onChanged: (newValue) {
@@ -636,6 +637,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                         alignment: Alignment.center,
                         height: screenHeight * 0.08,
                         child: CheckboxListTile(
+                          activeColor: primaryColor,
                           title: Expanded(
                               child: Text(checkBoxTitleKT[index].title)),
                           value: _checkboxValuesKT[index],
@@ -684,6 +686,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                             alignment: Alignment.center,
                             height: screenHeight * 0.1,
                             child: CheckboxListTile(
+                              activeColor: primaryColor,
                               title: Expanded(
                                   child: Text(checkBoxTitleDU[index].title)),
                               value: _checkboxValuesDU[index],
@@ -865,6 +868,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
+                                      activeColor: primaryColor,
                                       title: Expanded(
                                           child: Text(
                                               checkBoxTitleDU[index].title)),
@@ -937,6 +941,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
+                                      activeColor: primaryColor,
                                       title: Expanded(
                                           child: Text(
                                               checkBoxTitleDU[index].title)),
@@ -1009,6 +1014,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
+                                      activeColor: primaryColor,
                                       title: Expanded(
                                           child: Text(
                                               checkBoxTitleDU[index].title)),
@@ -1081,6 +1087,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
+                                      activeColor: primaryColor,
                                       title: Expanded(
                                           child: Text(
                                               checkBoxTitleDU[index].title)),
@@ -1154,6 +1161,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
+                                      activeColor: primaryColor,
                                       title: Expanded(
                                           child: Text(
                                               checkBoxTitleDU[index].title)),
@@ -1227,6 +1235,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
+                                      activeColor: primaryColor,
                                       title: Expanded(
                                           child: Text(
                                               checkBoxTitleDU[index].title)),
