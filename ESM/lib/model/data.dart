@@ -646,6 +646,75 @@ class Submit {
     return log;
   }
 
+  Future<String> submitTSPT(
+      int maKH,
+      String TenPhauThuat,
+      String NgayThucHien,
+      String GioThucHien,
+      String NgayGayMe,
+      String GioGayMe,
+      String NgayBatDau,
+      String GioBatDau,
+      String NgayKetThuc,
+      String GioKetThuc) async {
+    List<int> timeComponents1 = GioThucHien.split(':').map(int.parse).toList();
+    int hours1 = timeComponents1[0];
+    int minutes1 = timeComponents1[1];
+    DateTime date1 = DateFormat('dd-MM-yyyy').parse(NgayThucHien, true);
+    DateTime combine1 =
+        DateTime(date1.year, date1.month, date1.day, hours1, minutes1);
+    List<int> timeComponents2 = GioGayMe.split(':').map(int.parse).toList();
+    int hours2 = timeComponents2[0];
+    int minutes2 = timeComponents2[1];
+    DateTime date2 = DateFormat('dd-MM-yyyy').parse(NgayGayMe, true);
+    DateTime combine2 =
+        DateTime(date2.year, date2.month, date2.day, hours2, minutes2);
+    List<int> timeComponents3 = GioBatDau.split(':').map(int.parse).toList();
+    int hours3 = timeComponents3[0];
+    int minutes3 = timeComponents3[1];
+    DateTime date3 = DateFormat('dd-MM-yyyy').parse(NgayBatDau, true);
+    DateTime combine3 =
+        DateTime(date3.year, date3.month, date3.day, hours3, minutes3);
+    List<int> timeComponents4 = GioKetThuc.split(':').map(int.parse).toList();
+    int hours4 = timeComponents4[0];
+    int minutes4 = timeComponents4[1];
+    DateTime date4 = DateFormat('dd-MM-yyyy').parse(NgayKetThuc, true);
+    DateTime combine4 =
+        DateTime(date4.year, date4.month, date4.day, hours4, minutes4);
+    String url = '$urlHead/BenhAn/TienSuPhauThuat';
+    String log = '';
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.post(
+      Uri.parse(url),
+      body: json.encode({
+        'Makh': maKH,
+        'TenPhauThuat': TenPhauThuat,
+        'NgayThucHien': combine1.toString(),
+        'ThoiGianGayMe': combine2.toString(),
+        'ThoiGianBatDau': combine3.toString(),
+        'ThoiGianKetThuc': combine4.toString()
+      }),
+      headers: headers,
+    );
+    try {
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        log = decodedResponse["message"];
+      } else {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+    return log;
+  }
+
   Future<void> submitBADT(
       int maKH,
       int chieuCao,

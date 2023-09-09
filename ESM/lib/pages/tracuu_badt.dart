@@ -111,7 +111,7 @@ class TraCuuState extends State<TraCuu> {
                         Text('Họ tên: ${user['HoTen']}'),
                         Text('Số điện thoại: ${user['SDT']}'),
                         Text(
-                            'Năm sinh: ${DateFormat('dd-MM-yyyy').format(DateTime.parse(user['NamSinh']))}'),
+                            'Năm sinh: ${user.isNotEmpty ? DateFormat('dd-MM-yyyy').format(DateTime.parse(user['NamSinh'])) : null}'),
                         Text('Số CMND: ${user['CMND']}'),
                         Text('Số BHYT: ${user['BHYT']}'),
                         Text('Địa chỉ: ${user['DiaChi']}'),
@@ -186,6 +186,7 @@ class TraCuuState extends State<TraCuu> {
                           alignment: Alignment.center,
                           height: screenHeight * 0.13,
                           child: CheckboxListTile(
+                            activeColor: primaryColor,
                             title: Text(
                               checkBoxTitleNC[index].title,
                               style: TextStyle(
@@ -227,6 +228,7 @@ class TraCuuState extends State<TraCuu> {
                           alignment: Alignment.center,
                           height: screenHeight * 0.08,
                           child: CheckboxListTile(
+                            activeColor: primaryColor,
                             title: Expanded(
                                 child: Text(
                               checkBoxTitleKT[index].title,
@@ -272,6 +274,7 @@ class TraCuuState extends State<TraCuu> {
                               alignment: Alignment.center,
                               height: screenHeight * 0.1,
                               child: CheckboxListTile(
+                                activeColor: primaryColor,
                                 title: Expanded(
                                   child: Text(
                                     checkBoxTitleDU[index].title,
@@ -410,6 +413,7 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
+                                        activeColor: primaryColor,
                                         title: Expanded(
                                           child: Text(
                                             checkBoxTitleDU[index].title,
@@ -461,6 +465,7 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
+                                        activeColor: primaryColor,
                                         title: Expanded(
                                           child: Text(
                                             checkBoxTitleDU[index].title,
@@ -516,6 +521,7 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
+                                        activeColor: primaryColor,
                                         title: Expanded(
                                           child: Text(
                                             checkBoxTitleDU[index].title,
@@ -571,6 +577,7 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
+                                        activeColor: primaryColor,
                                         title: Expanded(
                                           child: Text(
                                             checkBoxTitleDU[index].title,
@@ -626,6 +633,7 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
+                                        activeColor: primaryColor,
                                         title: Expanded(
                                           child: Text(
                                             checkBoxTitleDU[index].title,
@@ -681,6 +689,7 @@ class TraCuuState extends State<TraCuu> {
                                       alignment: Alignment.center,
                                       height: screenHeight * 0.1,
                                       child: CheckboxListTile(
+                                        activeColor: primaryColor,
                                         title: Expanded(
                                           child: Text(
                                             checkBoxTitleDU[index].title,

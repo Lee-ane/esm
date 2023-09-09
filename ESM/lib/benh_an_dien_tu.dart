@@ -731,10 +731,8 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                   onTap: () async {
                     expanded[5] = !expanded[5];
                     toggleItem(5);
-                    if (dataTSPT.isEmpty) {
-                      dataTSPT = await ReadData()
-                          .fetchTSPT(context.read<DataModel>().makh);
-                    }
+                    dataTSPT = await ReadData()
+                        .fetchTSPT(context.read<DataModel>().makh);
                     setState(() {});
                   },
                   text: 'Tiền sử phẫu thuật'),

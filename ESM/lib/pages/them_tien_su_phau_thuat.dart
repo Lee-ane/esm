@@ -2,8 +2,11 @@ import 'package:esm/benh_an_dien_tu.dart';
 import 'package:esm/components/buttons.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/components/textfields.dart';
+import 'package:esm/model/data.dart';
+import 'package:esm/model/models.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class ThemTienSuPT extends StatefulWidget {
   const ThemTienSuPT({super.key});
@@ -143,11 +146,28 @@ class _ThemTienSuPTState extends State<ThemTienSuPT> {
               //Nút lưu
               Align(
                 alignment: Alignment.bottomCenter,
-                child: SaveTienSuBtn(onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BenhAnDienTu()));
+                child: SaveTienSuBtn(onPressed: () async {
+                  String log = await Submit().submitTSPT(
+                      context.read<DataModel>().makh,
+                      tenController.text,
+                      ngayTHController.text,
+                      gioTHController.text,
+                      ngayGMController.text,
+                      gioGMController.text,
+                      ngayBDController.text,
+                      gioBDController.text,
+                      ngayKTController.text,
+                      gioKTController.text);
+                  setState(() {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Center(
+                      child: Text(log),
+                    )));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BenhAnDienTu()));
+                  });
                 }),
               ),
             ],
