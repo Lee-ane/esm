@@ -4,6 +4,7 @@ import 'package:esm/components/buttons.dart';
 import 'package:esm/components/forms.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/components/textfields.dart';
+import 'package:esm/dashboard.dart';
 import 'package:esm/model/data.dart';
 import 'package:esm/model/models.dart';
 import 'package:esm/pages/them_tien_su_phau_thuat.dart';
@@ -54,6 +55,17 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
   int count = 0;
 
   dynamic data = [];
+  dynamic dataTTLS = [];
+  List<bool> dataYT = [];
+  List<bool> dataKT = [];
+  Map<String, dynamic> dataTSB = {};
+  dynamic dataTSPT = [];
+  Map<String, dynamic> dataTSCha = {};
+  Map<String, dynamic> dataTSMe = {};
+  Map<String, dynamic> dataTSONoi = {};
+  Map<String, dynamic> dataTSBNoi = {};
+  Map<String, dynamic> dataTSONgoai = {};
+  Map<String, dynamic> dataTSBNgoai = {};
 
   late GoogleMapController mapController;
   TextEditingController searchController = TextEditingController();
@@ -235,7 +247,91 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
           IconButton(
             onPressed: () {
               setState(() {
-                if (editable == true) {}
+                if (editable == true) {
+                  Submit().submitBADT(
+                      context.read<DataModel>().makh,
+                      int.parse(chieuCaotroller.text),
+                      int.parse(canNangController.text),
+                      nhomMauController.text,
+                      int.parse(canNangKSController.text),
+                      tinhTrangKSController.text,
+                      _checkboxValuesNC[0] ? 1 : 0,
+                      _checkboxValuesNC[1] ? 1 : 0,
+                      _checkboxValuesNC[2] ? 1 : 0,
+                      _checkboxValuesNC[3] ? 1 : 0,
+                      _checkboxValuesNC[4] ? 1 : 0,
+                      _checkboxValuesNC[5] ? 1 : 0,
+                      _checkboxValuesNC[6] ? 1 : 0,
+                      _checkboxValuesNC[7] ? 1 : 0,
+                      _checkboxValuesNC[8] ? 1 : 0,
+                      _checkboxValuesNC[9] ? 1 : 0,
+                      _checkboxValuesNC[10] ? 1 : 0,
+                      _checkboxValuesNC[11] ? 1 : 0,
+                      _checkboxValuesNC[12] ? 1 : 0,
+                      _checkboxValuesNC[13] ? 1 : 0,
+                      _checkboxValuesNC[14] ? 1 : 0,
+                      _checkboxValuesKT[0] ? 1 : 0,
+                      _checkboxValuesKT[1] ? 1 : 0,
+                      _checkboxValuesDU[0] ? 1 : 0,
+                      _checkboxValuesDU[1] ? 1 : 0,
+                      _checkboxValuesDU[2] ? 1 : 0,
+                      _checkboxValuesDU[3] ? 1 : 0,
+                      _checkboxValuesDU[4] ? 1 : 0,
+                      _checkboxValuesDU[5] ? 1 : 0,
+                      chiTietDUController.text,
+                      _checkboxValuesCha[0] ? 1 : 0,
+                      _checkboxValuesCha[1] ? 1 : 0,
+                      _checkboxValuesCha[2] ? 1 : 0,
+                      _checkboxValuesCha[3] ? 1 : 0,
+                      _checkboxValuesCha[4] ? 1 : 0,
+                      _checkboxValuesCha[5] ? 1 : 0,
+                      chiTietChaController.text,
+                      _checkboxValuesMe[0] ? 1 : 0,
+                      _checkboxValuesMe[1] ? 1 : 0,
+                      _checkboxValuesMe[2] ? 1 : 0,
+                      _checkboxValuesMe[3] ? 1 : 0,
+                      _checkboxValuesMe[4] ? 1 : 0,
+                      _checkboxValuesMe[5] ? 1 : 0,
+                      chiTietMeController.text,
+                      _checkboxValuesONoi[0] ? 1 : 0,
+                      _checkboxValuesONoi[1] ? 1 : 0,
+                      _checkboxValuesONoi[2] ? 1 : 0,
+                      _checkboxValuesONoi[3] ? 1 : 0,
+                      _checkboxValuesONoi[4] ? 1 : 0,
+                      _checkboxValuesONoi[5] ? 1 : 0,
+                      chiTietONoiController.text,
+                      _checkboxValuesBNoi[0] ? 1 : 0,
+                      _checkboxValuesBNoi[1] ? 1 : 0,
+                      _checkboxValuesBNoi[2] ? 1 : 0,
+                      _checkboxValuesBNoi[3] ? 1 : 0,
+                      _checkboxValuesBNoi[4] ? 1 : 0,
+                      _checkboxValuesBNoi[5] ? 1 : 0,
+                      chiTietBNoiController.text,
+                      _checkboxValuesONgoai[0] ? 1 : 0,
+                      _checkboxValuesONgoai[1] ? 1 : 0,
+                      _checkboxValuesONgoai[2] ? 1 : 0,
+                      _checkboxValuesONgoai[3] ? 1 : 0,
+                      _checkboxValuesONgoai[4] ? 1 : 0,
+                      _checkboxValuesONgoai[5] ? 1 : 0,
+                      chiTietONgoaiController.text,
+                      _checkboxValuesBNgoai[0] ? 1 : 0,
+                      _checkboxValuesBNgoai[1] ? 1 : 0,
+                      _checkboxValuesBNgoai[2] ? 1 : 0,
+                      _checkboxValuesBNgoai[3] ? 1 : 0,
+                      _checkboxValuesBNgoai[4] ? 1 : 0,
+                      _checkboxValuesBNgoai[5] ? 1 : 0,
+                      chiTietBNgoaiController.text);
+                  setState(() {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Center(
+                      child: Text('Cập nhật bệnh án thành công'),
+                    )));
+                  });
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const DashBoard())));
+                }
                 editable = !editable;
               });
             },
@@ -286,6 +382,11 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                       cMNDController.text = data['CMND'];
                       bHYTController.text = data['BHYT'];
                       diaChiController.text = data['DiaChi'];
+                      if (data['ChieuCao'] != null) {
+                        canNangController.text = data['ChieuCao'].toString();
+                        chieuCaotroller.text = data['CanNang'].toString();
+                        nhomMauController.text = data['NhomMau'];
+                      }
                     }
                     setState(() {});
                   },
@@ -416,9 +517,19 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
               //-----Tình trạng lúc sinh-----//
               AnimatedTile(
                   expanded: expanded[1],
-                  onTap: () {
+                  onTap: () async {
                     expanded[1] = !expanded[1];
                     toggleItem(1);
+                    if (dataTTLS.isEmpty) {
+                      dataTTLS = await ReadData()
+                          .fetchTTLS(context.read<DataModel>().makh);
+                      if (dataTTLS != null) {
+                        canNangKSController.text =
+                            dataTTLS['CanNang'].toString();
+                        tinhTrangKSController.text = dataTTLS['TinhTrang'];
+                      }
+                    }
+                    setState(() {});
                   },
                   text: 'Tình trạng lúc sinh'),
               AnimatedContent(
@@ -457,9 +568,15 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
               //-----Yếu tố nguy cơ đối với sức khỏe cá nhân-----//
               AnimatedTile(
                   expanded: expanded[2],
-                  onTap: () {
+                  onTap: () async {
                     expanded[2] = !expanded[2];
                     toggleItem(2);
+                    if (dataYT.isEmpty) {
+                      dataYT = await ReadData()
+                          .fetchYeuToNC(context.read<DataModel>().makh);
+                      _checkboxValuesNC = dataYT;
+                    }
+                    setState(() {});
                   },
                   text: 'Yếu tố nguy cơ đối với sức khỏe cá nhân'),
               AnimatedContent(
@@ -480,7 +597,9 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                           onChanged: (newValue) {
                             setState(
                               () {
-                                _checkboxValuesNC[index] = newValue!;
+                                if (editable) {
+                                  _checkboxValuesNC[index] = newValue!;
+                                }
                               },
                             );
                           },
@@ -493,9 +612,15 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
               //-----Khuyết tật-----//
               AnimatedTile(
                   expanded: expanded[3],
-                  onTap: () {
+                  onTap: () async {
                     expanded[3] = !expanded[3];
                     toggleItem(3);
+                    if (dataKT.isEmpty) {
+                      dataKT = await ReadData()
+                          .fetchKT(context.read<DataModel>().makh);
+                      _checkboxValuesKT = dataKT;
+                    }
+                    setState(() {});
                   },
                   text: 'Khuyết tật'),
               AnimatedContent(
@@ -517,7 +642,9 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                           onChanged: (newValue) {
                             setState(
                               () {
-                                _checkboxValuesKT[index] = newValue!;
+                                if (editable) {
+                                  _checkboxValuesKT[index] = newValue!;
+                                }
                               },
                             );
                           },
@@ -530,9 +657,16 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
               //-----Tiền sử bệnh tật, dị ứng-----//
               AnimatedTile(
                   expanded: expanded[4],
-                  onTap: () {
+                  onTap: () async {
                     expanded[4] = !expanded[4];
                     toggleItem(4);
+                    if (dataTSB.isEmpty) {
+                      dataTSB = await ReadData()
+                          .fetchTSB(context.read<DataModel>().makh);
+                      _checkboxValuesDU = dataTSB['list'];
+                      chiTietDUController.text = dataTSB['string'];
+                    }
+                    setState(() {});
                   },
                   text: 'Tiền sử bệnh tật, dị ứng'),
               AnimatedContent(
@@ -556,7 +690,9 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                               onChanged: (newValue) {
                                 setState(
                                   () {
-                                    _checkboxValuesDU[index] = newValue!;
+                                    if (editable) {
+                                      _checkboxValuesDU[index] = newValue!;
+                                    }
                                   },
                                 );
                               },
@@ -589,9 +725,14 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
               //-----Tiền sử phẩu thuật-----//
               AnimatedTile(
                   expanded: expanded[5],
-                  onTap: () {
+                  onTap: () async {
                     expanded[5] = !expanded[5];
                     toggleItem(5);
+                    if (dataTSPT.isEmpty) {
+                      dataTSPT = await ReadData()
+                          .fetchTSPT(context.read<DataModel>().makh);
+                    }
+                    setState(() {});
                   },
                   text: 'Tiền sử phẫu thuật'),
               AnimatedContent(
@@ -603,7 +744,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                       color: Colors.grey[50],
                       height: screenHeight * 0.33,
                       child: ListView.builder(
-                          itemCount: 5,
+                          itemCount: dataTSPT.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.all(5),
@@ -620,7 +761,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text(
-                                            'Title $index',
+                                            'Title ${dataTSPT[index]['TenPhauThuat']}',
                                             style: TextStyle(
                                               color: primaryColor,
                                               fontWeight: FontWeight.bold,
@@ -628,16 +769,16 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                             ),
                                           ),
                                           Text(
-                                              'Ngày thực hiện: 2023-02-10 18:27',
+                                              'Ngày thực hiện: ${DateFormat('dd-MM-yyyy hh:mm').format(DateTime.parse(dataTSPT[index]['NgayThucHien']))}',
                                               style: description),
                                           Text(
-                                              'Thời gian gây mê: 2023-02-10 18:27',
+                                              'Thời gian gây mê: ${DateFormat('dd-MM-yyyy hh:mm').format(DateTime.parse(dataTSPT[index]['ThoiGianGayMe']))}',
                                               style: description),
                                           Text(
-                                              'Thời gian bắt đầu: 2023-02-10 18:27',
+                                              'Thời gian bắt đầu: ${DateFormat('dd-MM-yyyy hh:mm').format(DateTime.parse(dataTSPT[index]['ThoiGianBatDau']))}',
                                               style: description),
                                           Text(
-                                              'Thời gian kết thúc: 2023-02-10 18:27',
+                                              'Thời gian kết thúc: ${DateFormat('dd-MM-yyyy hh:mm').format(DateTime.parse(dataTSPT[index]['ThoiGianKetThuc']))}',
                                               style: description),
                                         ],
                                       ),
@@ -697,8 +838,14 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                     children: [
                       ParentTile(
                         expanded: expanded[7],
-                        onTap: () {
+                        onTap: () async {
                           expanded[7] = !expanded[7];
+                          if (dataTSCha.isEmpty) {
+                            dataTSCha = await ReadData()
+                                .fetchTSCha(context.read<DataModel>().makh);
+                            _checkboxValuesCha = dataTSCha['list'];
+                            chiTietChaController.text = dataTSCha['string'];
+                          }
                           setState(() {});
                         },
                         text: 'Cha',
@@ -718,13 +865,17 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
-                                      title: Text(checkBoxTitleDU[index].title),
+                                      title: Expanded(
+                                          child: Text(
+                                              checkBoxTitleDU[index].title)),
                                       value: _checkboxValuesCha[index],
                                       onChanged: (newValue) {
                                         setState(
                                           () {
-                                            _checkboxValuesCha[index] =
-                                                newValue!;
+                                            if (editable) {
+                                              _checkboxValuesCha[index] =
+                                                  newValue!;
+                                            }
                                           },
                                         );
                                       },
@@ -759,8 +910,14 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                       ),
                       ParentTile(
                         expanded: expanded[8],
-                        onTap: () {
+                        onTap: () async {
                           expanded[8] = !expanded[8];
+                          if (dataTSMe.isEmpty) {
+                            dataTSMe = await ReadData()
+                                .fetchTSMe(context.read<DataModel>().makh);
+                            _checkboxValuesMe = dataTSMe['list'];
+                            chiTietMeController.text = dataTSMe['string'];
+                          }
                           setState(() {});
                         },
                         text: 'Mẹ',
@@ -780,13 +937,17 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
-                                      title: Text(checkBoxTitleDU[index].title),
+                                      title: Expanded(
+                                          child: Text(
+                                              checkBoxTitleDU[index].title)),
                                       value: _checkboxValuesMe[index],
                                       onChanged: (newValue) {
                                         setState(
                                           () {
-                                            _checkboxValuesMe[index] =
-                                                newValue!;
+                                            if (editable) {
+                                              _checkboxValuesMe[index] =
+                                                  newValue!;
+                                            }
                                           },
                                         );
                                       },
@@ -821,8 +982,14 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                       ),
                       ParentTile(
                         expanded: expanded[9],
-                        onTap: () {
+                        onTap: () async {
                           expanded[9] = !expanded[9];
+                          if (dataTSONoi.isEmpty) {
+                            dataTSONoi = await ReadData()
+                                .fetchTSON(context.read<DataModel>().makh);
+                            _checkboxValuesONoi = dataTSONoi['list'];
+                            chiTietONoiController.text = dataTSONoi['string'];
+                          }
                           setState(() {});
                         },
                         text: 'Ông nội',
@@ -842,13 +1009,17 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
-                                      title: Text(checkBoxTitleDU[index].title),
+                                      title: Expanded(
+                                          child: Text(
+                                              checkBoxTitleDU[index].title)),
                                       value: _checkboxValuesONoi[index],
                                       onChanged: (newValue) {
                                         setState(
                                           () {
-                                            _checkboxValuesONoi[index] =
-                                                newValue!;
+                                            if (editable) {
+                                              _checkboxValuesONoi[index] =
+                                                  newValue!;
+                                            }
                                           },
                                         );
                                       },
@@ -883,8 +1054,14 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                       ),
                       ParentTile(
                         expanded: expanded[10],
-                        onTap: () {
+                        onTap: () async {
                           expanded[10] = !expanded[10];
+                          if (dataTSBNoi.isEmpty) {
+                            dataTSBNoi = await ReadData()
+                                .fetchTSBN(context.read<DataModel>().makh);
+                            _checkboxValuesBNoi = dataTSBNoi['list'];
+                            chiTietBNoiController.text = dataTSBNoi['string'];
+                          }
                           setState(() {});
                         },
                         text: 'Bà nội',
@@ -904,13 +1081,17 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
-                                      title: Text(checkBoxTitleDU[index].title),
+                                      title: Expanded(
+                                          child: Text(
+                                              checkBoxTitleDU[index].title)),
                                       value: _checkboxValuesBNoi[index],
                                       onChanged: (newValue) {
                                         setState(
                                           () {
-                                            _checkboxValuesBNoi[index] =
-                                                newValue!;
+                                            if (editable) {
+                                              _checkboxValuesBNoi[index] =
+                                                  newValue!;
+                                            }
                                           },
                                         );
                                       },
@@ -945,8 +1126,15 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                       ),
                       ParentTile(
                         expanded: expanded[11],
-                        onTap: () {
+                        onTap: () async {
                           expanded[11] = !expanded[11];
+                          if (dataTSONgoai.isEmpty) {
+                            dataTSONgoai = await ReadData()
+                                .fetchTSONgoai(context.read<DataModel>().makh);
+                            _checkboxValuesONgoai = dataTSONgoai['list'];
+                            chiTietONgoaiController.text =
+                                dataTSONgoai['string'];
+                          }
                           setState(() {});
                         },
                         text: 'Ông ngoại',
@@ -966,13 +1154,17 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
-                                      title: Text(checkBoxTitleDU[index].title),
+                                      title: Expanded(
+                                          child: Text(
+                                              checkBoxTitleDU[index].title)),
                                       value: _checkboxValuesONgoai[index],
                                       onChanged: (newValue) {
                                         setState(
                                           () {
-                                            _checkboxValuesONgoai[index] =
-                                                newValue!;
+                                            if (editable) {
+                                              _checkboxValuesONgoai[index] =
+                                                  newValue!;
+                                            }
                                           },
                                         );
                                       },
@@ -1007,8 +1199,15 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                       ),
                       ParentTile(
                         expanded: expanded[12],
-                        onTap: () {
+                        onTap: () async {
                           expanded[12] = !expanded[12];
+                          if (dataTSBNgoai.isEmpty) {
+                            dataTSBNgoai = await ReadData()
+                                .fetchTSBNgoai(context.read<DataModel>().makh);
+                            _checkboxValuesBNgoai = dataTSBNgoai['list'];
+                            chiTietBNgoaiController.text =
+                                dataTSBNgoai['string'];
+                          }
                           setState(() {});
                         },
                         text: 'Bà ngoại',
@@ -1028,13 +1227,17 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                     alignment: Alignment.center,
                                     height: screenHeight * 0.1,
                                     child: CheckboxListTile(
-                                      title: Text(checkBoxTitleDU[index].title),
+                                      title: Expanded(
+                                          child: Text(
+                                              checkBoxTitleDU[index].title)),
                                       value: _checkboxValuesBNgoai[index],
                                       onChanged: (newValue) {
                                         setState(
                                           () {
-                                            _checkboxValuesBNgoai[index] =
-                                                newValue!;
+                                            if (editable) {
+                                              _checkboxValuesBNgoai[index] =
+                                                  newValue!;
+                                            }
                                           },
                                         );
                                       },

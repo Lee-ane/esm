@@ -1,4 +1,3 @@
-import 'package:esm/dashboard.dart';
 import 'package:esm/model/models.dart';
 import 'package:esm/welcome.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const DashBoard(),
+      home: const Welcome(),
     );
   }
 }

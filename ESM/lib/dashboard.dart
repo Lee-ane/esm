@@ -128,9 +128,9 @@ class _DashBoardState extends State<DashBoard> {
   @override
   void initState() {
     super.initState();
-    // fetchGK();
-    // fetchCK();
-    // fetchPK();
+    fetchGK();
+    fetchCK();
+    fetchPK();
   }
 
   @override
@@ -217,12 +217,21 @@ class _DashBoardState extends State<DashBoard> {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const TraCuu()));
+                                onPressed: () async {
+                                  String taiKhoan = await ReadData()
+                                      .traCuu(maController.text);
+                                  if (taiKhoan.isNotEmpty) {
+                                    setState(() {
+                                      context
+                                          .read<DataModel>()
+                                          .setTaiKhoan(taiKhoan);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: ((context) =>
+                                                  const TraCuu())));
+                                    });
+                                  }
                                 },
                                 child: const Text(
                                   'Tra cứu',

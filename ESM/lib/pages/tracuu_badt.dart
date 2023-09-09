@@ -1,7 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:esm/components/forms.dart';
 import 'package:esm/components/style.dart';
 import 'package:esm/model/data.dart';
+import 'package:esm/model/models.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class TraCuu extends StatefulWidget {
   const TraCuu({super.key});
@@ -40,6 +45,21 @@ class TraCuuState extends State<TraCuu> {
     });
   }
 
+  String CanNangKS = '';
+  String TinhTrang = '';
+  dynamic user = {};
+  dynamic dataTTLS = {};
+  List<bool> dataYT = [];
+  List<bool> dataKT = [];
+  Map<String, dynamic> dataTSB = {};
+  dynamic dataTSPT = [];
+  Map<String, dynamic> dataTSCha = {};
+  Map<String, dynamic> dataTSMe = {};
+  Map<String, dynamic> dataTSONoi = {};
+  Map<String, dynamic> dataTSBNoi = {};
+  Map<String, dynamic> dataTSONgoai = {};
+  Map<String, dynamic> dataTSBNgoai = {};
+
   @override
   void initState() {
     super.initState();
@@ -75,6 +95,8 @@ class TraCuuState extends State<TraCuu> {
                     onTap: () async {
                       expanded[0] = !expanded[0];
                       toggleItem(0);
+                      user = await ReadData()
+                          .fetchUser(context.read<DataModel>().taiKhoan);
                     },
                     text: 'Thông tin thành viên'),
                 AnimatedContent(
@@ -83,21 +105,23 @@ class TraCuuState extends State<TraCuu> {
                   child: SizedBox(
                     height: screenHeight * 0.5,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Text('Họ tên:'),
-                        const Text('Số điện thoại:'),
-                        const Text('Năm sinh:'),
-                        const Text('Số CMND:'),
-                        const Text('Số BHYT:'),
-                        const Text('Địa chỉ:'),
+                        Text('Họ tên: ${user['HoTen']}'),
+                        Text('Số điện thoại: ${user['SDT']}'),
+                        Text(
+                            'Năm sinh: ${DateFormat('dd-MM-yyyy').format(DateTime.parse(user['NamSinh']))}'),
+                        Text('Số CMND: ${user['CMND']}'),
+                        Text('Số BHYT: ${user['BHYT']}'),
+                        Text('Địa chỉ: ${user['DiaChi']}'),
                         Table(
-                          children: const [
+                          children: [
                             TableRow(
                               children: [
-                                Text('Chiều cao(cm):'),
-                                Text('Cân nặng(kg):'),
-                                Text('Nhóm máu:'),
+                                Text('Chiều cao(cm): ${user['ChieuCao']}'),
+                                Text('Cân nặng(kg): ${user['CanNang']}'),
+                                Text('Nhóm máu: ${user['NhomMau']}'),
                               ],
                             ),
                           ],
@@ -109,29 +133,44 @@ class TraCuuState extends State<TraCuu> {
                 //-----Tình trạng lúc sinh-----//
                 AnimatedTile(
                     expanded: expanded[1],
-                    onTap: () {
+                    onTap: () async {
                       expanded[1] = !expanded[1];
                       toggleItem(1);
+                      if (dataTTLS.isEmpty) {
+                        dataTTLS = await ReadData()
+                            .fetchTTLS(context.read<DataModel>().makh);
+                        if (dataTTLS != null) {
+                          CanNangKS = dataTTLS['CanNang'].toString();
+                          TinhTrang = dataTTLS['TinhTrang'];
+                        }
+                      }
+                      setState(() {});
                     },
                     text: 'Tình trạng lúc sinh'),
                 AnimatedContent(
                   heightRatio: 0.3,
                   expanded: expanded[1],
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Cân nặng(kg):'),
-                      Text('Tình trạng khi sinh:'),
+                      Text('Cân nặng(kg): $CanNangKS'),
+                      Text('Tình trạng khi sinh: $TinhTrang'),
                     ],
                   ),
                 ),
                 //-----Yếu tố nguy cơ đối với sức khỏe cá nhân-----//
                 AnimatedTile(
                     expanded: expanded[2],
-                    onTap: () {
+                    onTap: () async {
                       expanded[2] = !expanded[2];
                       toggleItem(2);
+                      if (dataYT.isEmpty) {
+                        dataYT = await ReadData()
+                            .fetchYeuToNC(context.read<DataModel>().makh);
+                        checkboxValuesNC = dataYT;
+                      }
+                      setState(() {});
                     },
                     text: 'Yếu tố nguy cơ đối với sức khỏe cá nhân'),
                 AnimatedContent(
@@ -164,9 +203,15 @@ class TraCuuState extends State<TraCuu> {
                 //-----Khuyết tật-----//
                 AnimatedTile(
                     expanded: expanded[3],
-                    onTap: () {
+                    onTap: () async {
                       expanded[3] = !expanded[3];
                       toggleItem(3);
+                      if (dataKT.isEmpty) {
+                        dataKT = await ReadData()
+                            .fetchKT(context.read<DataModel>().makh);
+                        checkboxValuesKT = dataKT;
+                      }
+                      setState(() {});
                     },
                     text: 'Khuyết tật'),
                 AnimatedContent(
@@ -200,9 +245,14 @@ class TraCuuState extends State<TraCuu> {
                 //-----Tiền sử bệnh tật, dị ứng-----//
                 AnimatedTile(
                     expanded: expanded[4],
-                    onTap: () {
+                    onTap: () async {
                       expanded[4] = !expanded[4];
                       toggleItem(4);
+                      if (dataTSB.isEmpty) {
+                        dataTSB = await ReadData()
+                            .fetchTSB(context.read<DataModel>().makh);
+                        checkboxValuesDU = dataTSB['list'];
+                      }
                       setState(() {});
                     },
                     text: 'Tiền sử bệnh tật, dị ứng'),
@@ -239,7 +289,7 @@ class TraCuuState extends State<TraCuu> {
                       ),
                       SizedBox(
                         height: screenHeight * 0.2,
-                        child: const Text('Chi tiết:'),
+                        child: Text('Chi tiết: ${dataTSB['string']}'),
                       ),
                     ],
                   ),
@@ -247,9 +297,14 @@ class TraCuuState extends State<TraCuu> {
                 //-----Tiền sử phẩu thuật-----//
                 AnimatedTile(
                     expanded: expanded[5],
-                    onTap: () {
+                    onTap: () async {
                       expanded[5] = !expanded[5];
                       toggleItem(5);
+                      if (dataTSPT.isEmpty) {
+                        dataTSPT = await ReadData()
+                            .fetchTSPT(context.read<DataModel>().makh);
+                      }
+                      setState(() {});
                     },
                     text: 'Tiền sử phẫu thuật'),
                 AnimatedContent(
@@ -328,8 +383,13 @@ class TraCuuState extends State<TraCuu> {
                       children: [
                         ParentTile(
                           expanded: expanded[7],
-                          onTap: () {
+                          onTap: () async {
                             expanded[7] = !expanded[7];
+                            if (dataTSCha.isEmpty) {
+                              dataTSCha = await ReadData()
+                                  .fetchTSCha(context.read<DataModel>().makh);
+                              checkboxValuesCha = dataTSCha['list'];
+                            }
                             setState(() {});
                           },
                           text: 'Cha',
@@ -367,15 +427,20 @@ class TraCuuState extends State<TraCuu> {
                               ),
                               SizedBox(
                                 height: screenHeight * 0.2,
-                                child: const Text('Chi tiết:'),
+                                child: Text('Chi tiết: ${dataTSCha['string']}'),
                               ),
                             ],
                           ),
                         ),
                         ParentTile(
                           expanded: expanded[8],
-                          onTap: () {
+                          onTap: () async {
                             expanded[8] = !expanded[8];
+                            if (dataTSMe.isEmpty) {
+                              dataTSMe = await ReadData()
+                                  .fetchTSMe(context.read<DataModel>().makh);
+                              checkboxValuesMe = dataTSMe['list'];
+                            }
                             setState(() {});
                           },
                           text: 'Mẹ',
@@ -415,7 +480,8 @@ class TraCuuState extends State<TraCuu> {
                                 height: screenHeight * 0.2,
                                 child: SizedBox(
                                   height: screenHeight * 0.2,
-                                  child: const Text('Chi tiết:'),
+                                  child:
+                                      Text('Chi tiết: ${dataTSMe['string']}'),
                                 ),
                               ),
                             ],
@@ -423,8 +489,13 @@ class TraCuuState extends State<TraCuu> {
                         ),
                         ParentTile(
                           expanded: expanded[9],
-                          onTap: () {
+                          onTap: () async {
                             expanded[9] = !expanded[9];
+                            if (dataTSONoi.isEmpty) {
+                              dataTSONoi = await ReadData()
+                                  .fetchTSON(context.read<DataModel>().makh);
+                              checkboxValuesONoi = dataTSONoi['list'];
+                            }
                             setState(() {});
                           },
                           text: 'Ông nội',
@@ -464,7 +535,8 @@ class TraCuuState extends State<TraCuu> {
                                 height: screenHeight * 0.2,
                                 child: SizedBox(
                                   height: screenHeight * 0.2,
-                                  child: const Text('Chi tiết:'),
+                                  child:
+                                      Text('Chi tiết: ${dataTSONoi['string']}'),
                                 ),
                               ),
                             ],
@@ -472,8 +544,13 @@ class TraCuuState extends State<TraCuu> {
                         ),
                         ParentTile(
                           expanded: expanded[10],
-                          onTap: () {
+                          onTap: () async {
                             expanded[10] = !expanded[10];
+                            if (dataTSBNoi.isEmpty) {
+                              dataTSBNoi = await ReadData()
+                                  .fetchTSBN(context.read<DataModel>().makh);
+                              checkboxValuesBNoi = dataTSBNoi['list'];
+                            }
                             setState(() {});
                           },
                           text: 'Bà nội',
@@ -513,7 +590,8 @@ class TraCuuState extends State<TraCuu> {
                                 height: screenHeight * 0.2,
                                 child: SizedBox(
                                   height: screenHeight * 0.2,
-                                  child: const Text('Chi tiết:'),
+                                  child:
+                                      Text('Chi tiết: ${dataTSBNoi['string']}'),
                                 ),
                               ),
                             ],
@@ -521,8 +599,13 @@ class TraCuuState extends State<TraCuu> {
                         ),
                         ParentTile(
                           expanded: expanded[11],
-                          onTap: () {
+                          onTap: () async {
                             expanded[11] = !expanded[11];
+                            if (dataTSONgoai.isEmpty) {
+                              dataTSONgoai = await ReadData().fetchTSONgoai(
+                                  context.read<DataModel>().makh);
+                              checkboxValuesONgoai = dataTSONgoai['list'];
+                            }
                             setState(() {});
                           },
                           text: 'Ông ngoại',
@@ -562,7 +645,8 @@ class TraCuuState extends State<TraCuu> {
                                 height: screenHeight * 0.2,
                                 child: SizedBox(
                                   height: screenHeight * 0.2,
-                                  child: const Text('Chi tiết:'),
+                                  child: Text(
+                                      'Chi tiết: ${dataTSONgoai['string']}'),
                                 ),
                               ),
                             ],
@@ -570,8 +654,13 @@ class TraCuuState extends State<TraCuu> {
                         ),
                         ParentTile(
                           expanded: expanded[12],
-                          onTap: () {
+                          onTap: () async {
                             expanded[12] = !expanded[12];
+                            if (dataTSBNgoai.isEmpty) {
+                              dataTSBNgoai = await ReadData().fetchTSBNgoai(
+                                  context.read<DataModel>().makh);
+                              checkboxValuesBNgoai = dataTSBNgoai['list'];
+                            }
                             setState(() {});
                           },
                           text: 'Bà ngoại',
@@ -611,7 +700,8 @@ class TraCuuState extends State<TraCuu> {
                                 height: screenHeight * 0.2,
                                 child: SizedBox(
                                   height: screenHeight * 0.2,
-                                  child: const Text('Chi tiết:'),
+                                  child: Text(
+                                      'Chi tiết: ${dataTSBNgoai['string']}'),
                                 ),
                               ),
                             ],
