@@ -762,7 +762,7 @@ class _BenhAnDienTuState extends State<BenhAnDienTu> {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text(
-                                            'Title ${dataTSPT[index]['TenPhauThuat']}',
+                                            '${dataTSPT[index]['TenPhauThuat']}',
                                             style: TextStyle(
                                               color: primaryColor,
                                               fontWeight: FontWeight.bold,

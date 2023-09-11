@@ -60,9 +60,14 @@ class TraCuuState extends State<TraCuu> {
   Map<String, dynamic> dataTSONgoai = {};
   Map<String, dynamic> dataTSBNgoai = {};
 
+  void fetchData() async {
+    user = await ReadData().fetchUser(context.read<DataModel>().taiKhoan);
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchData();
     checkboxValuesNC = checkBoxTitleNC.map((item) => item.checked).toList();
     checkboxValuesKT = checkBoxTitleKT.map((item) => item.checked).toList();
     checkboxValuesDU = checkBoxTitleDU.map((item) => item.checked).toList();
@@ -86,46 +91,37 @@ class TraCuuState extends State<TraCuu> {
           width: screenWidth,
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const BackButton(),
+                const Align(
+                    alignment: Alignment.bottomLeft, child: BackButton()),
                 //-----Thông tin thành viên-----//
                 AnimatedTile(
                     expanded: expanded[0],
                     onTap: () async {
                       expanded[0] = !expanded[0];
                       toggleItem(0);
-                      user = await ReadData()
-                          .fetchUser(context.read<DataModel>().taiKhoan);
                     },
                     text: 'Thông tin thành viên'),
                 AnimatedContent(
-                  heightRatio: 0.6,
+                  heightRatio: 0.2,
                   expanded: expanded[0],
                   child: SizedBox(
-                    height: screenHeight * 0.5,
+                    height: screenHeight * 0.18,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text('Họ tên: ${user['HoTen']}'),
-                        Text('Số điện thoại: ${user['SDT']}'),
+                        Text(
+                            'Họ tên: ${user.isNotEmpty ? user['HoTen'] : null}'),
                         Text(
                             'Năm sinh: ${user.isNotEmpty ? DateFormat('dd-MM-yyyy').format(DateTime.parse(user['NamSinh'])) : null}'),
-                        Text('Số CMND: ${user['CMND']}'),
-                        Text('Số BHYT: ${user['BHYT']}'),
-                        Text('Địa chỉ: ${user['DiaChi']}'),
-                        Table(
-                          children: [
-                            TableRow(
-                              children: [
-                                Text('Chiều cao(cm): ${user['ChieuCao']}'),
-                                Text('Cân nặng(kg): ${user['CanNang']}'),
-                                Text('Nhóm máu: ${user['NhomMau']}'),
-                              ],
-                            ),
-                          ],
-                        ),
+                        Text(
+                            'Chiều cao(cm): ${user.isNotEmpty ? user['ChieuCao'] : null}'),
+                        Text(
+                            'Cân nặng(kg): ${user.isNotEmpty ? user['CanNang'] : null}'),
+                        Text(
+                            'Nhóm máu: ${user.isNotEmpty ? user['NhomMau'] : null}'),
                       ],
                     ),
                   ),
@@ -150,13 +146,25 @@ class TraCuuState extends State<TraCuu> {
                 AnimatedContent(
                   heightRatio: 0.3,
                   expanded: expanded[1],
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Cân nặng(kg): $CanNangKS'),
-                      Text('Tình trạng khi sinh: $TinhTrang'),
-                    ],
+                  child: SizedBox(
+                    height: screenHeight * 0.3,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Cân nặng(kg): $CanNangKS'),
+                        const Text('Tình trạng khi sinh:'),
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          width: screenWidth,
+                          height: screenHeight * 0.1,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.black)),
+                          child: Text(TinhTrang, maxLines: 3),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 //-----Yếu tố nguy cơ đối với sức khỏe cá nhân-----//
@@ -194,7 +202,9 @@ class TraCuuState extends State<TraCuu> {
                                   fontSize: screenWidth * 0.035),
                             ),
                             value: checkboxValuesNC[index],
-                            onChanged: null,
+                            onChanged: (value) {
+                              null;
+                            },
                           ),
                         );
                       }),
@@ -237,7 +247,9 @@ class TraCuuState extends State<TraCuu> {
                                   fontSize: screenWidth * 0.035),
                             )),
                             value: checkboxValuesKT[index],
-                            onChanged: null,
+                            onChanged: (value) {
+                              null;
+                            },
                           ),
                         );
                       }),
@@ -284,15 +296,23 @@ class TraCuuState extends State<TraCuu> {
                                   ),
                                 ),
                                 value: checkboxValuesDU[index],
-                                onChanged: null,
+                                onChanged: (value) {
+                                  null;
+                                },
                               ),
                             );
                           }),
                         ),
                       ),
-                      SizedBox(
-                        height: screenHeight * 0.2,
-                        child: Text('Chi tiết: ${dataTSB['string']}'),
+                      const Text('Chi tiết:'),
+                      Container(
+                        height: screenHeight * 0.15,
+                        width: screenWidth,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Text('${dataTSB['string']}'),
                       ),
                     ],
                   ),
@@ -303,10 +323,8 @@ class TraCuuState extends State<TraCuu> {
                     onTap: () async {
                       expanded[5] = !expanded[5];
                       toggleItem(5);
-                      if (dataTSPT.isEmpty) {
-                        dataTSPT = await ReadData()
-                            .fetchTSPT(context.read<DataModel>().makh);
-                      }
+                      dataTSPT = await ReadData()
+                          .fetchTSPT(context.read<DataModel>().makh);
                       setState(() {});
                     },
                     text: 'Tiền sử phẫu thuật'),
@@ -317,7 +335,7 @@ class TraCuuState extends State<TraCuu> {
                     color: Colors.grey[50],
                     height: screenHeight * 0.33,
                     child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: dataTSPT.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.all(5),
@@ -334,23 +352,24 @@ class TraCuuState extends State<TraCuu> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Text(
-                                          'Title $index',
+                                          '${dataTSPT[index]['TenPhauThuat']}',
                                           style: TextStyle(
                                             color: primaryColor,
                                             fontWeight: FontWeight.bold,
                                             fontSize: screenWidth * 0.04,
                                           ),
                                         ),
-                                        Text('Ngày thực hiện: 2023-02-10 18:27',
+                                        Text(
+                                            'Ngày thực hiện: ${DateFormat('dd-MM-yyyy hh:mm').format(DateTime.parse(dataTSPT[index]['NgayThucHien']))}',
                                             style: description),
                                         Text(
-                                            'Thời gian gây mê: 2023-02-10 18:27',
+                                            'Thời gian gây mê: ${DateFormat('dd-MM-yyyy hh:mm').format(DateTime.parse(dataTSPT[index]['ThoiGianGayMe']))}',
                                             style: description),
                                         Text(
-                                            'Thời gian bắt đầu: 2023-02-10 18:27',
+                                            'Thời gian bắt đầu: ${DateFormat('dd-MM-yyyy hh:mm').format(DateTime.parse(dataTSPT[index]['ThoiGianBatDau']))}',
                                             style: description),
                                         Text(
-                                            'Thời gian kết thúc: 2023-02-10 18:27',
+                                            'Thời gian kết thúc: ${DateFormat('dd-MM-yyyy hh:mm').format(DateTime.parse(dataTSPT[index]['ThoiGianKetThuc']))}',
                                             style: description),
                                       ],
                                     ),
@@ -423,15 +442,23 @@ class TraCuuState extends State<TraCuu> {
                                           ),
                                         ),
                                         value: checkboxValuesCha[index],
-                                        onChanged: null,
+                                        onChanged: (value) {
+                                          null;
+                                        },
                                       ),
                                     );
                                   }),
                                 ),
                               ),
-                              SizedBox(
-                                height: screenHeight * 0.2,
-                                child: Text('Chi tiết: ${dataTSCha['string']}'),
+                              const Text('Chi tiết:'),
+                              Container(
+                                width: screenWidth,
+                                height: screenHeight * 0.15,
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Text('${dataTSCha['string']}'),
                               ),
                             ],
                           ),
@@ -475,19 +502,23 @@ class TraCuuState extends State<TraCuu> {
                                           ),
                                         ),
                                         value: checkboxValuesMe[index],
-                                        onChanged: null,
+                                        onChanged: (value) {
+                                          null;
+                                        },
                                       ),
                                     );
                                   }),
                                 ),
                               ),
-                              SizedBox(
-                                height: screenHeight * 0.2,
-                                child: SizedBox(
-                                  height: screenHeight * 0.2,
-                                  child:
-                                      Text('Chi tiết: ${dataTSMe['string']}'),
-                                ),
+                              const Text('Chi tiết:'),
+                              Container(
+                                width: screenWidth,
+                                height: screenHeight * 0.15,
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Text('${dataTSMe['string']}'),
                               ),
                             ],
                           ),
@@ -531,19 +562,23 @@ class TraCuuState extends State<TraCuu> {
                                           ),
                                         ),
                                         value: checkboxValuesONoi[index],
-                                        onChanged: null,
+                                        onChanged: (value) {
+                                          null;
+                                        },
                                       ),
                                     );
                                   }),
                                 ),
                               ),
-                              SizedBox(
-                                height: screenHeight * 0.2,
-                                child: SizedBox(
-                                  height: screenHeight * 0.2,
-                                  child:
-                                      Text('Chi tiết: ${dataTSONoi['string']}'),
-                                ),
+                              const Text('Chi tiết:'),
+                              Container(
+                                width: screenWidth,
+                                height: screenHeight * 0.15,
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Text('${dataTSONoi['string']}'),
                               ),
                             ],
                           ),
@@ -587,19 +622,23 @@ class TraCuuState extends State<TraCuu> {
                                           ),
                                         ),
                                         value: checkboxValuesBNoi[index],
-                                        onChanged: null,
+                                        onChanged: (value) {
+                                          null;
+                                        },
                                       ),
                                     );
                                   }),
                                 ),
                               ),
-                              SizedBox(
-                                height: screenHeight * 0.2,
-                                child: SizedBox(
-                                  height: screenHeight * 0.2,
-                                  child:
-                                      Text('Chi tiết: ${dataTSBNoi['string']}'),
-                                ),
+                              const Text('Chi tiết:'),
+                              Container(
+                                width: screenWidth,
+                                height: screenHeight * 0.15,
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Text('${dataTSBNoi['string']}'),
                               ),
                             ],
                           ),
@@ -643,19 +682,23 @@ class TraCuuState extends State<TraCuu> {
                                           ),
                                         ),
                                         value: checkboxValuesONgoai[index],
-                                        onChanged: null,
+                                        onChanged: (value) {
+                                          null;
+                                        },
                                       ),
                                     );
                                   }),
                                 ),
                               ),
-                              SizedBox(
-                                height: screenHeight * 0.2,
-                                child: SizedBox(
-                                  height: screenHeight * 0.2,
-                                  child: Text(
-                                      'Chi tiết: ${dataTSONgoai['string']}'),
-                                ),
+                              const Text('Chi tiết:'),
+                              Container(
+                                width: screenWidth,
+                                height: screenHeight * 0.15,
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Text('${dataTSONgoai['string']}'),
                               ),
                             ],
                           ),
@@ -699,19 +742,23 @@ class TraCuuState extends State<TraCuu> {
                                           ),
                                         ),
                                         value: checkboxValuesBNgoai[index],
-                                        onChanged: null,
+                                        onChanged: (value) {
+                                          null;
+                                        },
                                       ),
                                     );
                                   }),
                                 ),
                               ),
-                              SizedBox(
-                                height: screenHeight * 0.2,
-                                child: SizedBox(
-                                  height: screenHeight * 0.2,
-                                  child: Text(
-                                      'Chi tiết: ${dataTSBNgoai['string']}'),
-                                ),
+                              const Text('Chi tiết:'),
+                              Container(
+                                width: screenWidth,
+                                height: screenHeight * 0.15,
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Text('${dataTSBNgoai['string']}'),
                               ),
                             ],
                           ),

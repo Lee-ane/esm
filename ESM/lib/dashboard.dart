@@ -366,12 +366,20 @@ class _DashBoardState extends State<DashBoard> {
                           fontSize: screenWidth * 0.05,
                         ),
                       ),
-                      Text(
-                        'Xem thêm',
-                        style: TextStyle(
-                          color: primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.05,
+                      TextButton(
+                        onPressed: () {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => const DashBoard()));
+                        },
+                        child: Text(
+                          'Xem thêm',
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth * 0.05,
+                          ),
                         ),
                       ),
                     ],
@@ -462,6 +470,7 @@ class _DashBoardState extends State<DashBoard> {
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
                 height: screenHeight * 0.5,
                 child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2),

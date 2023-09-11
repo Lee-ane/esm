@@ -46,6 +46,7 @@ dependencies:
   xml: ^6.3.0
   google_maps_routes: any
   flutter_polyline_points: ^1.0.0
+  font_awesome_flutter: ^10.5.0
 
 
 dev_dependencies:
