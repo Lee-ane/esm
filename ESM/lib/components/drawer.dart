@@ -41,6 +41,22 @@ class DrawerCtn extends StatelessWidget {
         ),
         ListTile(
           leading: Icon(
+            Icons.account_balance_wallet,
+            color: primaryColor,
+          ),
+          title: Text(
+            'Lấy số thứ tự online',
+            style: TextStyle(
+              color: primaryColor,
+            ),
+          ),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const BenhAnDienTu()));
+          },
+        ),
+        ListTile(
+          leading: Icon(
             Icons.phone_android,
             color: primaryColor,
           ),

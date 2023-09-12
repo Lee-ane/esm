@@ -1,6 +1,7 @@
 import 'package:esm/components/style.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DanhMucSanPham extends StatefulWidget {
   const DanhMucSanPham({super.key});
@@ -260,21 +261,35 @@ class _DanhMucSanPhamState extends State<DanhMucSanPham> {
                               borderRadius: BorderRadius.circular(5)),
                           child: Column(
                             children: [
-                              Container(
-                                decoration: const BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(5))),
-                                height: screenHeight * 0.1,
+                              Shimmer.fromColors(
+                                baseColor: Colors.grey.shade200,
+                                highlightColor: Colors.white,
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(5))),
+                                  height: screenHeight * 0.1,
+                                ),
                               ),
-                              Text('Hello $index'),
+                              Shimmer.fromColors(
+                                  baseColor: Colors.grey.shade400,
+                                  highlightColor: Colors.white,
+                                  child: Text('Title $index')),
                               const Divider(),
-                              Text(
-                                'Price $index',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                              Shimmer.fromColors(
+                                baseColor: Colors.grey.shade400,
+                                highlightColor: Colors.white,
+                                child: Text(
+                                  'Price $index',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
-                              Text('Adress $index'),
+                              Shimmer.fromColors(
+                                  baseColor: Colors.grey.shade400,
+                                  highlightColor: Colors.white,
+                                  child: Text('Adress $index')),
                             ],
                           ),
                         ),
